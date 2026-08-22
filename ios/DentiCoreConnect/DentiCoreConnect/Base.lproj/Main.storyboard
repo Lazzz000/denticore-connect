@@ -101,33 +101,298 @@
             </objects>
             <point key="canvasLocation" x="1028.2442748091603" y="103.52112676056339"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="jWl-Gf-4WG">
             <objects>
-                <viewController id="Jmh-31-dGx" customClass="ViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Jmh-31-dGx" customClass="HomeViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nIF-mV-P9T">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡Bienvenido a DentiCore Connect!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwl-Uy-DtL">
-                                <rect key="frame" x="68.333333333333343" y="416" width="256.66666666666663" height="20.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-stack-001">
+                                <rect key="frame" x="28" y="235" width="337" height="382"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mouth.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-image-001">
+                                        <rect key="frame" x="0.0" y="0.0" width="337" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="HOM-image-height"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Bienvenido" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-welcome-001">
+                                        <rect key="frame" x="0.0" y="88" width="337" height="34"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Cargando información del paciente…" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-clinic-001">
+                                        <rect key="frame" x="0.0" y="138" width="337" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-activity-001">
+                                        <rect key="frame" x="158.5" y="214" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar la información." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-error-001">
+                                        <rect key="frame" x="0.0" y="250" width="337" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-specialties-001">
+                                        <rect key="frame" x="0.0" y="250" width="337" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="HOM-specialties-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="filled" title="Explorar especialidades">
+                                            <color key="baseBackgroundColor" systemColor="linkColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="specialtiesButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-specialties"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-retry-001">
+                                        <rect key="frame" x="0.0" y="318" width="337" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="HOM-retry-height"/>
+                                        </constraints>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eWN-QM-vK5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Kwl-Uy-DtL" firstAttribute="centerY" secondItem="nIF-mV-P9T" secondAttribute="centerY" id="QgV-7F-KLz"/>
-                            <constraint firstItem="Kwl-Uy-DtL" firstAttribute="centerX" secondItem="nIF-mV-P9T" secondAttribute="centerX" id="rS5-fC-qMD"/>
+                            <constraint firstItem="HOM-stack-001" firstAttribute="leading" secondItem="eWN-QM-vK5" secondAttribute="leading" constant="28" id="HOM-leading"/>
+                            <constraint firstItem="eWN-QM-vK5" firstAttribute="trailing" secondItem="HOM-stack-001" secondAttribute="trailing" constant="28" id="HOM-trailing"/>
+                            <constraint firstItem="HOM-stack-001" firstAttribute="centerY" secondItem="nIF-mV-P9T" secondAttribute="centerY" id="HOM-centerY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="XbK-HT-pEY"/>
+                    <navigationItem key="navigationItem" title="Inicio" id="XbK-HT-pEY">
+                        <barButtonItem key="rightBarButtonItem" image="rectangle.portrait.and.arrow.right" catalog="system" id="HOM-logout-001">
+                            <connections>
+                                <action selector="logoutButtonTapped:" destination="Jmh-31-dGx" id="HOM-action-logout"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="HOM-activity-001" id="HOM-outlet-activity"/>
+                        <outlet property="clinicLabel" destination="HOM-clinic-001" id="HOM-outlet-clinic"/>
+                        <outlet property="errorLabel" destination="HOM-error-001" id="HOM-outlet-error"/>
+                        <outlet property="retryButton" destination="HOM-retry-001" id="HOM-outlet-retry"/>
+                        <outlet property="specialtiesButton" destination="HOM-specialties-001" id="HOM-outlet-specialties"/>
+                        <outlet property="welcomeLabel" destination="HOM-welcome-001" id="HOM-outlet-welcome"/>
+                        <segue destination="SPC-vc-001" kind="show" identifier="showSpecialties" id="HOM-segue-specialties"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uL4-Ll-WAC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1851" y="120"/>
+        </scene>
+        <!--Specialties View Controller-->
+        <scene sceneID="SPC-scene-001">
+            <objects>
+                <viewController id="SPC-vc-001" customClass="SpecialtiesViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SPC-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" rowHeight="72" estimatedRowHeight="72" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SpecialtyCell" rowHeight="72" id="SPC-cell-001" customClass="SpecialtyTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SPC-cell-001" id="SPC-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-icon-001">
+                                                    <rect key="frame" x="20" y="21" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="SPC-icon-width"/>
+                                                        <constraint firstAttribute="height" constant="30" id="SPC-icon-height"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-name-001">
+                                                    <rect key="frame" x="66" y="25" width="234" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SPC-icon-001" firstAttribute="leading" secondItem="SPC-content-001" secondAttribute="leading" constant="20" id="SPC-icon-leading"/>
+                                                <constraint firstItem="SPC-icon-001" firstAttribute="centerY" secondItem="SPC-content-001" secondAttribute="centerY" id="SPC-icon-centerY"/>
+                                                <constraint firstItem="SPC-name-001" firstAttribute="leading" secondItem="SPC-icon-001" secondAttribute="trailing" constant="16" id="SPC-name-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="SPC-name-001" secondAttribute="trailing" constant="20" id="SPC-name-trailing"/>
+                                                <constraint firstItem="SPC-name-001" firstAttribute="centerY" secondItem="SPC-content-001" secondAttribute="centerY" id="SPC-name-centerY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="SPC-name-001" id="SPC-outlet-name"/>
+                                            <outlet property="specialtyIconImageView" destination="SPC-icon-001" id="SPC-outlet-icon"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-state-stack">
+                                <rect key="frame" x="32" y="390" width="329" height="72"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar las especialidades." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-error-001">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-retry-001">
+                                        <rect key="frame" x="125" y="48" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="SPC-vc-001" eventType="touchUpInside" id="SPC-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SPC-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SPC-table-001" firstAttribute="top" secondItem="SPC-safe-001" secondAttribute="top" id="SPC-table-top"/>
+                            <constraint firstItem="SPC-table-001" firstAttribute="leading" secondItem="SPC-view-001" secondAttribute="leading" id="SPC-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="SPC-table-001" secondAttribute="trailing" id="SPC-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="SPC-table-001" secondAttribute="bottom" id="SPC-table-bottom"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="centerX" secondItem="SPC-view-001" secondAttribute="centerX" id="SPC-state-centerX"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="centerY" secondItem="SPC-view-001" secondAttribute="centerY" id="SPC-state-centerY"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SPC-safe-001" secondAttribute="leading" constant="32" id="SPC-state-leading"/>
+                            <constraint firstItem="SPC-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SPC-state-stack" secondAttribute="trailing" constant="32" id="SPC-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Especialidades" id="SPC-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="SPC-activity-001" id="SPC-outlet-activity"/>
+                        <outlet property="errorLabel" destination="SPC-error-001" id="SPC-outlet-error"/>
+                        <outlet property="retryButton" destination="SPC-retry-001" id="SPC-outlet-retry"/>
+                        <outlet property="tableView" destination="SPC-table-001" id="SPC-outlet-table"/>
+                        <segue destination="SRV-vc-001" kind="show" identifier="showServices" id="SPC-segue-services"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="120"/>
+        </scene>
+        <!--Services View Controller-->
+        <scene sceneID="SRV-scene-001">
+            <objects>
+                <viewController id="SRV-vc-001" customClass="ServicesViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SRV-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="insetGrouped" rowHeight="96" estimatedRowHeight="96" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ServiceCell" rowHeight="96" id="SRV-cell-001" customClass="ServiceTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SRV-cell-001" id="SRV-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-cell-stack">
+                                                    <rect key="frame" x="20" y="12" width="313" height="72"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-name-001">
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Código · duración" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-details-001">
+                                                            <rect key="frame" x="0.0" y="26" width="313" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="S/ 0.00" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-price-001">
+                                                            <rect key="frame" x="0.0" y="48" width="313" height="22"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SRV-cell-stack" firstAttribute="top" secondItem="SRV-content-001" secondAttribute="top" constant="12" id="SRV-stack-top"/>
+                                                <constraint firstItem="SRV-cell-stack" firstAttribute="leading" secondItem="SRV-content-001" secondAttribute="leading" constant="20" id="SRV-stack-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="SRV-cell-stack" secondAttribute="trailing" constant="20" id="SRV-stack-trailing"/>
+                                                <constraint firstAttribute="bottom" secondItem="SRV-cell-stack" secondAttribute="bottom" constant="12" id="SRV-stack-bottom"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailsLabel" destination="SRV-details-001" id="SRV-outlet-details"/>
+                                            <outlet property="nameLabel" destination="SRV-name-001" id="SRV-outlet-name"/>
+                                            <outlet property="priceLabel" destination="SRV-price-001" id="SRV-outlet-price"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-state-stack">
+                                <rect key="frame" x="32" y="390" width="329" height="72"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar los servicios." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-error-001">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-retry-001">
+                                        <rect key="frame" x="125" y="48" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="SRV-vc-001" eventType="touchUpInside" id="SRV-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SRV-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SRV-table-001" firstAttribute="top" secondItem="SRV-safe-001" secondAttribute="top" id="SRV-table-top"/>
+                            <constraint firstItem="SRV-table-001" firstAttribute="leading" secondItem="SRV-view-001" secondAttribute="leading" id="SRV-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="SRV-table-001" secondAttribute="trailing" id="SRV-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="SRV-table-001" secondAttribute="bottom" id="SRV-table-bottom"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="centerX" secondItem="SRV-view-001" secondAttribute="centerX" id="SRV-state-centerX"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="centerY" secondItem="SRV-view-001" secondAttribute="centerY" id="SRV-state-centerY"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SRV-safe-001" secondAttribute="leading" constant="32" id="SRV-state-leading"/>
+                            <constraint firstItem="SRV-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SRV-state-stack" secondAttribute="trailing" constant="32" id="SRV-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Servicios" id="SRV-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="SRV-activity-001" id="SRV-outlet-activity"/>
+                        <outlet property="errorLabel" destination="SRV-error-001" id="SRV-outlet-error"/>
+                        <outlet property="retryButton" destination="SRV-retry-001" id="SRV-outlet-retry"/>
+                        <outlet property="tableView" destination="SRV-table-001" id="SRV-outlet-table"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRV-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3489" y="120"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SVT-pf-see">
@@ -150,6 +415,7 @@
     </scenes>
     <resources>
         <image name="mouth.fill" catalog="system" width="128" height="66"/>
+        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="115"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
