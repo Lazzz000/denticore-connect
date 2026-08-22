@@ -46,8 +46,13 @@ public class DemoPatientBootstrapService {
     public void createPatientIfMissing(String dni, String email, String password) {
         validateConfiguration(dni, email, password);
 
-        if (usuarioRepository.findByDni(dni).isPresent()) {
-            log.info("El paciente demo ya existe; no se modificaron sus credenciales.");
+        Usuario existingUser = usuarioRepository.findByDni(dni).orElse(null);
+        if (existingUser != null) {
+            existingUser.setCorreo(email);
+            existingUser.setPasswordHash(passwordEncoder.encode(password));
+            existingUser.setActivo(true);
+            usuarioRepository.save(existingUser);
+            log.info("Se sincronizaron de forma segura las credenciales del paciente demo.");
             return;
         }
 
