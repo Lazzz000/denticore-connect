@@ -7,10 +7,14 @@ on:
       - release/denticore-connect-0.1
     paths:
       - "backend/**"
+      - "docker-compose.yml"
+      - "render.yaml"
       - ".github/workflows/backend-ci.yml"
   pull_request:
     paths:
       - "backend/**"
+      - "docker-compose.yml"
+      - "render.yaml"
       - ".github/workflows/backend-ci.yml"
 
 jobs:
