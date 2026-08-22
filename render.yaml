@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: denticore-connect-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/v1/actuator/health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: denticore-connect-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION_MS
+        value: 86400000
+      - key: SPRING_PROFILES_ACTIVE
+        value: demo
+      - key: FLYWAY_DEMO_LOCATION
+        value: ",classpath:db/demo"
+      - key: JPA_SHOW_SQL
+        value: "false"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "*"
+      - key: DEMO_PATIENT_DNI
+        sync: false
+      - key: DEMO_PATIENT_EMAIL
+        sync: false
+      - key: DEMO_PATIENT_PASSWORD
+        sync: false
+
+databases:
+  - name: denticore-connect-db
+    plan: free
+    region: oregon
+    databaseName: denticore_connect
+    user: denticore_connect_user
+    postgresMajorVersion: "16"
+    ipAllowList: []

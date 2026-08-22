@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environments';
 import { LoginRequest, LoginResponse } from '../models/api.model';
-import { RegistroPacienteRequest } from '../models/api.model';
+import { RegistroPacienteRequest, RegistroPacienteResponse } from '../models/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,10 @@ export class AuthService {
   }
 
   guardarSesion(response: LoginResponse): void {
-    localStorage.setItem('token', response.token);
+    localStorage.setItem('token', response.accessToken);
     localStorage.setItem('rol', response.rol.toUpperCase());
 
-    this.token.set(response.token);
+    this.token.set(response.accessToken);
     this.rol.set(response.rol.toUpperCase());
   }
 
@@ -48,10 +48,8 @@ export class AuthService {
     return !!this.getToken();
   }
 
-    registrarPaciente(request: RegistroPacienteRequest): Observable<string> {
-    return this.http.post(`${this.apiUrl}/registro/paciente`, request, {
-        responseType: 'text'
-        });
+    registrarPaciente(request: RegistroPacienteRequest): Observable<RegistroPacienteResponse> {
+      return this.http.post<RegistroPacienteResponse>(`${this.apiUrl}/registro/paciente`, request);
     }
 
     logoutBackend(): Observable<string> {

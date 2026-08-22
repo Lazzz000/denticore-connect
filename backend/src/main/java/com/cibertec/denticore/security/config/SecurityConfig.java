@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -29,6 +30,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Value("${app.cors.allowed-origins:*}")
+    private String allowedOrigins;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,13 +51,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // 1. El Login y Registro SIEMPRE deben ser públicos (POST)
-                .requestMatchers("/auth/**").permitAll() // 
-                // 2. El Catálogo solo es público para lectura (GET)
+                .requestMatchers("/auth/login", "/auth/registro/paciente").permitAll()
+                .requestMatchers("/actuator/health", "/error").permitAll()
                 .requestMatchers(HttpMethod.GET, "/catalogo/**").permitAll()
-                // 3. Exponer la ruta de error para que los 404 se muestren correctamente
-                .requestMatchers("/error").permitAll()
-                // 4. Todo lo demás requiere token
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -64,7 +64,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedOriginPatterns(List.of(allowedOrigins.split(",")));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);
