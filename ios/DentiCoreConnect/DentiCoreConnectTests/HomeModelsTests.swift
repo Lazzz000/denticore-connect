@@ -1,0 +1,88 @@
+import XCTest
+@testable import DentiCoreConnect
+
+final class HomeModelsTests: XCTestCase {
+    func testPatientProfileDecoding() throws {
+        let json = Data(
+            #"""
+            {
+              "id": 10,
+              "dni": "70401478",
+              "nombres": "Paciente",
+              "apellidos": "Demostración",
+              "correo": "paciente@denticore.demo",
+              "fechaNacimiento": "1992-04-15",
+              "clinica": {
+                "id": 1,
+                "nombreComercial": "Clínica dental piloto",
+                "zonaHoraria": "America/Lima"
+              }
+            }
+            """#.utf8
+        )
+
+        let profile = try JSONDecoder().decode(PatientProfile.self, from: json)
+
+        XCTAssertEqual(profile.id, 10)
+        XCTAssertEqual(profile.fullName, "Paciente Demostración")
+        XCTAssertEqual(profile.firstName, "Paciente")
+        XCTAssertEqual(profile.clinica.nombreComercial, "Clínica dental piloto")
+    }
+
+    func testCatalogDecoding() throws {
+        let specialtiesJSON = Data(
+            #"""
+            [
+              { "id": 1, "nombre": "Odontología general" },
+              { "id": 2, "nombre": "Ortodoncia" }
+            ]
+            """#.utf8
+        )
+        let servicesJSON = Data(
+            #"""
+            [
+              {
+                "id": 11,
+                "codigo": "ODG-001",
+                "nombre": "Evaluación dental",
+                "especialidadId": 1,
+                "duracionMinutos": 30,
+                "costoReferencial": 80.00,
+                "moneda": "PEN",
+                "activo": true
+              }
+            ]
+            """#.utf8
+        )
+
+        let specialties = try JSONDecoder().decode([Specialty].self, from: specialtiesJSON)
+        let services = try JSONDecoder().decode([DentalService].self, from: servicesJSON)
+
+        XCTAssertEqual(specialties.count, 2)
+        XCTAssertEqual(specialties.last?.nombre, "Ortodoncia")
+        XCTAssertEqual(services.first?.especialidadId, 1)
+        XCTAssertEqual(services.first?.costoReferencial, 80.0)
+    }
+
+    func testAPIClientBuildsQueryItemsWithoutChangingPath() throws {
+        let client = APIClient(
+            baseURL: try XCTUnwrap(URL(string: "https://example.com/api/v1"))
+        )
+
+        let request = try client.makeRequest(
+            path: "/servicios",
+            method: "GET",
+            bearerToken: "demo-token",
+            queryItems: [URLQueryItem(name: "especialidadId", value: "3")]
+        )
+
+        XCTAssertEqual(
+            request.url?.absoluteString,
+            "https://example.com/api/v1/servicios?especialidadId=3"
+        )
+        XCTAssertEqual(
+            request.value(forHTTPHeaderField: "Authorization"),
+            "Bearer demo-token"
+        )
+    }
+}
