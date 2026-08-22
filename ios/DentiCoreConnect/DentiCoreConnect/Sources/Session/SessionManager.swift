@@ -36,7 +36,8 @@ final class SessionManager {
         using apiClient: APIClient,
         path: String,
         method: String,
-        body: Data? = nil
+        body: Data? = nil,
+        queryItems: [URLQueryItem] = []
     ) throws -> URLRequest {
         let token = try tokenStore.readToken()
 
@@ -48,7 +49,8 @@ final class SessionManager {
             path: path,
             method: method,
             body: body,
-            bearerToken: token
+            bearerToken: token,
+            queryItems: queryItems
         )
     }
 }
