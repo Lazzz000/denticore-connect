@@ -119,3 +119,5 @@ extension ServicesViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension ServicesViewController: UITableViewDelegate {}
