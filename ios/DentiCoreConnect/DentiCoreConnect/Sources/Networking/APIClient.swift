@@ -19,19 +19,28 @@ final class APIClient {
         path: String,
         method: String,
         body: Data? = nil,
-        bearerToken: String? = nil
+        bearerToken: String? = nil,
+        queryItems: [URLQueryItem] = []
     ) throws -> URLRequest {
         let normalizedPath = path.hasPrefix("/") ? String(path.dropFirst()) : path
-        let url = baseURL.appendingPathComponent(normalizedPath)
+        let endpointURL = baseURL.appendingPathComponent(normalizedPath)
+        var components = URLComponents(
+            url: endpointURL,
+            resolvingAgainstBaseURL: false
+        )
 
-        guard url.scheme != nil else {
+        if !queryItems.isEmpty {
+            components?.queryItems = queryItems
+        }
+
+        guard let url = components?.url, url.scheme != nil else {
             throw APIError.invalidRequest
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.httpBody = body
-        request.timeoutInterval = 30
+        request.timeoutInterval = 75
         request.setValue("application/json", forHTTPHeaderField: "Accept")
 
         if body != nil {
