@@ -29,7 +29,7 @@ enum APIError: LocalizedError {
     }
 }
 
-struct APIErrorEnvelope: Decodable {
+nonisolated struct APIErrorEnvelope: Decodable {
     let message: String?
     let error: String?
 
