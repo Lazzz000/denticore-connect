@@ -1,17 +1,17 @@
 import Foundation
 
-struct LoginRequest: Encodable {
+nonisolated struct LoginRequest: Encodable {
     let dni: String
     let password: String
 }
 
-struct ClinicContext: Codable, Equatable {
+nonisolated struct ClinicContext: Codable, Equatable {
     let id: Int
     let nombreComercial: String
     let zonaHoraria: String
 }
 
-struct LoginResponse: Decodable, Equatable {
+nonisolated struct LoginResponse: Decodable, Equatable {
     let accessToken: String
     let tokenType: String
     let expiresIn: Int?
