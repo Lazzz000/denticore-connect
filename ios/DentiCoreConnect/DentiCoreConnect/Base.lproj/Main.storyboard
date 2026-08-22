@@ -101,27 +101,15 @@
             </objects>
             <point key="canvasLocation" x="1028.2442748091603" y="103.52112676056339"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="jWl-Gf-4WG">
             <objects>
-                <viewController id="Jmh-31-dGx" customClass="ViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Jmh-31-dGx" customClass="HomeViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nIF-mV-P9T">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡Bienvenido a DentiCore Connect!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwl-Uy-DtL">
-                                <rect key="frame" x="68.333333333333343" y="416" width="256.66666666666663" height="20.333333333333314"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="eWN-QM-vK5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Kwl-Uy-DtL" firstAttribute="centerY" secondItem="nIF-mV-P9T" secondAttribute="centerY" id="QgV-7F-KLz"/>
-                            <constraint firstItem="Kwl-Uy-DtL" firstAttribute="centerX" secondItem="nIF-mV-P9T" secondAttribute="centerX" id="rS5-fC-qMD"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XbK-HT-pEY"/>
                 </viewController>
