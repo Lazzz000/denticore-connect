@@ -544,7 +544,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AppointmentCell" rowHeight="116" id="LST-cell-001" customClass="AppointmentTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AppointmentCell" rowHeight="116" id="LST-cell-001" customClass="AppointmentTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
                                         <rect key="frame" x="20" y="50" width="353" height="116"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LST-cell-001" id="LST-content-001">
@@ -638,11 +638,140 @@
                         <outlet property="retryButton" destination="LST-retry-001" id="LST-outlet-retry"/>
                         <outlet property="stateLabel" destination="LST-state-label" id="LST-outlet-state"/>
                         <outlet property="tableView" destination="LST-table-001" id="LST-outlet-table"/>
+                        <segue destination="DTL-vc-001" kind="show" identifier="showAppointmentDetail" id="LST-segue-detail"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LST-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2670" y="920"/>
+        </scene>
+        <!--Appointment Detail View Controller-->
+        <scene sceneID="DTL-scene-001">
+            <objects>
+                <viewController id="DTL-vc-001" customClass="AppointmentDetailViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DTL-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-stack-001">
+                                <rect key="frame" x="20" y="188" width="353" height="470"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-service-001">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-specialty-001">
+                                        <rect key="frame" x="0.0" y="37" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pendiente" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-status-001">
+                                        <rect key="frame" x="0.0" y="63" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Fecha y hora" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-date-title">
+                                        <rect key="frame" x="0.0" y="93" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lunes 24 de agosto · 2:00 p. m." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-date-001">
+                                        <rect key="frame" x="0.0" y="119" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-dentist-title">
+                                        <rect key="frame" x="0.0" y="149" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nombre del odontólogo" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-dentist-001">
+                                        <rect key="frame" x="0.0" y="175" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sede" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-location-title">
+                                        <rect key="frame" x="0.0" y="205" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sede principal" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-location-001">
+                                        <rect key="frame" x="0.0" y="231" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nota para la clínica" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-notes-title">
+                                        <rect key="frame" x="0.0" y="261" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sin indicaciones adicionales." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-notes-001">
+                                        <rect key="frame" x="0.0" y="287" width="353" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-cancel-001">
+                                        <rect key="frame" x="0.0" y="335" width="353" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="DTL-cancel-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar cita">
+                                            <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="DTL-vc-001" eventType="touchUpInside" id="DTL-action-cancel"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-activity-001">
+                                        <rect key="frame" x="166.5" y="395" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible completar la operación." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-error-001">
+                                        <rect key="frame" x="0.0" y="423" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DTL-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DTL-stack-001" firstAttribute="top" secondItem="DTL-safe-001" secondAttribute="top" constant="16" id="DTL-stack-top"/>
+                            <constraint firstItem="DTL-stack-001" firstAttribute="leading" secondItem="DTL-safe-001" secondAttribute="leading" constant="20" id="DTL-stack-leading"/>
+                            <constraint firstItem="DTL-safe-001" firstAttribute="trailing" secondItem="DTL-stack-001" secondAttribute="trailing" constant="20" id="DTL-stack-trailing"/>
+                            <constraint firstItem="DTL-safe-001" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DTL-stack-001" secondAttribute="bottom" constant="16" id="DTL-stack-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalle de cita" id="DTL-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="DTL-activity-001" id="DTL-outlet-activity"/>
+                        <outlet property="cancelButton" destination="DTL-cancel-001" id="DTL-outlet-cancel"/>
+                        <outlet property="dateLabel" destination="DTL-date-001" id="DTL-outlet-date"/>
+                        <outlet property="dentistLabel" destination="DTL-dentist-001" id="DTL-outlet-dentist"/>
+                        <outlet property="errorLabel" destination="DTL-error-001" id="DTL-outlet-error"/>
+                        <outlet property="locationLabel" destination="DTL-location-001" id="DTL-outlet-location"/>
+                        <outlet property="notesLabel" destination="DTL-notes-001" id="DTL-outlet-notes"/>
+                        <outlet property="serviceLabel" destination="DTL-service-001" id="DTL-outlet-service"/>
+                        <outlet property="specialtyLabel" destination="DTL-specialty-001" id="DTL-outlet-specialty"/>
+                        <outlet property="statusLabel" destination="DTL-status-001" id="DTL-outlet-status"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DTL-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3489" y="920"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SVT-pf-see">
