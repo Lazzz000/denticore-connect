@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
@@ -21,6 +22,18 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
            "AND c.fechaHoraFin > :inicio " +
            "AND c.estado IN :estados")
     boolean existeSolapamientoOdontologo(
+            @Param("idOdontologo") Integer idOdontologo,
+            @Param("inicio") OffsetDateTime inicio,
+            @Param("fin") OffsetDateTime fin,
+            @Param("estados") Collection<EstadoCita> estados);
+
+    @Query("SELECT c FROM Cita c " +
+           "WHERE c.odontologo.idUsuario = :idOdontologo " +
+           "AND c.fechaHora < :fin " +
+           "AND c.fechaHoraFin > :inicio " +
+           "AND c.estado IN :estados " +
+           "ORDER BY c.fechaHora ASC")
+    List<Cita> findOcupadasByOdontologoAndRango(
             @Param("idOdontologo") Integer idOdontologo,
             @Param("inicio") OffsetDateTime inicio,
             @Param("fin") OffsetDateTime fin,
