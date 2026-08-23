@@ -39,6 +39,19 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("fin") OffsetDateTime fin,
             @Param("estados") Collection<EstadoCita> estados);
 
+    @Query("SELECT c FROM Cita c " +
+           "JOIN FETCH c.odontologo o " +
+           "JOIN FETCH o.usuario " +
+           "JOIN FETCH c.servicio s " +
+           "LEFT JOIN FETCH s.especialidad " +
+           "JOIN FETCH c.sede " +
+           "WHERE c.paciente.idUsuario = :idPaciente " +
+           "AND c.clinica.id = :idClinica " +
+           "ORDER BY c.fechaHora DESC")
+    List<Cita> findByPacienteAndClinicaOrderByFechaHoraDesc(
+            @Param("idPaciente") Integer idPaciente,
+            @Param("idClinica") Integer idClinica);
+
     @Query(value = "SELECT c FROM Cita c " +
                    "JOIN FETCH c.paciente p " +
                    "JOIN FETCH p.usuario " +
