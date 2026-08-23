@@ -65,3 +65,5 @@ app:
     patient-dni: ${DEMO_PATIENT_DNI:}
     patient-email: ${DEMO_PATIENT_EMAIL:}
     patient-password: ${DEMO_PATIENT_PASSWORD:}
+    patient-names: ${DEMO_PATIENT_NAMES:Diego Alonso}
+    patient-surnames: ${DEMO_PATIENT_SURNAMES:Ramírez Torres}

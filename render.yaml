@@ -31,6 +31,10 @@ services:
         sync: false
       - key: DEMO_PATIENT_PASSWORD
         sync: false
+      - key: DEMO_PATIENT_NAMES
+        value: Diego Alonso
+      - key: DEMO_PATIENT_SURNAMES
+        value: Ramírez Torres
 
 databases:
   - name: denticore-connect-db
