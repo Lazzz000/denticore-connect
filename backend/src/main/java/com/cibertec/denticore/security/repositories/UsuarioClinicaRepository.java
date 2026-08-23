@@ -20,4 +20,7 @@ public interface UsuarioClinicaRepository
         ORDER BY c.id ASC
         """)
     List<UsuarioClinica> findMembresiasActivas(@Param("usuarioId") Integer usuarioId);
+
+    boolean existsById_IdUsuarioAndId_IdClinicaAndActivoTrue(
+            Integer usuarioId, Integer clinicaId);
 }
