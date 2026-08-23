@@ -6,6 +6,7 @@ import com.cibertec.denticore.agenda.repositories.BloqueoHorarioRepository;
 import com.cibertec.denticore.agenda.repositories.HorarioOdontologoRepository;
 import com.cibertec.denticore.catalogo.entities.ItemCatalogo;
 import com.cibertec.denticore.catalogo.repositories.ItemCatalogoRepository;
+import com.cibertec.denticore.catalogo.repositories.OdontologoEspecialidadRepository;
 import com.cibertec.denticore.common.ApiException;
 import com.cibertec.denticore.crm.entities.Cita;
 import com.cibertec.denticore.crm.enums.EstadoCita;
@@ -21,6 +22,7 @@ import com.cibertec.denticore.security.entities.Paciente;
 import com.cibertec.denticore.security.entities.UsuarioClinica;
 import com.cibertec.denticore.security.repositories.OdontologoRepository;
 import com.cibertec.denticore.security.repositories.PacienteRepository;
+import com.cibertec.denticore.security.repositories.UsuarioClinicaRepository;
 import com.cibertec.denticore.security.services.ContextoClinicaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -47,6 +50,8 @@ public class CitasPacienteMovilService {
 
     private final PacienteRepository pacienteRepository;
     private final OdontologoRepository odontologoRepository;
+    private final OdontologoEspecialidadRepository odontologoEspecialidadRepository;
+    private final UsuarioClinicaRepository usuarioClinicaRepository;
     private final ItemCatalogoRepository itemCatalogoRepository;
     private final SedeRepository sedeRepository;
     private final HorarioOdontologoRepository horarioRepository;
@@ -59,9 +64,7 @@ public class CitasPacienteMovilService {
             String dniPaciente, Integer especialidadId) {
         ContextoPaciente contexto = obtenerContexto(dniPaciente);
 
-        return odontologoRepository
-                .findActivosByClinicaAndEspecialidad(
-                        contexto.membresia().getClinica().getId(), especialidadId)
+        return listarOdontologosAutorizados(contexto, especialidadId)
                 .stream()
                 .map(this::mapearOdontologo)
                 .toList();
@@ -242,16 +245,32 @@ public class CitasPacienteMovilService {
             ContextoPaciente contexto,
             Integer odontologoId,
             Integer especialidadId) {
-        return odontologoRepository
-                .findActivosByClinicaAndEspecialidad(
-                        contexto.membresia().getClinica().getId(), especialidadId)
-                .stream()
+        return listarOdontologosAutorizados(contexto, especialidadId).stream()
                 .filter(item -> item.getIdUsuario().equals(odontologoId))
                 .findFirst()
                 .orElseThrow(() -> new ApiException(
                         HttpStatus.NOT_FOUND,
                         "DENTIST_NOT_AVAILABLE",
                         "El odontólogo no atiende la especialidad seleccionada."));
+    }
+
+    private List<Odontologo> listarOdontologosAutorizados(
+            ContextoPaciente contexto, Integer especialidadId) {
+        Integer clinicaId = contexto.membresia().getClinica().getId();
+
+        return odontologoRepository.findAll().stream()
+                .filter(item -> Boolean.TRUE.equals(item.getActivo()))
+                .filter(item -> Boolean.TRUE.equals(item.getUsuario().getActivo()))
+                .filter(item -> odontologoEspecialidadRepository
+                        .existsById_IdOdontologoAndId_IdEspecialidad(
+                                item.getIdUsuario(), especialidadId))
+                .filter(item -> usuarioClinicaRepository
+                        .existsById_IdUsuarioAndId_IdClinicaAndActivoTrue(
+                                item.getIdUsuario(), clinicaId))
+                .sorted(Comparator
+                        .comparing((Odontologo item) -> item.getUsuario().getApellidos())
+                        .thenComparing(item -> item.getUsuario().getNombres()))
+                .toList();
     }
 
     private void validarFechaConsulta(LocalDate fecha, ZoneId zona) {
