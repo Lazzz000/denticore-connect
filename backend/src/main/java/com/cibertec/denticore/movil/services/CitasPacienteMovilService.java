@@ -88,6 +88,18 @@ public class CitasPacienteMovilService {
                 contexto, odontologo, servicio, fecha);
     }
 
+    @Transactional(readOnly = true)
+    public List<CitaPacienteDTO> listarCitas(String dniPaciente) {
+        ContextoPaciente contexto = obtenerContexto(dniPaciente);
+
+        return citaRepository.findByPacienteAndClinicaOrderByFechaHoraDesc(
+                        contexto.paciente().getIdUsuario(),
+                        contexto.membresia().getClinica().getId())
+                .stream()
+                .map(cita -> mapearCita(cita, null))
+                .toList();
+    }
+
     @Transactional
     public CitaPacienteDTO crearCita(
             String dniPaciente, CrearCitaPacienteRequestDTO request) {
