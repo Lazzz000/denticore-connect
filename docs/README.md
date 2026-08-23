@@ -15,8 +15,12 @@ Esta carpeta contiene la documentación vigente y verificable del Release 0.1. L
 | [ROUTING_MATRIX.md](ROUTING_MATRIX.md) | Pantallas, segues y endpoints | iOS y QA |
 | [UI_DESIGN_SYSTEM.md](UI_DESIGN_SYSTEM.md) | Tokens y patrones visuales | iOS y diseño |
 | [TEST_PLAN.md](TEST_PLAN.md) | Estrategia, casos y criterio de salida | QA y desarrollo |
+| [STABILIZATION_PLAN.md](STABILIZATION_PLAN.md) | Fases, severidades y compuertas de aceptación | Equipo y docentes |
+| [EVIDENCE_REGISTER.md](EVIDENCE_REGISTER.md) | Inventario y estado de evidencias | QA y sustentación |
+| [INTEGRATION_TEST_REPORT.md](INTEGRATION_TEST_REPORT.md) | Resultado de integración entre subsistemas | Equipo y docentes |
 | [CONTINUOUS_INTEGRATION.md](CONTINUOUS_INTEGRATION.md) | Flujo de integración continua | Desarrollo |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Ejecución local y Render | Desarrollo y operaciones |
+| [USER_INSTALLATION_MANUAL.md](USER_INSTALLATION_MANUAL.md) | Instalación, uso y solución de problemas | Usuario, docentes y desarrollo |
 | [RELEASE_NOTES.md](RELEASE_NOTES.md) | Incremento, límites y pendientes | Todos |
 
 ## Reglas de mantenimiento
