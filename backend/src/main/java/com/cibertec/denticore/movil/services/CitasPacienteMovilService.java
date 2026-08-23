@@ -92,9 +92,9 @@ public class CitasPacienteMovilService {
     public List<CitaPacienteDTO> listarCitas(String dniPaciente) {
         ContextoPaciente contexto = obtenerContexto(dniPaciente);
 
-        return citaRepository.findByPaciente_IdUsuarioAndClinica_IdOrderByFechaHoraDesc(
-                        contexto.paciente().getIdUsuario(),
-                        contexto.membresia().getClinica().getId())
+        return citaRepository.findByPacienteAndClinica(
+                        contexto.paciente(),
+                        contexto.membresia().getClinica())
                 .stream()
                 .map(cita -> mapearCita(cita, null))
                 .toList();
