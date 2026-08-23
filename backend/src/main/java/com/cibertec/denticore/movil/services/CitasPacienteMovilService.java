@@ -12,6 +12,7 @@ import com.cibertec.denticore.crm.entities.Cita;
 import com.cibertec.denticore.crm.enums.EstadoCita;
 import com.cibertec.denticore.crm.repositories.CitaRepository;
 import com.cibertec.denticore.movil.dto.CitaPacienteDTO;
+import com.cibertec.denticore.movil.dto.CancelarCitaPacienteRequestDTO;
 import com.cibertec.denticore.movil.dto.CrearCitaPacienteRequestDTO;
 import com.cibertec.denticore.movil.dto.HorarioDisponibleDTO;
 import com.cibertec.denticore.movil.dto.OdontologoMovilDTO;
@@ -47,6 +48,10 @@ public class CitasPacienteMovilService {
             EstadoCita.CONFIRMADA,
             EstadoCita.EN_SALA,
             EstadoCita.EN_CURSO);
+
+    private static final List<EstadoCita> ESTADOS_CANCELABLES = List.of(
+            EstadoCita.PENDIENTE,
+            EstadoCita.CONFIRMADA);
 
     private final PacienteRepository pacienteRepository;
     private final OdontologoRepository odontologoRepository;
@@ -98,6 +103,46 @@ public class CitasPacienteMovilService {
                 .stream()
                 .map(cita -> mapearCita(cita, null))
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public CitaPacienteDTO obtenerCita(String dniPaciente, Integer citaId) {
+        ContextoPaciente contexto = obtenerContexto(dniPaciente);
+        return mapearCita(obtenerCitaAutorizada(contexto, citaId), null);
+    }
+
+    @Transactional
+    public CitaPacienteDTO cancelarCita(
+            String dniPaciente,
+            Integer citaId,
+            CancelarCitaPacienteRequestDTO request) {
+        ContextoPaciente contexto = obtenerContexto(dniPaciente);
+        Cita cita = obtenerCitaAutorizada(contexto, citaId);
+
+        if (!ESTADOS_CANCELABLES.contains(cita.getEstado())) {
+            throw new ApiException(
+                    HttpStatus.CONFLICT,
+                    "APPOINTMENT_NOT_CANCELLABLE",
+                    "La cita ya no puede ser cancelada por el paciente.");
+        }
+
+        OffsetDateTime ahora = OffsetDateTime.now(contexto.zonaHoraria());
+        if (!cita.getFechaHora().isAfter(ahora)) {
+            throw new ApiException(
+                    HttpStatus.CONFLICT,
+                    "APPOINTMENT_ALREADY_STARTED",
+                    "No es posible cancelar una cita cuya hora de inicio ya pasó.");
+        }
+
+        cita.setEstado(EstadoCita.CANCELADA_PACIENTE);
+        cita.setMotivoCancelacion(normalizarNota(request.motivo()));
+        cita.setCanceladaPor(contexto.paciente().getUsuario());
+        cita.setFechaCancelacion(ahora);
+        cita.setFechaModificacion(ahora);
+
+        return mapearCita(
+                citaRepository.saveAndFlush(cita),
+                "Cita cancelada correctamente.");
     }
 
     @Transactional
@@ -241,6 +286,18 @@ public class CitasPacienteMovilService {
                         HttpStatus.NOT_FOUND,
                         "SERVICE_NOT_FOUND",
                         "El servicio seleccionado no está disponible."));
+    }
+
+    private Cita obtenerCitaAutorizada(
+            ContextoPaciente contexto, Integer citaId) {
+        return citaRepository.findByIdAndPacienteAndClinica(
+                        citaId,
+                        contexto.paciente(),
+                        contexto.membresia().getClinica())
+                .orElseThrow(() -> new ApiException(
+                        HttpStatus.NOT_FOUND,
+                        "APPOINTMENT_NOT_FOUND",
+                        "No se encontró la cita solicitada."));
     }
 
     private Integer obtenerEspecialidadId(ItemCatalogo servicio) {
