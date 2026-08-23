@@ -1,126 +1,121 @@
-# DentiCore 🦷
-**Proyecto DAW II - Cibertec | Sistema Integral de Gestión
-Odontológica**
-DentiCore es una plataforma web completa diseñada para modernizar y
-optimizar la gestión de clínicas dentales. Este proyecto integra
-tanto el flujo de atención clínica (historias clínicas,
-odontogramas interactivos) como la administración del negocio (CRM,
-control de citas, facturación y gestión de catálogos).
----
-## 🚀 Características Principales
-* **Seguridad y Accesos (Identity & Access Management):**
-Autenticación y autorización basada en tokens (JWT) con soporte
-para múltiples roles (Administrador, Odontólogo, Paciente).
-* **Gestión Clínica (Odontograma):** Registro detallado de la
-historia clínica del paciente y un odontograma interactivo para
-registrar hallazgos y tratamientos por pieza dental.
-* **CRM y Citas:** Portal para agendamiento de citas, control de
-estados (Pendiente, Confirmada, Atendida) y gestión de leads.
-* **Facturación y Ventas:** Procesamiento de transacciones
-comerciales, generación de detalles de venta y facturación
-vinculada a los tratamientos realizados.
-* **Catálogos y Especialidades:** Mantenimiento de las
-especialidades odontológicas, tarifas y el catálogo general de
-servicios.
-* **Dashboard Administrativo:** Panel de control centralizado para
-la visión general del rendimiento y operaciones de la clínica.
-## ️ Stack Tecnológico
-El proyecto está construido bajo una arquitectura cliente-servidor
-(Frontend SPA + Backend RESTful API).
-### Backend
-* **Framework:** Java / Spring Boot
-* **Seguridad:** Spring Security + JWT
+# DentiCore Connect
 
-* **Gestión de Datos:** Spring Data JPA / Hibernate
-* **Construcción:** Maven
-### Frontend
-* **Framework:** Angular
-* **Estilos y UI:** Tailwind CSS
-* **Lenguaje:** TypeScript
-### Infraestructura y Datos
-* **Base de Datos:** Motor SQL relacional (Esquema definido en
-`/database/init/DATABASE_SCHEMA.sql`)
-* **Despliegue:** Contenedores con Docker y Docker Compose
-* **API Specs:** Documentación con OpenAPI / Swagger (Ubicado en
-`/docs/openapi.yaml`)
----
-## 📁 Estructura del Proyecto
-El repositorio está organizado en las siguientes carpetas
-principales:
+DentiCore Connect es una plataforma B2B2C de continuidad de atención dental. El Release 0.1 permite que un paciente autenticado consulte la oferta de una clínica, programe y gestione citas desde una aplicación iOS nativa, mientras el backend conserva las reglas de identidad, agenda y aislamiento por clínica.
+
+> Estado: **Release 0.1 Candidate** · Cliente iOS funcional · API y PostgreSQL desplegados en Render.
+
+## Producto
+
+- **Cliente comercial:** clínica dental pequeña o mediana.
+- **Usuario móvil:** paciente vinculado a una clínica.
+- **Problema atendido:** reservas y seguimiento de citas dispersos entre llamadas, mensajería y registros manuales.
+- **Propuesta de valor:** autogestión de citas, recordatorios locales y continuidad de información desde un canal móvil seguro.
+- **Alcance multiclínica:** el modelo ya incorpora clínica, sede y membresía de usuario; el Release 0.1 opera como piloto con una clínica y no constituye todavía un SaaS multitenant completo.
+
+## Capacidades del Release 0.1
+
+- Inicio de sesión con DNI y contraseña.
+- JWT almacenado en Keychain y cierre de sesión centralizado.
+- Dashboard del paciente y navegación inferior Inicio/Citas/Perfil.
+- Consulta de especialidades, servicios, odontólogos y disponibilidad.
+- Programación de citas con protección frente a solapamientos.
+- Listado, detalle y cancelación de citas propias.
+- Caché de citas con Core Data para lectura sin conexión.
+- Recordatorios locales mediante UserNotifications.
+- Perfil de solo lectura con DNI protegido y revelado voluntario.
+- Escenario demostrativo realista con identidad autorizada, sede SJL, historial atendido y cita próxima para verificar recordatorios locales.
+- API Spring Boot con autorización por rol y propiedad del recurso.
+- Migraciones Flyway y datos demostrativos controlados por perfil.
+- Despliegue reproducible en Render y CI del backend en GitHub Actions.
+
+## Arquitectura actual
+
+| Componente | Tecnología | Responsabilidad |
+|---|---|---|
+| Aplicación iOS | Swift, UIKit, Storyboard, Core Data | Experiencia del paciente |
+| API | Java 17, Spring Boot, Spring Security, JPA | Identidad, catálogo, agenda y reglas |
+| Base de datos | PostgreSQL 16, Flyway | Persistencia, integridad y migraciones |
+| Back-office heredado | Angular | Operación web preexistente de la clínica |
+| Infraestructura | Docker, Render, GitHub Actions | Construcción, despliegue y verificación |
+
+La implementación es un **monolito modular**, no un conjunto de microservicios. RabbitMQ, API Gateway, pagos y facturación electrónica no forman parte del Release 0.1.
+
+## Repositorio
+
 ```text
-/
-├── backend/ # Código fuente del API REST en Spring Boot
-├── frontend/ # Código fuente de la aplicación cliente en
-Angular
-├── database/ # Scripts de inicialización y esquemas SQL
-├── docs/ # Documentación técnica, diagramas
-(Arquitectura, BPMN, DER), PRD y UI Design
-└── docker-compose.yml# Orquestación de contenedores para
-despliegue local
+.
+├── ios/                         # Aplicación iOS UIKit/Storyboard
+├── backend/                     # API Spring Boot y migraciones Flyway
+├── frontend/                    # Back-office Angular heredado
+├── database/                    # Referencia del esquema heredado
+├── docs/                        # Documentación vigente del producto
+├── .github/workflows/           # Integración continua
+├── docker-compose.yml           # PostgreSQL local
+└── render.yaml                  # Blueprint de despliegue
 ```
 
----
-## ⚙️ Requisitos Previos
-Asegúrate de tener instalado lo siguiente en tu entorno local antes
-de iniciar:
-* [Java JDK
-17](https://www.oracle.com/java/technologies/javase/jdk17-archive-d
-ownloads.html) o superior.
-* [Node.js y npm](https://nodejs.org/) (Versión recomendada para
-Angular).
-* [Docker y Docker Compose](https://www.docker.com/) (Recomendado
-para un despliegue rápido).
+## Ejecución rápida
 
-* Maven (Opcional, incluido en el wrapper del proyecto `mvnw`).
----
-## 🚀 Instalación y Despliegue
-### Opción 1: Despliegue rápido con Docker (Recomendado)
-La forma más sencilla de levantar todo el ecosistema (Base de
-Datos, Backend y Frontend) es utilizando Docker Compose.
-1. Clona el repositorio.
-2. Abre una terminal en la raíz del proyecto.
-3. Ejecuta el siguiente comando:
-```bash
-docker-compose up -d --build
+### iOS
+
+1. Abrir `ios/DentiCoreConnect/DentiCoreConnect.xcodeproj` en Xcode 26.3 o compatible.
+2. Seleccionar un simulador con iOS 17.6 o superior.
+3. Confirmar `API_BASE_URL` en `Info.plist`.
+4. Ejecutar con `⌘R`.
+
+La configuración incluida consume:
+
+```text
+https://denticore-connect-api.onrender.com/api/v1
 ```
-4. Los servicios estarán disponibles en los puertos configurados en
-el `docker-compose.yml`.
-### Opción 2: Ejecución Manual
-Si deseas ejecutar los servicios por separado para desarrollo:
-**1. Base de Datos:**
-* Asegúrate de tener un servidor de base de datos corriendo.
-* Ejecuta el script `/database/init/DATABASE_SCHEMA.sql` para crear
-las tablas necesarias.
-* Configura las credenciales en
-`backend/src/main/resources/application.yaml`.
-**2. Backend (Spring Boot):**
+
+### Backend local
+
 ```bash
+read -s POSTGRES_PASSWORD
+read -s DENTICORE_LOCAL_JWT_SECRET
+export POSTGRES_PASSWORD DENTICORE_LOCAL_JWT_SECRET
+docker compose up -d
 cd backend
-./mvnw clean install
+DB_PASSWORD="$POSTGRES_PASSWORD" \
+JWT_SIGNING_SECRET="$DENTICORE_LOCAL_JWT_SECRET" \
 ./mvnw spring-boot:run
 ```
-*El API estará disponible normalmente en `http://localhost:8080`.*
-**3. Frontend (Angular):**
-```bash
-cd frontend
-npm install
-npm start
-```
-*La aplicación web estará disponible en `http://localhost:4200`.*
----
 
-## 📚 Documentación
-El proyecto cuenta con una documentación técnica exhaustiva en la
-carpeta `/docs`, que incluye:
-* **Arquitectura:** `ARCHITECTURE.md` y diagramas de arquitectura.
-* **Reglas de Negocio:** `REGLAS_NEGOCIO.md`.
-* **Diseño de UI:** `UI_DESIGN_SYSTEM.md`.
-* **Diagramas:** Modelos Entidad-Relación (DER), Diagramas BPMN
-(AS-IS y TO-BE), Diagramas de Secuencia y Casos de Uso.
-* **API:** Especificaciones en formato `openapi.yaml`.
----
-## 👥 Autores y Créditos
-Este sistema ha sido desarrollado como parte del **Proyecto
-Integrador DAW II** en **Cibertec**.
--Carlos Lazo 
--Roberth Contreras
+Flyway crea y evoluciona la estructura. Hibernate utiliza `ddl-auto=validate`; no modifica automáticamente la base de datos.
+
+### Verificación del servicio desplegado
+
+```text
+GET https://denticore-connect-api.onrender.com/api/v1/actuator/health
+```
+
+La instancia gratuita de Render puede requerir un tiempo de reactivación después de un periodo de inactividad.
+
+## Documentación
+
+El índice completo se encuentra en [`docs/README.md`](docs/README.md). Los documentos principales son:
+
+- [`docs/PRD.md`](docs/PRD.md): requisitos del producto.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): arquitectura construida.
+- [`docs/openapi.yaml`](docs/openapi.yaml): contrato REST del Release 0.1.
+- [`docs/REGLAS_NEGOCIO.md`](docs/REGLAS_NEGOCIO.md): invariantes funcionales.
+- [`docs/UI_DESIGN_SYSTEM.md`](docs/UI_DESIGN_SYSTEM.md): sistema visual iOS.
+- [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md): estrategia y compuerta de calidad.
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md): ejecución y despliegue.
+- [`docs/RELEASE_NOTES.md`](docs/RELEASE_NOTES.md): contenido y limitaciones del release.
+
+## Seguridad y datos de demostración
+
+- No se almacenan contraseñas en texto plano.
+- El token del paciente se conserva únicamente en Keychain.
+- Los datos demostrativos deben ser ficticios.
+- El nombre ficticio puede configurarse mediante `DEMO_PATIENT_NAMES` y `DEMO_PATIENT_SURNAMES` sin recompilar.
+- Las credenciales demo se configuran como variables de entorno; no deben registrarse en Git.
+- El DNI permanece oculto por defecto en el perfil y nunca debe incluirse en notificaciones.
+
+## Estado de verificación
+
+- La API desplegada responde `UP` en Actuator.
+- El flujo iOS login → dashboard → catálogo → reserva → citas → detalle → cancelación → perfil fue validado manualmente.
+- La compilación final de esta iteración debe confirmarse en Xcode/macOS antes de etiquetar `v0.1.0-rc.1`.

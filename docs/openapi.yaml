@@ -1,21 +1,29 @@
 openapi: 3.0.3
 info:
-  title: DentiCore 2.0 API REST
-  description: Contrato de servicios para el proyecto DENTICORE-DAWII-CIBERTEC. Arquitectura basada en Spring Boot y PostgreSQL.
-  version: 1.0.0
+  title: DentiCore Connect API
+  version: 0.1.0
+  description: >-
+    Contrato de la API móvil orientada al paciente para el Release 0.1.
+    La identidad del paciente y su clínica se obtienen del JWT; los clientes
+    no envían identificadores de paciente o clínica en las operaciones propias.
 servers:
+  - url: https://denticore-connect-api.onrender.com/api/v1
+    description: Demostración en Render
   - url: http://localhost:8080/api/v1
-    description: Entorno de Desarrollo Local (Docker)
+    description: Desarrollo local
+tags:
+  - name: Autenticación
+  - name: Paciente
+  - name: Catálogo
+  - name: Agenda
+  - name: Operación
 
 paths:
-  # ==========================================
-  # MÓDULO DE AUTENTICACIÓN Y SEGURIDAD
-  # ==========================================
   /auth/login:
     post:
-      summary: Autenticación de Usuario (Generación JWT)
-      tags:
-        - Seguridad
+      tags: [Autenticación]
+      summary: Iniciar sesión
+      operationId: login
       requestBody:
         required: true
         content:
@@ -24,100 +32,318 @@ paths:
               $ref: '#/components/schemas/LoginRequest'
       responses:
         '200':
-          description: Autenticación exitosa. Retorna JWT.
+          description: Sesión iniciada
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
         '401':
-          description: Credenciales inválidas.
+          $ref: '#/components/responses/Unauthorized'
 
-  # ==========================================
-  # MÓDULO DE CATÁLOGO (Público)
-  # ==========================================
-  /catalogo/especialidades:
+  /auth/registro/paciente:
+    post:
+      tags: [Autenticación]
+      summary: Registrar paciente
+      operationId: registerPatient
+      description: Capacidad de API disponible; la pantalla iOS no forma parte del Release 0.1.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientRegistrationRequest'
+      responses:
+        '201':
+          description: Paciente registrado y vinculado a la clínica piloto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientRegistrationResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /auth/logout:
+    post:
+      tags: [Autenticación]
+      summary: Cerrar sesión
+      operationId: logout
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Token invalidado
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /pacientes/me:
     get:
-      summary: Listar Especialidades Activas
-      tags:
-        - Catálogo
+      tags: [Paciente]
+      summary: Obtener perfil propio
+      operationId: getCurrentPatient
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Lista de especialidades.
+          description: Perfil del paciente autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientProfile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /sedes:
+    get:
+      tags: [Paciente]
+      summary: Listar sedes de la clínica del paciente
+      operationId: listLocations
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Sedes activas
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Especialidad'
+                  $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
-  # ==========================================
-  # MÓDULO DE CITAS Y AGENDAMIENTO (Protegido)
-  # ==========================================
-  /citas:
-    post:
-      summary: Agendar nueva Cita
-      description: Bloquea el cupo concurrentemente e inserta la cita. Emite evento a RabbitMQ.
-      tags:
-        - CRM y Agenda
+  /especialidades:
+    get:
+      tags: [Catálogo]
+      summary: Listar especialidades activas
+      operationId: listSpecialties
       security:
         - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AgendarCitaRequest'
-      responses:
-        '201':
-          description: Cita creada exitosamente.
-        '409':
-          description: Conflicto - Horario no disponible (Bloqueo Concurrente).
-
-  # ==========================================
-  # MÓDULO CLÍNICO TRANSACCIONAL
-  # ==========================================
-  /clinica/odontograma:
-    post:
-      summary: Registrar Odontograma y Detalles
-      description: Transacción ACID que registra cabecera y detalles en la BD.
-      tags:
-        - Clínica
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GuardarOdontogramaRequest'
-      responses:
-        '201':
-          description: Transacción exitosa. Retorna ID generado.
-        '400':
-          description: Error de validación en los datos clínicos.
-
-  # ==========================================
-  # MÓDULO DE VENTAS (Motor de Cobros)
-  # ==========================================
-  /ventas/procesar:
-    post:
-      summary: Procesar Transacción Comercial (Presupuesto/Cierre)
-      description: Genera la cabecera y el detalle de la venta (carrito de servicios) y actualiza el estado de la cita a 'Atendida'.
-      tags:
-        - Ventas y Facturación
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProcesarVentaRequest'
       responses:
         '200':
-          description: Transacción comercial procesada exitosamente (ACID Commit).
+          description: Especialidades activas ordenadas por nombre
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Specialty'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /servicios:
+    get:
+      tags: [Catálogo]
+      summary: Listar servicios activos
+      operationId: listServices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: especialidadId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Servicios activos, opcionalmente filtrados por especialidad
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DentalService'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /pacientes/me/odontologos:
+    get:
+      tags: [Agenda]
+      summary: Listar odontólogos autorizados por especialidad
+      operationId: listDentists
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: especialidadId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Odontólogos activos de la clínica
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dentist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /pacientes/me/disponibilidad:
+    get:
+      tags: [Agenda]
+      summary: Consultar disponibilidad
+      operationId: listAvailability
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: odontologoId
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: servicioId
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: fecha
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2026-08-24'
+      responses:
+        '200':
+          description: Slots futuros disponibles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailabilitySlot'
         '400':
-          description: Error en el cálculo o ítems inválidos en el carrito.
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pacientes/me/citas:
+    get:
+      tags: [Agenda]
+      summary: Listar citas propias
+      operationId: listMyAppointments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Citas del paciente y clínica autenticados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags: [Agenda]
+      summary: Crear cita propia
+      operationId: createMyAppointment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAppointmentRequest'
+      responses:
+        '201':
+          description: Cita creada en estado PENDIENTE
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /pacientes/me/citas/{id}:
+    get:
+      tags: [Agenda]
+      summary: Obtener una cita propia
+      operationId: getMyAppointment
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AppointmentId'
+      responses:
+        '200':
+          description: Detalle de la cita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pacientes/me/citas/{id}/cancelacion:
+    patch:
+      tags: [Agenda]
+      summary: Cancelar una cita propia
+      operationId: cancelMyAppointment
+      description: Transición auditada; no elimina físicamente la cita.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AppointmentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelAppointmentRequest'
+      responses:
+        '200':
+          description: Cita cancelada por el paciente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /actuator/health:
+    get:
+      tags: [Operación]
+      summary: Consultar salud del servicio
+      operationId: health
+      responses:
+        '200':
+          description: Servicio disponible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
 
 components:
   securitySchemes:
@@ -126,126 +352,365 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
+  parameters:
+    AppointmentId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+
+  responses:
+    ValidationError:
+      description: Solicitud inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Unauthorized:
+      description: Credenciales o token no válidos
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Forbidden:
+      description: Rol no autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    NotFound:
+      description: Recurso inexistente o no accesible por el paciente
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+    Conflict:
+      description: Conflicto de agenda, datos o transición de estado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
   schemas:
     LoginRequest:
       type: object
-      required:
-        - dni
-        - password
+      additionalProperties: false
+      required: [dni, password]
       properties:
         dni:
           type: string
-          example: "71234567"
+          pattern: '^\d{8}$'
+          example: '70000001'
         password:
           type: string
           format: password
-          example: "Admin123!"
+          minLength: 8
+          maxLength: 72
 
     LoginResponse:
       type: object
+      required: [accessToken, tokenType, expiresIn, rol, contextoClinica]
       properties:
-        token:
+        accessToken:
           type: string
-          example: "eyJhbGciOiJIUzI1NiIsInR..."
+          description: JWT; el ejemplo se omite deliberadamente.
+        tokenType:
+          type: string
+          enum: [Bearer]
+        expiresIn:
+          type: integer
+          format: int64
+          description: Duración en segundos.
+          example: 3600
         rol:
           type: string
-          example: "Odontologo"
+          enum: [PACIENTE, ODONTOLOGO, ADMINISTRADOR]
+        contextoClinica:
+          $ref: '#/components/schemas/ClinicContext'
 
-    Especialidad:
+    ClinicContext:
       type: object
+      required: [id, nombreComercial, zonaHoraria]
       properties:
         id:
           type: integer
-          example: 1
+        nombreComercial:
+          type: string
+          example: Clínica Dental Dr. Dave Cáceres
+        zonaHoraria:
+          type: string
+          example: America/Lima
+
+    PatientRegistrationRequest:
+      type: object
+      additionalProperties: false
+      required: [dni, nombres, apellidos, correo, password, fechaNacimiento]
+      properties:
+        dni:
+          type: string
+          pattern: '^\d{8}$'
+        nombres:
+          type: string
+          minLength: 2
+          maxLength: 80
+        apellidos:
+          type: string
+          minLength: 2
+          maxLength: 100
+        correo:
+          type: string
+          format: email
+          maxLength: 120
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 72
+        grupoSanguineo:
+          type: string
+          nullable: true
+        fechaNacimiento:
+          type: string
+          format: date
+
+    PatientRegistrationResponse:
+      type: object
+      required: [id, dni, nombres, apellidos, correo, clinicaId, estado]
+      properties:
+        id:
+          type: integer
+        dni:
+          type: string
+        nombres:
+          type: string
+        apellidos:
+          type: string
+        correo:
+          type: string
+          format: email
+        clinicaId:
+          type: integer
+        estado:
+          type: string
+
+    PatientProfile:
+      type: object
+      required: [id, dni, nombres, apellidos, clinica]
+      properties:
+        id:
+          type: integer
+        dni:
+          type: string
+          pattern: '^\d{8}$'
+        nombres:
+          type: string
+        apellidos:
+          type: string
+        correo:
+          type: string
+          format: email
+          nullable: true
+        fechaNacimiento:
+          type: string
+          format: date
+          nullable: true
+        clinica:
+          $ref: '#/components/schemas/ClinicContext'
+
+    Location:
+      type: object
+      required: [id, nombre, zonaHoraria, activa]
+      properties:
+        id:
+          type: integer
         nombre:
           type: string
-          example: "Ortodoncia"
+        direccion:
+          type: string
+          nullable: true
+        zonaHoraria:
+          type: string
+        activa:
+          type: boolean
 
-    AgendarCitaRequest:
+    Specialty:
       type: object
-      required:
-        - idPaciente
-        - idOdontologo
-        - fechaHora
+      required: [id, nombre]
       properties:
-        idPaciente:
+        id:
           type: integer
-          example: 15
+        nombre:
+          type: string
+
+    DentalService:
+      type: object
+      required: [id, nombre]
+      properties:
+        id:
+          type: integer
+        codigo:
+          type: string
+          nullable: true
+        nombre:
+          type: string
+        especialidadId:
+          type: integer
+          nullable: true
+        duracionMinutos:
+          type: integer
+          nullable: true
+        costoReferencial:
+          type: number
+          format: double
+          nullable: true
+        moneda:
+          type: string
+          example: PEN
+          nullable: true
+        activo:
+          type: boolean
+          nullable: true
+
+    Dentist:
+      type: object
+      required: [id, nombreCompleto]
+      properties:
+        id:
+          type: integer
+        nombres:
+          type: string
+          nullable: true
+        apellidos:
+          type: string
+          nullable: true
+        nombreCompleto:
+          type: string
+        cop:
+          type: string
+          nullable: true
+
+    AvailabilitySlot:
+      type: object
+      required: [fechaHoraInicio, fechaHoraFin]
+      properties:
+        fechaHoraInicio:
+          type: string
+          format: date-time
+          example: '2026-08-24T14:00:00-05:00'
+        fechaHoraFin:
+          type: string
+          format: date-time
+          example: '2026-08-24T14:30:00-05:00'
+
+    CreateAppointmentRequest:
+      type: object
+      additionalProperties: false
+      required: [idOdontologo, idServicio, fechaHora]
+      properties:
         idOdontologo:
           type: integer
-          example: 2
+          minimum: 1
+        idServicio:
+          type: integer
+          minimum: 1
         fechaHora:
           type: string
           format: date-time
-          example: "2026-06-25T15:30:00Z"
+          example: '2026-08-24T14:00:00-05:00'
+        notaPaciente:
+          type: string
+          maxLength: 300
+          nullable: true
 
-    GuardarOdontogramaRequest:
+    CancelAppointmentRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        motivo:
+          type: string
+          maxLength: 300
+          nullable: true
+
+    Appointment:
       type: object
       required:
-        - idAtencionClinica
-        - tipo
-        - detalles
+        - id
+        - estado
+        - fechaHora
+        - fechaHoraFin
+        - odontologoNombre
+        - servicioNombre
+        - sedeNombre
       properties:
-        idAtencionClinica:
+        id:
           type: integer
-          example: 104
-        tipo:
+        estado:
+          $ref: '#/components/schemas/AppointmentStatus'
+        fechaHora:
           type: string
-          example: "Inicial"
-        detalles:
+          format: date-time
+        fechaHoraFin:
+          type: string
+          format: date-time
+        odontologoNombre:
+          type: string
+        servicioNombre:
+          type: string
+        especialidadNombre:
+          type: string
+          nullable: true
+        sedeNombre:
+          type: string
+        notaPaciente:
+          type: string
+          nullable: true
+        mensaje:
+          type: string
+          nullable: true
+
+    AppointmentStatus:
+      type: string
+      enum:
+        - PENDIENTE
+        - CONFIRMADA
+        - EN_SALA
+        - EN_CURSO
+        - ATENDIDA
+        - CANCELADA_PACIENTE
+        - CANCELADA_CLINICA
+        - NO_ASISTIO
+
+    ApiError:
+      type: object
+      required: [timestamp, status, code, message, path, traceId]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        code:
+          type: string
+          example: APPOINTMENT_SLOT_UNAVAILABLE
+        message:
+          type: string
+          example: El horario seleccionado ya no está disponible.
+        path:
+          type: string
+        traceId:
+          type: string
+
+    Health:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN]
+        groups:
           type: array
           items:
-            $ref: '#/components/schemas/DetalleOdontograma'
-
-    DetalleOdontograma:
-      type: object
-      required:
-        - idElementoClinico
-        - numeroPieza
-        - diagnostico
-      properties:
-        idElementoClinico:
-          type: integer
-          example: 5
-        numeroPieza:
-          type: integer
-          example: 14
-        diagnostico:
-          type: string
-          example: "Caries oclusal profunda"
-
-    ProcesarVentaRequest:
-      type: object
-      required:
-        - idPaciente
-        - idCita
-        - itemsCarrito
-      properties:
-        idPaciente:
-          type: integer
-          example: 15
-        idCita:
-          type: integer
-          example: 104
-        itemsCarrito:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemCarrito'
-
-    ItemCarrito:
-      type: object
-      required:
-        - idItemCatalogo
-        - cantidad
-        - precioAplicado
-      properties:
-        idItemCatalogo:
-          type: integer
-          example: 8
-        cantidad:
-          type: integer
-          example: 1
-        precioAplicado:
-          type: number
-          format: float
-          example: 150.00
+            type: string

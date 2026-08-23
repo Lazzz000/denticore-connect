@@ -1,30 +1,111 @@
-# Documento de Arquitectura de Software (SAD)
+# Arquitectura de software
 
-**Proyecto:** DENTICORE-PROYECTO DAWII-CIBERTEC
-**Versión:** 1.0
+## 1. Estilo arquitectónico
 
-## 1. Visión General de la Arquitectura
-DentiCore 2.0 utiliza una arquitectura orientada a microservicios simulados (Microservices-Ready) utilizando el patrón de base de datos compartida (Shared Database)[cite: 8]. Implementa un patrón Backend For Frontend (BFF) diseñado para alta disponibilidad y resiliencia[cite: 8]. Todo el ecosistema operativo está contenerizado[cite: 1].
+DentiCore Connect utiliza una arquitectura cliente-servidor con un **monolito modular Spring Boot** y una base PostgreSQL compartida por módulos. La aplicación iOS es un cliente nativo; el frontend Angular heredado permanece como back-office. No existe API Gateway ni despliegue de microservicios en el Release 0.1.
 
-## 2. Definición de Componentes Estructurales
-La arquitectura se divide estrictamente en los siguientes cinco componentes, los cuales están mapeados directamente con las etiquetas de gestión del tablero ágil (Jira):
+```mermaid
+flowchart TB
+    IOS["iOS UIKit + Storyboard"] -->|"HTTPS / JSON + JWT"| API["Spring Boot modular"]
+    WEB["Angular heredado"] -->|"HTTPS / JSON + JWT"| API
+    API --> JPA["Spring Data JPA"]
+    JPA --> DB["PostgreSQL 16"]
+    FLYWAY["Flyway V1/V2"] --> DB
+    RENDER["Render + Docker"] --> API
+```
 
-### 2.1. UI-Angular (Capa de Presentación)
-*   **Tecnología:** Angular 17+, Tailwind CSS[cite: 8].
-*   **Responsabilidad:** Single Page Application (SPA) totalmente desacoplada[cite: 8]. Maneja el enrutamiento del lado del cliente, la renderización gráfica del odontograma interactivo (SVG) y la interceptación de peticiones HTTP para inyectar tokens de autorización JWT[cite: 8].
+## 2. Componentes
 
-### 2.2. API-Gateway / Auth (Capa de Entrada y Seguridad)
-*   **Tecnología:** Spring Cloud Gateway, Spring Security, JWT, BCrypt[cite: 1, 8].
-*   **Responsabilidad:** Actúa como punto de entrada único hacia el backend (Edge Server)[cite: 8]. Gestiona la autenticación de usuarios (Pacientes y Odontólogos), valida los tokens JWT y cifra las credenciales en la base de datos de forma unidireccional usando `BCryptPasswordEncoder`[cite: 8].
+### Aplicación iOS
 
-### 2.3. Business-Core / Messaging (Capa de Negocio y Eventos)
-*   **Tecnología:** Spring Boot, Spring Web, Spring Data JPA, RabbitMQ / Kafka[cite: 1, 8].
-*   **Responsabilidad:** Contiene la lógica de negocio central (Catálogo, Citas, Transacciones comerciales)[cite: 8]. Utiliza la anotación `@Transactional` para garantizar operaciones ACID[cite: 8]. Emite y consume eventos asíncronos (ej. `CitaCreadaEvent`) hacia el Message Broker para delegar procesos no bloqueantes, como el envío de notificaciones por correo[cite: 8].
+- UIKit y `Main.storyboard` como composición principal.
+- `UIViewController`, `UINavigationController` y `UITabBarController`.
+- `URLSession` encapsulado por `APIClient`.
+- DTOs `Codable` separados de entidades Core Data.
+- Keychain para JWT.
+- Core Data para caché de citas.
+- UserNotifications para recordatorios locales.
+- `DentiCoreTheme` como sistema de tokens y estilos.
 
-### 2.4. Database / JPA (Capa de Persistencia)
-*   **Tecnología:** PostgreSQL, Hibernate[cite: 8].
-*   **Responsabilidad:** Base de datos única compartida, segregada lógicamente por esquemas (ej. `seguridad`, `catalogo`, `clinica`, `ventas`) para aislar los dominios[cite: 8]. Spring Data JPA gestiona el mapeo ORM, eliminando la dependencia técnica de los antiguos procedimientos almacenados[cite: 8].
+### Backend
 
-### 2.5. Infrastructure / Docker (Capa de Orquestación y Resiliencia)
-*   **Tecnología:** Docker, Docker Compose, Resilience4j, Spring Boot Actuator[cite: 1, 8].
-*   **Responsabilidad:** Contenerización y despliegue local del ecosistema completo mediante `docker-compose.yml`[cite: 1, 8]. Expone métricas de salud (`/actuator/health`) y aplica patrones de tolerancia a fallos (Circuit Breaker) para evitar la caída en cascada de los servicios, garantizando la resiliencia exigida por la arquitectura[cite: 1, 8].
+Los paquetes representan módulos dentro de una sola aplicación:
+
+| Módulo | Responsabilidad |
+|---|---|
+| `security` | Login, JWT, roles, membresía y registro |
+| `organizacion` | Clínica y sede |
+| `catalogo` | Especialidades y servicios |
+| `agenda` | Horarios y bloqueos |
+| `crm` | Citas, estados y eventos |
+| `movil` | Fachada REST orientada al paciente |
+| `clinica` | Activos heredados de atención y odontograma |
+| `ventas` | Modelo heredado, fuera del flujo móvil 0.1 |
+| `common` | Errores uniformes |
+
+### Persistencia
+
+- PostgreSQL 16.
+- Esquemas: `seguridad`, `organizacion`, `catalogo`, `agenda`, `crm`, `clinica` y `ventas`.
+- Flyway aplica `V1__legacy_baseline.sql` y `V2__denticore_connect_release_01.sql`.
+- El perfil `demo` añade `R__demo_data.sql` y bootstrap de credenciales de demostración.
+- Hibernate valida el esquema con `ddl-auto=validate`.
+
+## 3. Flujo de autenticación
+
+```mermaid
+sequenceDiagram
+    participant App as iOS
+    participant API as Spring Boot
+    participant DB as PostgreSQL
+    App->>API: POST /auth/login
+    API->>DB: Validar usuario, rol y clínica
+    DB-->>API: Membresía activa
+    API-->>App: JWT + rol + contextoClinica
+    App->>App: Guardar JWT en Keychain
+    App->>API: GET protegido + Bearer JWT
+    API-->>App: Recurso del paciente
+```
+
+## 4. Flujo de una cita
+
+1. iOS consulta servicio, odontólogo y disponibilidad.
+2. El backend resuelve paciente y clínica desde el usuario autenticado; no acepta `idPaciente` del cliente.
+3. Se calcula el rango inicio/fin según duración del servicio.
+4. PostgreSQL rechaza solapamientos mediante una restricción de exclusión GiST.
+5. La cita se crea en `PENDIENTE` y se registra un evento `CREADA`.
+6. iOS actualiza la caché y programa recordatorios locales.
+
+## 5. Seguridad
+
+- TLS provisto por Render.
+- JWT stateless firmado con `JWT_SIGNING_SECRET`.
+- BCrypt para contraseñas.
+- `@PreAuthorize` para el rol paciente en la fachada móvil.
+- Propiedad de cita verificada con el principal autenticado y clínica.
+- Secretos suministrados por variables de entorno.
+- Health check sin detalles internos.
+- DNI oculto por defecto en iOS.
+
+## 6. Disponibilidad y fallos
+
+- La instancia gratuita de Render puede entrar en reposo; el cliente presenta carga y error recuperable.
+- Core Data mantiene el último listado de citas exitoso.
+- La reserva exige red; no se encola offline para evitar conflictos.
+- Los recordatorios son locales y no sustituyen una infraestructura de notificación push.
+
+## 7. Decisiones registradas
+
+| Decisión | Motivo | Consecuencia |
+|---|---|---|
+| Monolito modular | Equipo pequeño y plazo corto | Menor complejidad operativa |
+| Fachada `/pacientes/me` | Evitar confiar en IDs del cliente | Mejor autorización por propiedad |
+| PATCH para cancelar | Cancelación es transición, no borrado | Conserva auditoría |
+| Core Data solo como caché | Servidor es fuente de verdad | Sin escrituras offline conflictivas |
+| Notificaciones locales | Viable sin APNs | Dependen del dispositivo |
+| UIKit + Storyboard | Alineación académica | Outlets/actions/segues visibles |
+| Flyway | Evolución determinista | Migraciones aplicadas son inmutables |
+
+## 8. Evolución posterior
+
+Release 0.2 puede incorporar reprogramación, edición controlada de contacto, selección de clínica, avatar remoto y notificaciones push. La transición a multitenancy comercial requiere pruebas de aislamiento, administración de tenants, auditoría, observabilidad y políticas de datos antes de incorporar clientes reales.

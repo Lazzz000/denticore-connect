@@ -1,47 +1,60 @@
-# Lean Canvas: DentiCore 2.0
+# Lean Canvas
 
-**Proyecto:** Plataforma Web Transaccional y de Gestión Clínica "DentiCore 2.0"  
-**Cliente:** Clínica Dental "Dr. Dave Cáceres - Odontología Especializada"  
-**Ubicación:** San Juan de Lurigancho, Lima, Perú  
-**Naturaleza arquitectónica:** Ecosistema nativo de la nube (Spring Boot, Angular, Docker)  
+## Problema
 
----
+- Reservas gestionadas manualmente por llamadas o mensajería.
+- Poca autonomía del paciente para consultar y cancelar citas.
+- Recordatorios y seguimiento dependientes del personal.
 
-## 1. Problema (Problem)
-* **Sobrecarga operativa:** La clínica carece de personal administrativo exclusivo, obligando a los especialistas a asumir la carga operativa total, lo que reduce el tiempo de atención clínica efectiva.
-* **Fricción en la captación:** El proceso de reserva depende de una negociación manual, asíncrona y no estructurada por WhatsApp, generando demoras de horas y un alto margen de error en cruces de horarios.
-* **Aislamiento de la información:** La gestión de historias clínicas y odontogramas se realiza en formatos físicos o sistemas locales aislados, dificultando el acceso ubicuo y la trazabilidad de los datos.
-* **Riesgo transaccional:** No existe un motor que vincule directamente el diagnóstico con el cobro, ocasionando discrepancias de caja entre los procedimientos ejecutados y lo facturado.
+## Segmentos
 
-## 2. Segmentos de Clientes (Customer Segments)
-* **Pacientes (B2C):** Consumidores digitales que exigen "fricción cero", disponibilidad 24/7 y plataformas de autogestión para iniciar su viaje de atención médica de forma autónoma.
-* **Usuarios Internos (Especialistas Clínicos y Gerencia):** Odontólogos que requieren un sistema resiliente para delegar tareas de agendamiento y cobro, permitiéndoles concentrarse exclusivamente en la labor médica y garantizando el control de caja.
+- Cliente inicial: clínica dental privada pequeña o mediana.
+- Usuario principal: paciente activo de la clínica.
+- Usuarios operativos: recepción, administración y odontólogos.
 
-## 3. Propuesta de Valor Única (Unique Value Proposition)
-Plataforma web integral de alta disponibilidad que automatiza el agendamiento y el ciclo de ingresos de la clínica dental. Transforma la operación hacia un modelo *Paperless* que asegura la integridad de los historiales clínicos mediante transacciones ACID. Recupera el 80% del tiempo invertido en labores administrativas, convirtiéndolo en capacidad instalada directamente facturable.
+## Propuesta de valor
 
-## 4. Solución (Solution)
-* **Front-Office (Portal SPA en Angular):** Portal público de autogestión donde el paciente visualiza el catálogo de especialidades y reserva citas validando la disponibilidad en tiempo real contra la base de datos.
-* **Back-Office (Core Clínico en Spring Boot):** Panel de administración y gestión clínica que centraliza historias y diagnósticos de manera segura (JWT y encriptación BCrypt).
-* **Motor Transaccional Interactivo:** Odontograma dinámico en SVG acoplado a un "carrito de servicios" que automatiza la generación de presupuestos y cierres de venta en una única transacción de base de datos.
+Una experiencia móvil simple para que el paciente gestione sus citas y mantenga continuidad con su clínica, sin depender de coordinación manual para cada interacción.
 
-## 5. Canales (Channels)
-* **Portal Web interactivo:** Accesible 24/7 como canal digital principal de adquisición de pacientes.
-* **Notificaciones Asíncronas:** Envío de confirmaciones de eventos clínicos operadas por un Message Broker (RabbitMQ) para garantizar inmediatez sin bloquear la experiencia del usuario.
+## Solución inicial
 
-## 6. Flujo de Ingresos (Revenue Streams)
-* **Optimización de Capacidad Instalada:** Incremento directo de la rentabilidad diaria generado por la liberación de horas médicas, permitiendo la atención de un mayor volumen de pacientes.
-* **Preparación Omnicanal:** Arquitectura lista para la futura recaudación de pagos mediante integración de pasarelas de cobro online (actualmente simulado en el motor de ventas interno para esta fase del proyecto).
+- Aplicación iOS para pacientes.
+- API segura orientada a recursos propios.
+- Agenda con prevención de solapamientos.
+- Caché local y recordatorios en el dispositivo.
+- Back-office web heredado para la operación clínica.
 
-## 7. Estructura de Costos (Cost Structure)
-* **Infraestructura y Orquestación:** Costos asociados al alojamiento (servidores/nube) o mantenimiento del entorno contenedorizado (Docker/PostgreSQL).
-* **Mantenimiento y Soporte:** Inversión en actualizaciones de la arquitectura orientada a microservicios simulados (Shared Database).
-* **Operaciones de Terceros (Visión a futuro):** Comisiones de pasarelas de pago y operadores de servicios electrónicos (OSE) para facturación fiscal.
+## Canales
 
-## 8. Métricas Clave (Key Metrics)
-* Porcentaje de reducción de horas invertidas en tareas administrativas por especialista.
-* Tasa de conversión de agendamientos web autónomos versus mensajería manual (WhatsApp).
-* Uptime (tiempo de disponibilidad) del sistema y latencia en el procesamiento de transacciones comerciales.
+- Incorporación del paciente desde la propia clínica.
+- Piloto controlado con una clínica.
+- Distribución iOS de prueba durante el Release 0.1.
+- App Store y Android en etapas posteriores.
 
-## 9. Ventaja Injusta (Unfair Advantage)
-Centralización nativa del flujo clínico y comercial en una única herramienta construida bajo el patrón *Backend for Frontend (BFF)*. A diferencia de soluciones de mercado genéricas, DentiCore adapta su infraestructura asíncrona a la operatividad exacta de la clínica, eliminando la dependencia de licencias de software de terceros y formatos físicos descentralizados.
+## Ingresos hipotéticos
+
+- Suscripción por clínica.
+- Escalones por sedes o profesionales activos.
+- Módulos adicionales de comunicación y analítica.
+
+Estas hipótesis no están validadas y no forman parte del alcance académico del Release 0.1.
+
+## Costos
+
+- Infraestructura y base administrada.
+- Desarrollo y soporte.
+- Distribución móvil.
+- Seguridad, cumplimiento y operación.
+- Comunicación push futura.
+
+## Métricas
+
+- Reservas completadas.
+- Inasistencias y cancelaciones oportunas.
+- Pacientes activos mensuales.
+- Tiempo ahorrado en coordinación.
+- Incidentes de conflicto de agenda.
+
+## Ventaja inicial
+
+Existe una base funcional previa de dominio odontológico y back-office. El nuevo incremento agrega un canal iOS y refuerza reglas de seguridad, agenda, migraciones y despliegue; la ventaja es velocidad de aprendizaje, no exclusividad tecnológica.

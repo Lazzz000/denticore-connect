@@ -1,0 +1,67 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - feature/backend-mobile-api
+      - feature/ios-storyboard-mvp
+      - release/denticore-connect-0.1
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - "render.yaml"
+      - ".github/workflows/backend-ci.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - "render.yaml"
+      - ".github/workflows/backend-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: denticoredb
+          POSTGRES_USER: denticore_admin
+          POSTGRES_PASSWORD: ci-${{ github.run_id }}-${{ github.run_attempt }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U denticore_admin -d denticoredb"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    defaults:
+      run:
+        working-directory: backend
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: denticoredb
+      DB_USER: denticore_admin
+      DB_PASSWORD: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      JWT_SIGNING_SECRET: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}-ci
+      JPA_SHOW_SQL: "false"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Run backend tests
+        run: |
+          chmod +x mvnw
+          ./mvnw --batch-mode test

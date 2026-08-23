@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponseDTO {
-
-    private String token;
+    private String accessToken;
+    private String tokenType;
+    private Long expiresIn;
     private String rol;
+    private ContextoClinicaDTO contextoClinica;
 }

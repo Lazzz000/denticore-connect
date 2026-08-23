@@ -1,98 +1,107 @@
-# Sistema de Diseño y UI (DentiCore 2.0 Web)
+# Sistema de diseño iOS
 
-## 1. Filosofía Visual y Estética
+## 1. Principios
 
-El diseño de DentiCore 2.0 se inspira en sistemas SaaS modernos de alto rendimiento (Apple, Linear, Notion). Para el sector salud, el objetivo es transmitir: profesionalismo, limpieza absoluta, fricción cero y tecnología.
+- Claridad antes que decoración.
+- Jerarquía visible y espacios consistentes.
+- Componentes nativos y comportamiento familiar para iOS.
+- Acciones clínicas sin ambigüedad.
+- Accesibilidad y adaptación a modo claro/oscuro.
+- Storyboard como composición principal del Release 0.1.
 
-El diseño debe priorizar el espacio en blanco ("breathing room") y la jerarquía de la información sobre la densidad de datos.
+## 2. Identidad
 
-## 2. Paleta de Colores Oficial (Design Tokens)
+| Token | Valor iOS | Uso |
+|---|---|---|
+| `primary` | RGB 22, 103, 171 | Navegación y acciones primarias |
+| `accent` | RGB 38, 166, 154 | Apoyo de marca |
+| `primaryDark` | RGB 12, 72, 122 | Variantes de identidad |
+| `success` | `systemGreen` | Confirmación/atendida |
+| `warning` | `systemOrange` | Pendiente/precaución |
+| `danger` | `systemRed` | Error/cancelación |
+| `canvas` | `systemGroupedBackground` | Fondo principal |
+| `surface` | `secondarySystemBackground` | Controles y tarjetas |
 
-Está estrictamente prohibido utilizar colores arbitrarios de Tailwind que no estén mapeados en esta paleta. Todo color debe llamarse a través de sus tokens personalizados (ej. `bg-primary`, `text-ink-muted`).
+Los colores semánticos del sistema se prefieren para conservar contraste en modo oscuro.
 
-- **Superficies (Surface):**
-  - Fondo base de la aplicación: `#F8FAFC` (Slate 50).
-  - Fondo de Tarjetas y Modales: `#FFFFFF` (Blanco puro).
-  - Bordes y separadores divisorios: `#E2E8F0` (Slate 200).
+## 3. Tipografía
 
-- **Identidad de Marca (Primary):**
-  - Acción principal / Fondo activo: `#0F766E` (Teal 700).
-  - Estado Hover: `#115E59` (Teal 800).
+- Tipografía del sistema San Francisco.
+- Dynamic Type mediante `preferredFont(forTextStyle:)`.
+- Títulos: `.title1`, `.title2`, `.title3` según jerarquía.
+- Texto: `.body`; soporte: `.subheadline` o `.footnote`.
+- No fijar tamaños cuando la pantalla pueda usar estilos dinámicos.
 
-- **Textos (Ink):**
-  - Títulos y texto principal: `#0F172A` (Slate 900).
-  - Subtítulos, labels y placeholders: `#64748B` (Slate 500).
+## 4. Espaciado y forma
 
-- **Semántica de Estado (Status):**
-  - Éxito (Altas, confirmaciones): `#16A34A` (Green 600).
-  - Advertencia (Deudas, precauciones): `#F59E0B` (Amber 500).
-  - Error (Conflictos, eliminación): `#DC2626` (Red 600).
+| Token | Valor |
+|---|---:|
+| Pequeño | 8 pt |
+| Compacto | 12 pt |
+| Estándar | 16 pt |
+| Sección | 24 pt |
+| Margen horizontal | 20 pt |
+| Control principal | 52 pt |
+| Radio compacto | 8 pt |
+| Radio estándar | 12 pt |
+| Radio grande | 18 pt |
 
-- **Navegación (Sidebar):**
-  - Fondo del menú lateral: `#334155` (Slate 700).
+## 5. Componentes
 
-## 3. Tipografía e Iconografía
+### Botón primario
 
-- **Tipografía Única:** Se utilizará exclusivamente la familia **Poppins**. Pesos permitidos: 300, 400, 500, 600 y 700. Está prohibida la importación o uso de cualquier otra fuente (como Inter o Roboto).
+- `UIButton.Configuration.filled()`.
+- Fondo `primary`, texto blanco.
+- Una única acción principal por pantalla.
+- Estado deshabilitado durante solicitudes.
 
-- **Iconografía:** El proyecto utilizará estrictamente **Lucide Icons** (mediante la librería `lucide-angular`). Queda prohibido el uso de FontAwesome, Material Symbols o carga de SVGs en línea que no pertenezcan al ecosistema de Lucide.
+### Botón secundario
 
-## 4. Configuración Maestra de Tailwind (`tailwind.config.js`)
+- Configuración `tinted`.
+- Color de marca con fondo tenue.
+- Se utiliza para permisos, reintentos o navegación complementaria.
 
-El motor de estilos de Angular debe reflejar la paleta oficial. El siguiente objeto de configuración es inmutable:
+### Acción destructiva
 
-```javascript
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{html,ts}"],
-  theme: {
-    extend: {
-      colors: {
-        primary: { DEFAULT: '#0F766E', hover: '#115E59' },
-        sidebar: '#334155',
-        surface: {
-          main: '#F8FAFC',
-          card: '#FFFFFF',
-          border: '#E2E8F0',
-          soft: '#ECFEFF'
-        },
-        ink: {
-          DEFAULT: '#0F172A',
-          muted: '#64748B'
-        },
-        status: {
-          success: '#16A34A',
-          warning: '#F59E0B',
-          error: '#DC2626'
-        }
-      },
-      fontFamily: {
-        sans: ['Poppins', 'sans-serif']
-      },
-      boxShadow: {
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)'
-      }
-    },
-  },
-  plugins: [require('@tailwindcss/forms')],
-}
-```
+- Rojo semántico.
+- Confirmación previa mediante alerta.
+- No se usa para cerrar una pantalla sin pérdida.
 
-## 5. Topología HTML de Componentes
+### Acción en línea
 
-Para garantizar la modularidad en Angular y evitar layouts rotos, las vistas de tipo Feature deben estructurarse bajo esta jerarquía en el DOM:
+- Configuración `plain` alineada al inicio.
+- Se emplea para mostrar/ocultar DNI sin competir con la acción principal.
 
-- Sidebar (Componente Fijo, anidado en el Layout).
-- Topbar (Componente Fijo, solo con borde inferior, sin sombras pesadas).
-- Header (Título de la vista y acciones primarias, ej. "Nueva Cita").
-- Cards KPI (Métricas superiores, opcional).
-- Filtros (Inputs de búsqueda).
-- Contenido Principal (Tablas o Grillas).
+### Tablas
 
-## 6. Reglas de Renderizado y Animación
+- Celdas prototype con `Reuse Identifier`.
+- Configuración encapsulada en `configure(with:)`.
+- Título, información secundaria y estado distinguibles.
+- Selección conduce a detalle mediante segue.
 
-- **Animaciones Permitidas:** Para no saturar el DOM ni afectar el rendimiento, solo se permiten transiciones CSS nativas: hover, transition, shadow y un ligero scale en botones.
+## 6. Marca gráfica
 
-- **Responsive Design:** La estrategia es Desktop-First para el Back-Office clínico. Prioridad: Desktop -> Tablet -> Mobile.
+El recurso `BrandLogo` incorpora variantes PNG de 128, 256 y 384 px para las escalas 1x, 2x y 3x, y reemplaza automáticamente `mouth.fill` en Login e Inicio. `AppIcon` contiene el icono de distribución de 1024 px sin canal alfa. Recomendaciones para futuras sustituciones:
 
-- **Bordes:** Las tarjetas (Cards) y modales siempre usarán esquinas redondeadas (`rounded-xl` o `rounded-2xl`). Quedan prohibidas las esquinas cuadradas.
+- logo transparente, formato PDF vectorial de un solo scale o PNG `1x/2x/3x`;
+- versión horizontal o isotipo legible sobre fondo claro y oscuro;
+- no incrustar textos demasiado pequeños;
+- el App Icon se gestiona por separado en `AppIcon` y debe entregarse como imagen cuadrada de 1024 × 1024 px sin transparencia.
+
+## 7. Accesibilidad
+
+- Área táctil mínima aproximada de 44 × 44 pt.
+- Etiquetas y hints en acciones no evidentes.
+- No usar solo color para comunicar el estado.
+- Soportar textos largos y Dynamic Type.
+- El DNI se anuncia como visible u oculto.
+- Los indicadores de carga no bloquean indefinidamente una salida o reintento.
+
+## 8. Patrones prohibidos
+
+- Colores hexadecimales dispersos fuera de `DentiCoreTheme`.
+- Tokens o contraseñas visibles.
+- Navegación duplicada entre segue y `pushViewController` para el mismo flujo.
+- Storyboard sin restricciones suficientes.
+- Celdas que dependan de posiciones rígidas.
+- Información clínica sensible dentro de notificaciones locales.

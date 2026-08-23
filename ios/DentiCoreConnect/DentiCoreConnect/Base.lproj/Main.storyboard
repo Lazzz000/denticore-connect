@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T6t-nG-6Wt">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vqm-nR-Q2e">
+                                <rect key="frame" x="28" y="252.33333333333334" width="337" height="347.33333333333326"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mouth.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="c42-Fz-dXJ">
+                                        <rect key="frame" x="0.0" y="4.0000000000000036" width="337" height="56.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="iqj-pK-qVD"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DentiCore Connect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGD-T3-iDS">
+                                        <rect key="frame" x="0.0" y="79.999999999999972" width="337" height="33.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gestiona tus citas y continúa tu cuidado dental" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERs-tf-Lfb">
+                                        <rect key="frame" x="0.0" y="129.66666666666666" width="337" height="17.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="DNI" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xwB-PQ-sSZ">
+                                        <rect key="frame" x="0.0" y="163.33333333333334" width="337" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="3HS-IQ-MD2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y7Z-GE-HPZ">
+                                        <rect key="frame" x="0.0" y="229.33333333333334" width="337" height="50.000000000000028"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="sse-7B-puo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9f-Jj-yvI">
+                                        <rect key="frame" x="0.0" y="295.33333333333326" width="337" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="7rB-c0-jNE"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Ingresar">
+                                            <color key="baseBackgroundColor" systemColor="linkColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pfg-Q7-LWg"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Doa-Pq-rke">
+                                        <rect key="frame" x="158.66666666666666" y="363.33333333333331" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mensaje de error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DS-6r-GjM">
+                                        <rect key="frame" x="0.0" y="399.33333333333331" width="337" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vqm-nR-Q2e" secondAttribute="trailing" constant="28" id="INn-5P-f2Z"/>
+                            <constraint firstItem="vqm-nR-Q2e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="28" id="OaN-Ko-dmV"/>
+                            <constraint firstItem="vqm-nR-Q2e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rjG-9i-Vkv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="C24-oL-f8J"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Doa-Pq-rke" id="9ez-9z-MTd"/>
+                        <outlet property="brandImageView" destination="c42-Fz-dXJ" id="LOG-outlet-brand"/>
+                        <outlet property="dniTextField" destination="xwB-PQ-sSZ" id="Ntb-sE-fXn"/>
+                        <outlet property="errorLabel" destination="0DS-6r-GjM" id="mlO-yZ-0Sl"/>
+                        <outlet property="loginButton" destination="V9f-Jj-yvI" id="TwY-LR-gGV"/>
+                        <outlet property="passwordTextField" destination="Y7Z-GE-HPZ" id="Hi3-a3-hJ8"/>
+                        <segue destination="TAB-vc-001" kind="presentation" identifier="showMain" modalPresentationStyle="fullScreen" id="aWc-6P-lzm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1028.2442748091603" y="103.52112676056339"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="jWl-Gf-4WG">
+            <objects>
+                <viewController id="Jmh-31-dGx" customClass="HomeViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nIF-mV-P9T">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-scroll-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-stack-001">
+                                        <rect key="frame" x="20" y="24" width="353" height="566"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mouth.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-image-001">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="HOM-image-height"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Bienvenido" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-welcome-001">
+                                                <rect key="frame" x="0.0" y="68" width="353" height="34"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Cargando información de la clínica…" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-clinic-001">
+                                                <rect key="frame" x="0.0" y="118" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-activity-001">
+                                                <rect key="frame" x="166.5" y="156" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar la información." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-error-001">
+                                                <rect key="frame" x="0.0" y="192" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-retry-001">
+                                                <rect key="frame" x="0.0" y="226" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="HOM-retry-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Reintentar"/>
+                                                <connections>
+                                                    <action selector="retryButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-retry"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Próxima cita" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-upcoming-title-001">
+                                                <rect key="frame" x="0.0" y="192" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-upcoming-001">
+                                                <rect key="frame" x="0.0" y="232" width="353" height="108"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="108" id="HOM-upcoming-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Próxima cita"/>
+                                                <connections>
+                                                    <action selector="upcomingAppointmentButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-upcoming"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Acciones rápidas" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-actions-title-001">
+                                                <rect key="frame" x="0.0" y="356" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-specialties-001">
+                                                <rect key="frame" x="0.0" y="396" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="HOM-specialties-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="filled" title="Agendar nueva cita">
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="specialtiesButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-specialties"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-appointments-001">
+                                                <rect key="frame" x="0.0" y="464" width="353" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="HOM-appointments-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Ver todas mis citas" image="calendar" catalog="system" imagePadding="8"/>
+                                                <connections>
+                                                    <action selector="appointmentsButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-appointments"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="contentLayoutGuide" id="HOM-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="HOM-frame-guide"/>
+                                <constraints>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="top" secondItem="HOM-content-guide" secondAttribute="top" constant="24" id="HOM-stack-top"/>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="leading" secondItem="HOM-content-guide" secondAttribute="leading" constant="20" id="HOM-stack-leading"/>
+                                    <constraint firstItem="HOM-content-guide" firstAttribute="trailing" secondItem="HOM-stack-001" secondAttribute="trailing" constant="20" id="HOM-stack-trailing"/>
+                                    <constraint firstItem="HOM-content-guide" firstAttribute="bottom" secondItem="HOM-stack-001" secondAttribute="bottom" constant="24" id="HOM-stack-bottom"/>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="width" secondItem="HOM-frame-guide" secondAttribute="width" constant="-40" id="HOM-stack-width"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eWN-QM-vK5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HOM-scroll-001" firstAttribute="top" secondItem="eWN-QM-vK5" secondAttribute="top" id="HOM-scroll-top"/>
+                            <constraint firstItem="HOM-scroll-001" firstAttribute="leading" secondItem="nIF-mV-P9T" secondAttribute="leading" id="HOM-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="HOM-scroll-001" secondAttribute="trailing" id="HOM-scroll-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="HOM-scroll-001" secondAttribute="bottom" id="HOM-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Inicio" id="XbK-HT-pEY"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="HOM-activity-001" id="HOM-outlet-activity"/>
+                        <outlet property="appointmentsButton" destination="HOM-appointments-001" id="HOM-outlet-appointments"/>
+                        <outlet property="brandImageView" destination="HOM-image-001" id="HOM-outlet-brand"/>
+                        <outlet property="clinicLabel" destination="HOM-clinic-001" id="HOM-outlet-clinic"/>
+                        <outlet property="errorLabel" destination="HOM-error-001" id="HOM-outlet-error"/>
+                        <outlet property="retryButton" destination="HOM-retry-001" id="HOM-outlet-retry"/>
+                        <outlet property="specialtiesButton" destination="HOM-specialties-001" id="HOM-outlet-specialties"/>
+                        <outlet property="upcomingAppointmentButton" destination="HOM-upcoming-001" id="HOM-outlet-upcoming"/>
+                        <outlet property="welcomeLabel" destination="HOM-welcome-001" id="HOM-outlet-welcome"/>
+                        <segue destination="SPC-vc-001" kind="show" identifier="showSpecialties" id="HOM-segue-specialties"/>
+                        <segue destination="DTL-vc-001" kind="show" identifier="showUpcomingAppointment" id="HOM-segue-upcoming"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uL4-Ll-WAC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="120"/>
+        </scene>
+        <!--Specialties View Controller-->
+        <scene sceneID="SPC-scene-001">
+            <objects>
+                <viewController id="SPC-vc-001" customClass="SpecialtiesViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SPC-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="72" estimatedRowHeight="72" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SpecialtyCell" rowHeight="72" id="SPC-cell-001" customClass="SpecialtyTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SPC-cell-001" id="SPC-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-icon-001">
+                                                    <rect key="frame" x="20" y="21" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="SPC-icon-width"/>
+                                                        <constraint firstAttribute="height" constant="30" id="SPC-icon-height"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-name-001">
+                                                    <rect key="frame" x="66" y="25" width="234" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SPC-icon-001" firstAttribute="leading" secondItem="SPC-content-001" secondAttribute="leading" constant="20" id="SPC-icon-leading"/>
+                                                <constraint firstItem="SPC-icon-001" firstAttribute="centerY" secondItem="SPC-content-001" secondAttribute="centerY" id="SPC-icon-centerY"/>
+                                                <constraint firstItem="SPC-name-001" firstAttribute="leading" secondItem="SPC-icon-001" secondAttribute="trailing" constant="16" id="SPC-name-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="SPC-name-001" secondAttribute="trailing" constant="20" id="SPC-name-trailing"/>
+                                                <constraint firstItem="SPC-name-001" firstAttribute="centerY" secondItem="SPC-content-001" secondAttribute="centerY" id="SPC-name-centerY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="SPC-name-001" id="SPC-outlet-name"/>
+                                            <outlet property="specialtyIconImageView" destination="SPC-icon-001" id="SPC-outlet-icon"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-state-stack">
+                                <rect key="frame" x="32" y="390" width="329" height="72"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar las especialidades." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-error-001">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="SPC-retry-001">
+                                        <rect key="frame" x="125" y="48" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="SPC-vc-001" eventType="touchUpInside" id="SPC-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SPC-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SPC-table-001" firstAttribute="top" secondItem="SPC-safe-001" secondAttribute="top" id="SPC-table-top"/>
+                            <constraint firstItem="SPC-table-001" firstAttribute="leading" secondItem="SPC-view-001" secondAttribute="leading" id="SPC-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="SPC-table-001" secondAttribute="trailing" id="SPC-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="SPC-table-001" secondAttribute="bottom" id="SPC-table-bottom"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="centerX" secondItem="SPC-view-001" secondAttribute="centerX" id="SPC-state-centerX"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="centerY" secondItem="SPC-view-001" secondAttribute="centerY" id="SPC-state-centerY"/>
+                            <constraint firstItem="SPC-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SPC-safe-001" secondAttribute="leading" constant="32" id="SPC-state-leading"/>
+                            <constraint firstItem="SPC-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SPC-state-stack" secondAttribute="trailing" constant="32" id="SPC-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Especialidades" id="SPC-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="SPC-activity-001" id="SPC-outlet-activity"/>
+                        <outlet property="errorLabel" destination="SPC-error-001" id="SPC-outlet-error"/>
+                        <outlet property="retryButton" destination="SPC-retry-001" id="SPC-outlet-retry"/>
+                        <outlet property="tableView" destination="SPC-table-001" id="SPC-outlet-table"/>
+                        <segue destination="SRV-vc-001" kind="show" identifier="showServices" id="SPC-segue-services"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="120"/>
+        </scene>
+        <!--Services View Controller-->
+        <scene sceneID="SRV-scene-001">
+            <objects>
+                <viewController id="SRV-vc-001" customClass="ServicesViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SRV-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="96" estimatedRowHeight="96" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ServiceCell" rowHeight="96" id="SRV-cell-001" customClass="ServiceTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SRV-cell-001" id="SRV-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-cell-stack">
+                                                    <rect key="frame" x="20" y="12" width="313" height="72"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-name-001">
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Código · duración" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-details-001">
+                                                            <rect key="frame" x="0.0" y="26" width="313" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="S/ 0.00" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-price-001">
+                                                            <rect key="frame" x="0.0" y="48" width="313" height="22"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SRV-cell-stack" firstAttribute="top" secondItem="SRV-content-001" secondAttribute="top" constant="12" id="SRV-stack-top"/>
+                                                <constraint firstItem="SRV-cell-stack" firstAttribute="leading" secondItem="SRV-content-001" secondAttribute="leading" constant="20" id="SRV-stack-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="SRV-cell-stack" secondAttribute="trailing" constant="20" id="SRV-stack-trailing"/>
+                                                <constraint firstAttribute="bottom" secondItem="SRV-cell-stack" secondAttribute="bottom" constant="12" id="SRV-stack-bottom"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="detailsLabel" destination="SRV-details-001" id="SRV-outlet-details"/>
+                                            <outlet property="nameLabel" destination="SRV-name-001" id="SRV-outlet-name"/>
+                                            <outlet property="priceLabel" destination="SRV-price-001" id="SRV-outlet-price"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-state-stack">
+                                <rect key="frame" x="32" y="390" width="329" height="72"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar los servicios." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-error-001">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-retry-001">
+                                        <rect key="frame" x="125" y="48" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="SRV-vc-001" eventType="touchUpInside" id="SRV-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SRV-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SRV-table-001" firstAttribute="top" secondItem="SRV-safe-001" secondAttribute="top" id="SRV-table-top"/>
+                            <constraint firstItem="SRV-table-001" firstAttribute="leading" secondItem="SRV-view-001" secondAttribute="leading" id="SRV-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="SRV-table-001" secondAttribute="trailing" id="SRV-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="SRV-table-001" secondAttribute="bottom" id="SRV-table-bottom"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="centerX" secondItem="SRV-view-001" secondAttribute="centerX" id="SRV-state-centerX"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="centerY" secondItem="SRV-view-001" secondAttribute="centerY" id="SRV-state-centerY"/>
+                            <constraint firstItem="SRV-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SRV-safe-001" secondAttribute="leading" constant="32" id="SRV-state-leading"/>
+                            <constraint firstItem="SRV-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SRV-state-stack" secondAttribute="trailing" constant="32" id="SRV-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Servicios" id="SRV-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="SRV-activity-001" id="SRV-outlet-activity"/>
+                        <outlet property="errorLabel" destination="SRV-error-001" id="SRV-outlet-error"/>
+                        <outlet property="retryButton" destination="SRV-retry-001" id="SRV-outlet-retry"/>
+                        <outlet property="tableView" destination="SRV-table-001" id="SRV-outlet-table"/>
+                        <segue destination="APT-vc-001" kind="show" identifier="showBooking" id="SRV-segue-booking"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRV-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3489" y="120"/>
+        </scene>
+        <!--Appointment View Controller-->
+        <scene sceneID="APT-scene-001">
+            <objects>
+                <viewController id="APT-vc-001" customClass="AppointmentViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="APT-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="APT-stack-001">
+                                <rect key="frame" x="20" y="188" width="353" height="592"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="APT-service-name">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad · 30 min" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-service-details">
+                                        <rect key="frame" x="0.0" y="37" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-dentist-title">
+                                        <rect key="frame" x="0.0" y="63" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APT-dentist-picker">
+                                        <rect key="frame" x="0.0" y="91" width="353" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="APT-dentist-height"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Fecha" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-date-title">
+                                        <rect key="frame" x="0.0" y="189" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" datePickerMode="date" preferredDatePickerStyle="compact" translatesAutoresizingMaskIntoConstraints="NO" id="APT-date-picker">
+                                        <rect key="frame" x="0.0" y="217" width="353" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="APT-date-height"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="dateChanged:" destination="APT-vc-001" eventType="valueChanged" id="APT-action-date"/>
+                                        </connections>
+                                    </datePicker>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Horario disponible" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-time-title">
+                                        <rect key="frame" x="0.0" y="261" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APT-time-picker">
+                                        <rect key="frame" x="0.0" y="289" width="353" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="APT-time-height"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nota para la clínica (opcional)" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-notes-title">
+                                        <rect key="frame" x="0.0" y="387" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="APT-notes-text">
+                                        <rect key="frame" x="0.0" y="415" width="353" height="70"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="APT-notes-height"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="APT-book-button">
+                                        <rect key="frame" x="0.0" y="493" width="353" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="APT-book-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="filled" title="Confirmar cita"/>
+                                        <connections>
+                                            <action selector="bookButtonTapped:" destination="APT-vc-001" eventType="touchUpInside" id="APT-action-book"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="APT-activity">
+                                        <rect key="frame" x="166.5" y="553" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible completar la operación." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="APT-error">
+                                        <rect key="frame" x="0.0" y="581" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="APT-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="APT-stack-001" firstAttribute="top" secondItem="APT-safe-001" secondAttribute="top" constant="16" id="APT-stack-top"/>
+                            <constraint firstItem="APT-stack-001" firstAttribute="leading" secondItem="APT-safe-001" secondAttribute="leading" constant="20" id="APT-stack-leading"/>
+                            <constraint firstItem="APT-safe-001" firstAttribute="trailing" secondItem="APT-stack-001" secondAttribute="trailing" constant="20" id="APT-stack-trailing"/>
+                            <constraint firstItem="APT-safe-001" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="APT-stack-001" secondAttribute="bottom" constant="16" id="APT-stack-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Programar cita" id="APT-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="APT-activity" id="APT-outlet-activity"/>
+                        <outlet property="bookButton" destination="APT-book-button" id="APT-outlet-book"/>
+                        <outlet property="datePicker" destination="APT-date-picker" id="APT-outlet-date"/>
+                        <outlet property="dentistPickerView" destination="APT-dentist-picker" id="APT-outlet-dentist"/>
+                        <outlet property="errorLabel" destination="APT-error" id="APT-outlet-error"/>
+                        <outlet property="notesTextView" destination="APT-notes-text" id="APT-outlet-notes"/>
+                        <outlet property="serviceDetailsLabel" destination="APT-service-details" id="APT-outlet-service-details"/>
+                        <outlet property="serviceNameLabel" destination="APT-service-name" id="APT-outlet-service-name"/>
+                        <outlet property="timePickerView" destination="APT-time-picker" id="APT-outlet-time"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="APT-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4310" y="120"/>
+        </scene>
+        <!--Appointments List View Controller-->
+        <scene sceneID="LST-scene-001">
+            <objects>
+                <viewController id="LST-vc-001" customClass="AppointmentsListViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LST-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="116" estimatedRowHeight="116" translatesAutoresizingMaskIntoConstraints="NO" id="LST-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AppointmentCell" rowHeight="116" id="LST-cell-001" customClass="AppointmentTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="116"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LST-cell-001" id="LST-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="116"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="LST-cell-stack">
+                                                    <rect key="frame" x="16" y="12" width="321" height="92"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-service-001">
+                                                            <rect key="frame" x="0.0" y="0.0" width="321" height="22"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lunes 24 de agosto · 2:00 p. m." lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LST-date-001">
+                                                            <rect key="frame" x="0.0" y="26" width="321" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo · Sede" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-dentist-001">
+                                                            <rect key="frame" x="0.0" y="48" width="321" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pendiente" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LST-status-001">
+                                                            <rect key="frame" x="0.0" y="70" width="321" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LST-cell-stack" firstAttribute="top" secondItem="LST-content-001" secondAttribute="top" constant="12" id="LST-cell-top"/>
+                                                <constraint firstItem="LST-cell-stack" firstAttribute="leading" secondItem="LST-content-001" secondAttribute="leading" constant="16" id="LST-cell-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="LST-cell-stack" secondAttribute="trailing" constant="16" id="LST-cell-trailing"/>
+                                                <constraint firstAttribute="bottom" secondItem="LST-cell-stack" secondAttribute="bottom" constant="12" id="LST-cell-bottom"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="LST-date-001" id="LST-outlet-date"/>
+                                            <outlet property="dentistLabel" destination="LST-dentist-001" id="LST-outlet-dentist"/>
+                                            <outlet property="serviceLabel" destination="LST-service-001" id="LST-outlet-service"/>
+                                            <outlet property="statusLabel" destination="LST-status-001" id="LST-outlet-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LST-state-stack">
+                                <rect key="frame" x="32" y="382" width="329" height="88"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="LST-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Todavía no tienes citas registradas." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-state-label">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="LST-retry-001">
+                                        <rect key="frame" x="125" y="78" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="LST-vc-001" eventType="touchUpInside" id="LST-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LST-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LST-table-001" firstAttribute="top" secondItem="LST-safe-001" secondAttribute="top" id="LST-table-top"/>
+                            <constraint firstItem="LST-table-001" firstAttribute="leading" secondItem="LST-view-001" secondAttribute="leading" id="LST-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="LST-table-001" secondAttribute="trailing" id="LST-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="LST-table-001" secondAttribute="bottom" id="LST-table-bottom"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="centerX" secondItem="LST-view-001" secondAttribute="centerX" id="LST-state-centerX"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="centerY" secondItem="LST-view-001" secondAttribute="centerY" id="LST-state-centerY"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LST-safe-001" secondAttribute="leading" constant="32" id="LST-state-leading"/>
+                            <constraint firstItem="LST-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LST-state-stack" secondAttribute="trailing" constant="32" id="LST-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mis citas" id="LST-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="LST-activity-001" id="LST-outlet-activity"/>
+                        <outlet property="retryButton" destination="LST-retry-001" id="LST-outlet-retry"/>
+                        <outlet property="stateLabel" destination="LST-state-label" id="LST-outlet-state"/>
+                        <outlet property="tableView" destination="LST-table-001" id="LST-outlet-table"/>
+                        <segue destination="DTL-vc-001" kind="show" identifier="showAppointmentDetail" id="LST-segue-detail"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LST-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="920"/>
+        </scene>
+        <!--Appointment Detail View Controller-->
+        <scene sceneID="DTL-scene-001">
+            <objects>
+                <viewController id="DTL-vc-001" customClass="AppointmentDetailViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DTL-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-stack-001">
+                                <rect key="frame" x="20" y="188" width="353" height="470"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-service-001">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-specialty-001">
+                                        <rect key="frame" x="0.0" y="37" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pendiente" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-status-001">
+                                        <rect key="frame" x="0.0" y="63" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Fecha y hora" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-date-title">
+                                        <rect key="frame" x="0.0" y="93" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lunes 24 de agosto · 2:00 p. m." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-date-001">
+                                        <rect key="frame" x="0.0" y="119" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-dentist-title">
+                                        <rect key="frame" x="0.0" y="149" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nombre del odontólogo" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-dentist-001">
+                                        <rect key="frame" x="0.0" y="175" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sede" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-location-title">
+                                        <rect key="frame" x="0.0" y="205" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sede principal" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-location-001">
+                                        <rect key="frame" x="0.0" y="231" width="353" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nota para la clínica" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-notes-title">
+                                        <rect key="frame" x="0.0" y="261" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Sin indicaciones adicionales." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-notes-001">
+                                        <rect key="frame" x="0.0" y="287" width="353" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-cancel-001">
+                                        <rect key="frame" x="0.0" y="335" width="353" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="DTL-cancel-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar cita">
+                                            <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="DTL-vc-001" eventType="touchUpInside" id="DTL-action-cancel"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-activity-001">
+                                        <rect key="frame" x="166.5" y="395" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible completar la operación." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="DTL-error-001">
+                                        <rect key="frame" x="0.0" y="423" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DTL-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DTL-stack-001" firstAttribute="top" secondItem="DTL-safe-001" secondAttribute="top" constant="16" id="DTL-stack-top"/>
+                            <constraint firstItem="DTL-stack-001" firstAttribute="leading" secondItem="DTL-safe-001" secondAttribute="leading" constant="20" id="DTL-stack-leading"/>
+                            <constraint firstItem="DTL-safe-001" firstAttribute="trailing" secondItem="DTL-stack-001" secondAttribute="trailing" constant="20" id="DTL-stack-trailing"/>
+                            <constraint firstItem="DTL-safe-001" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DTL-stack-001" secondAttribute="bottom" constant="16" id="DTL-stack-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalle de cita" id="DTL-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="DTL-activity-001" id="DTL-outlet-activity"/>
+                        <outlet property="cancelButton" destination="DTL-cancel-001" id="DTL-outlet-cancel"/>
+                        <outlet property="dateLabel" destination="DTL-date-001" id="DTL-outlet-date"/>
+                        <outlet property="dentistLabel" destination="DTL-dentist-001" id="DTL-outlet-dentist"/>
+                        <outlet property="errorLabel" destination="DTL-error-001" id="DTL-outlet-error"/>
+                        <outlet property="locationLabel" destination="DTL-location-001" id="DTL-outlet-location"/>
+                        <outlet property="notesLabel" destination="DTL-notes-001" id="DTL-outlet-notes"/>
+                        <outlet property="serviceLabel" destination="DTL-service-001" id="DTL-outlet-service"/>
+                        <outlet property="specialtyLabel" destination="DTL-specialty-001" id="DTL-outlet-specialty"/>
+                        <outlet property="statusLabel" destination="DTL-status-001" id="DTL-outlet-status"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DTL-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3489" y="920"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="PRO-scene-001">
+            <objects>
+                <viewController id="PRO-vc-001" customClass="ProfileViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PRO-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-scroll-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="597"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-stack-001">
+                                        <rect key="frame" x="20" y="24" width="353" height="622"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-avatar-001">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="88"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="88" id="PRO-avatar-height"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Paciente" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-name-001">
+                                                <rect key="frame" x="0.0" y="100" width="353" height="29"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Información personal" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-personal-title">
+                                                <rect key="frame" x="0.0" y="141" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="DNI: •••• 0000" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-dni-001">
+                                                <rect key="frame" x="0.0" y="177" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-dni-visibility-001">
+                                                <rect key="frame" x="0.0" y="211" width="353" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="PRO-dni-visibility-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Mostrar DNI"/>
+                                                <connections>
+                                                    <action selector="dniVisibilityButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-dni-visibility"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Correo: No registrado" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-email-001">
+                                                <rect key="frame" x="0.0" y="255" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Clínica vinculada" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-clinic-title">
+                                                <rect key="frame" x="0.0" y="289" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Clínica dental" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-clinic-001">
+                                                <rect key="frame" x="0.0" y="325" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Recordatorios" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-title">
+                                                <rect key="frame" x="0.0" y="359" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Consultando permiso…" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-status">
+                                                <rect key="frame" x="0.0" y="395" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-button">
+                                                <rect key="frame" x="0.0" y="429" width="353" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="PRO-notification-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Configurar notificaciones"/>
+                                                <connections>
+                                                    <action selector="notificationButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-notification"/>
+                                                </connections>
+                                            </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-activity-001">
+                                                <rect key="frame" x="166.5" y="489" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No se pudo cargar el perfil." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-error-001">
+                                                <rect key="frame" x="0.0" y="521" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-retry-001">
+                                                <rect key="frame" x="0.0" y="551" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="PRO-retry-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Reintentar"/>
+                                                <connections>
+                                                    <action selector="retryButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-retry"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="DentiCore Connect · Versión 0.1.0 (1)" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-version-001">
+                                                <rect key="frame" x="0.0" y="521" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-logout-001">
+                                                <rect key="frame" x="0.0" y="551" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="PRO-logout-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="filled" title="Cerrar sesión">
+                                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="logoutButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-logout"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="contentLayoutGuide" id="PRO-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="PRO-frame-guide"/>
+                                <constraints>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="top" secondItem="PRO-content-guide" secondAttribute="top" constant="24" id="PRO-stack-top"/>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="leading" secondItem="PRO-content-guide" secondAttribute="leading" constant="20" id="PRO-stack-leading"/>
+                                    <constraint firstItem="PRO-content-guide" firstAttribute="trailing" secondItem="PRO-stack-001" secondAttribute="trailing" constant="20" id="PRO-stack-trailing"/>
+                                    <constraint firstItem="PRO-content-guide" firstAttribute="bottom" secondItem="PRO-stack-001" secondAttribute="bottom" constant="24" id="PRO-stack-bottom"/>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="width" secondItem="PRO-frame-guide" secondAttribute="width" constant="-40" id="PRO-stack-width"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PRO-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PRO-scroll-001" firstAttribute="top" secondItem="PRO-safe-001" secondAttribute="top" id="PRO-scroll-top"/>
+                            <constraint firstItem="PRO-scroll-001" firstAttribute="leading" secondItem="PRO-view-001" secondAttribute="leading" id="PRO-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="PRO-scroll-001" secondAttribute="trailing" id="PRO-scroll-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="PRO-scroll-001" secondAttribute="bottom" id="PRO-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Perfil" id="PRO-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="PRO-activity-001" id="PRO-outlet-activity"/>
+                        <outlet property="avatarImageView" destination="PRO-avatar-001" id="PRO-outlet-avatar"/>
+                        <outlet property="clinicLabel" destination="PRO-clinic-001" id="PRO-outlet-clinic"/>
+                        <outlet property="dniLabel" destination="PRO-dni-001" id="PRO-outlet-dni"/>
+                        <outlet property="dniVisibilityButton" destination="PRO-dni-visibility-001" id="PRO-outlet-dni-visibility"/>
+                        <outlet property="emailLabel" destination="PRO-email-001" id="PRO-outlet-email"/>
+                        <outlet property="errorLabel" destination="PRO-error-001" id="PRO-outlet-error"/>
+                        <outlet property="logoutButton" destination="PRO-logout-001" id="PRO-outlet-logout"/>
+                        <outlet property="nameLabel" destination="PRO-name-001" id="PRO-outlet-name"/>
+                        <outlet property="notificationButton" destination="PRO-notification-button" id="PRO-outlet-notification-button"/>
+                        <outlet property="notificationStatusLabel" destination="PRO-notification-status" id="PRO-outlet-notification-status"/>
+                        <outlet property="retryButton" destination="PRO-retry-001" id="PRO-outlet-retry"/>
+                        <outlet property="versionLabel" destination="PRO-version-001" id="PRO-outlet-version"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PRO-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="1710"/>
+        </scene>
+        <!--Authenticated Tab Bar Controller-->
+        <scene sceneID="TAB-scene-001">
+            <objects>
+                <tabBarController id="TAB-vc-001" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="TAB-bar-001">
+                        <rect key="frame" x="0.0" y="769" width="393" height="83"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="NAV-home-001" kind="relationship" relationship="viewControllers" id="TAB-segue-home"/>
+                        <segue destination="NAV-appointments-001" kind="relationship" relationship="viewControllers" id="TAB-segue-appointments"/>
+                        <segue destination="NAV-profile-001" kind="relationship" relationship="viewControllers" id="TAB-segue-profile"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TAB-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1028" y="920"/>
+        </scene>
+        <!--Home Navigation Controller-->
+        <scene sceneID="NAV-home-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-home-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inicio" image="house.fill" catalog="system" id="TAB-item-home"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-home-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jmh-31-dGx" kind="relationship" relationship="rootViewController" id="NAV-home-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-home-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="920"/>
+        </scene>
+        <!--Appointments Navigation Controller-->
+        <scene sceneID="NAV-appointments-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-appointments-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Citas" image="calendar" catalog="system" id="TAB-item-appointments"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-appointments-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="LST-vc-001" kind="relationship" relationship="rootViewController" id="NAV-appointments-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-appointments-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1320"/>
+        </scene>
+        <!--Profile Navigation Controller-->
+        <scene sceneID="NAV-profile-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-profile-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Perfil" image="person.crop.circle" catalog="system" id="TAB-item-profile"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-profile-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PRO-vc-001" kind="relationship" relationship="rootViewController" id="NAV-profile-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-profile-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1710"/>
+        </scene>
+        <!--Login Navigation Controller-->
+        <scene sceneID="SVT-pf-see">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="T6t-nG-6Wt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vNu-td-TnO">
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="uGC-cN-u0M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fef-Fr-0gg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.5267175572519" y="103.52112676056339"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="house.fill" catalog="system" width="128" height="113"/>
+        <image name="mouth.fill" catalog="system" width="128" height="66"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

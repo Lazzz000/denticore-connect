@@ -2,13 +2,13 @@ package com.cibertec.denticore.crm.dto.response;
 
 import lombok.Data;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Data
 public class CitaListadoDTO {
 
     private Integer idCita;
-    private LocalDateTime fechaHora;
+    private OffsetDateTime fechaHora;
     private Integer idPaciente;
     private String pacienteNombreCompleto;
     private String pacienteDni;

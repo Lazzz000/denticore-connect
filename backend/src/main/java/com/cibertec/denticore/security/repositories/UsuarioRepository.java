@@ -11,4 +11,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     // Spring Data genera automáticamente el SQL basado en el nombre del método
     Optional<Usuario> findByDni(String dni);
     Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+    boolean existsByCorreoIgnoreCase(String correo);
 }
