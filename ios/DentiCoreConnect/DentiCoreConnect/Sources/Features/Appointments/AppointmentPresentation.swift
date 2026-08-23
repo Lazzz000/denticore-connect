@@ -2,7 +2,7 @@ import UIKit
 
 enum AppointmentPresentation {
     static func formattedDate(_ value: String) -> String {
-        guard let date = parseISO8601(value) else { return value }
+        guard let date = date(from: value) else { return value }
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "es_PE")
         formatter.timeZone = TimeZone(identifier: "America/Lima")
@@ -32,7 +32,7 @@ enum AppointmentPresentation {
         ["PENDIENTE", "CONFIRMADA"].contains(appointment.estado.uppercased())
     }
 
-    private static func parseISO8601(_ value: String) -> Date? {
+    static func date(from value: String) -> Date? {
         let fractional = ISO8601DateFormatter()
         fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         return fractional.date(from: value) ?? ISO8601DateFormatter().date(from: value)
