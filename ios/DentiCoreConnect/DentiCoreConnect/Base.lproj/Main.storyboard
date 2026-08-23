@@ -109,77 +109,114 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-stack-001">
-                                <rect key="frame" x="28" y="235" width="337" height="382"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-scroll-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mouth.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-image-001">
-                                        <rect key="frame" x="0.0" y="0.0" width="337" height="72"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="72" id="HOM-image-height"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Bienvenido" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-welcome-001">
-                                        <rect key="frame" x="0.0" y="88" width="337" height="34"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Cargando información del paciente…" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-clinic-001">
-                                        <rect key="frame" x="0.0" y="138" width="337" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-activity-001">
-                                        <rect key="frame" x="158.5" y="214" width="20" height="20"/>
-                                    </activityIndicatorView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar la información." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-error-001">
-                                        <rect key="frame" x="0.0" y="250" width="337" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" systemColor="systemRedColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-specialties-001">
-                                        <rect key="frame" x="0.0" y="250" width="337" height="52"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="52" id="HOM-specialties-height"/>
-                                        </constraints>
-                                        <buttonConfiguration key="configuration" style="filled" title="Explorar especialidades">
-                                            <color key="baseBackgroundColor" systemColor="linkColor"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="specialtiesButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-specialties"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-appointments-001">
-                                        <rect key="frame" x="0.0" y="318" width="337" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="HOM-appointments-height"/>
-                                        </constraints>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Mis citas" image="calendar" catalog="system" imagePadding="8"/>
-                                        <connections>
-                                            <action selector="appointmentsButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-appointments"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-retry-001">
-                                        <rect key="frame" x="0.0" y="318" width="337" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="HOM-retry-height"/>
-                                        </constraints>
-                                        <state key="normal" title="Reintentar"/>
-                                        <connections>
-                                            <action selector="retryButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-retry"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-stack-001">
+                                        <rect key="frame" x="20" y="24" width="353" height="566"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mouth.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-image-001">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="HOM-image-height"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Bienvenido" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-welcome-001">
+                                                <rect key="frame" x="0.0" y="68" width="353" height="34"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Cargando información de la clínica…" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-clinic-001">
+                                                <rect key="frame" x="0.0" y="118" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-activity-001">
+                                                <rect key="frame" x="166.5" y="156" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible cargar la información." lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-error-001">
+                                                <rect key="frame" x="0.0" y="192" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-retry-001">
+                                                <rect key="frame" x="0.0" y="226" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="HOM-retry-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Reintentar"/>
+                                                <connections>
+                                                    <action selector="retryButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-retry"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Próxima cita" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-upcoming-title-001">
+                                                <rect key="frame" x="0.0" y="192" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-upcoming-001">
+                                                <rect key="frame" x="0.0" y="232" width="353" height="108"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="108" id="HOM-upcoming-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Próxima cita"/>
+                                                <connections>
+                                                    <action selector="upcomingAppointmentButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-upcoming"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Acciones rápidas" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-actions-title-001">
+                                                <rect key="frame" x="0.0" y="356" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-specialties-001">
+                                                <rect key="frame" x="0.0" y="396" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="HOM-specialties-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="filled" title="Agendar nueva cita">
+                                                    <color key="baseBackgroundColor" systemColor="linkColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="specialtiesButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-specialties"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-appointments-001">
+                                                <rect key="frame" x="0.0" y="464" width="353" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="HOM-appointments-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="tinted" title="Ver todas mis citas" image="calendar" catalog="system" imagePadding="8"/>
+                                                <connections>
+                                                    <action selector="appointmentsButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-appointments"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <viewLayoutGuide key="contentLayoutGuide" id="HOM-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="HOM-frame-guide"/>
+                                <constraints>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="top" secondItem="HOM-content-guide" secondAttribute="top" constant="24" id="HOM-stack-top"/>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="leading" secondItem="HOM-content-guide" secondAttribute="leading" constant="20" id="HOM-stack-leading"/>
+                                    <constraint firstItem="HOM-content-guide" firstAttribute="trailing" secondItem="HOM-stack-001" secondAttribute="trailing" constant="20" id="HOM-stack-trailing"/>
+                                    <constraint firstItem="HOM-content-guide" firstAttribute="bottom" secondItem="HOM-stack-001" secondAttribute="bottom" constant="24" id="HOM-stack-bottom"/>
+                                    <constraint firstItem="HOM-stack-001" firstAttribute="width" secondItem="HOM-frame-guide" secondAttribute="width" constant="-40" id="HOM-stack-width"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eWN-QM-vK5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="HOM-stack-001" firstAttribute="leading" secondItem="eWN-QM-vK5" secondAttribute="leading" constant="28" id="HOM-leading"/>
-                            <constraint firstItem="eWN-QM-vK5" firstAttribute="trailing" secondItem="HOM-stack-001" secondAttribute="trailing" constant="28" id="HOM-trailing"/>
-                            <constraint firstItem="HOM-stack-001" firstAttribute="centerY" secondItem="nIF-mV-P9T" secondAttribute="centerY" id="HOM-centerY"/>
+                            <constraint firstItem="HOM-scroll-001" firstAttribute="top" secondItem="eWN-QM-vK5" secondAttribute="top" id="HOM-scroll-top"/>
+                            <constraint firstItem="HOM-scroll-001" firstAttribute="leading" secondItem="nIF-mV-P9T" secondAttribute="leading" id="HOM-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="HOM-scroll-001" secondAttribute="trailing" id="HOM-scroll-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="HOM-scroll-001" secondAttribute="bottom" id="HOM-scroll-bottom"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Inicio" id="XbK-HT-pEY">
@@ -196,9 +233,11 @@
                         <outlet property="errorLabel" destination="HOM-error-001" id="HOM-outlet-error"/>
                         <outlet property="retryButton" destination="HOM-retry-001" id="HOM-outlet-retry"/>
                         <outlet property="specialtiesButton" destination="HOM-specialties-001" id="HOM-outlet-specialties"/>
+                        <outlet property="upcomingAppointmentButton" destination="HOM-upcoming-001" id="HOM-outlet-upcoming"/>
                         <outlet property="welcomeLabel" destination="HOM-welcome-001" id="HOM-outlet-welcome"/>
                         <segue destination="SPC-vc-001" kind="show" identifier="showSpecialties" id="HOM-segue-specialties"/>
                         <segue destination="LST-vc-001" kind="show" identifier="showAppointments" id="HOM-segue-appointments"/>
+                        <segue destination="DTL-vc-001" kind="show" identifier="showUpcomingAppointment" id="HOM-segue-upcoming"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uL4-Ll-WAC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
