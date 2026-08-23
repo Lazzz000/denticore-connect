@@ -16,6 +16,10 @@ final class AppointmentsListViewController: UIViewController {
         super.viewDidLoad()
         configureInterface()
         loadCachedAppointments()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadRemoteAppointments()
     }
 
@@ -131,6 +135,18 @@ final class AppointmentsListViewController: UIViewController {
     @IBAction private func retryButtonTapped(_ sender: UIButton) {
         loadRemoteAppointments()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == "showAppointmentDetail",
+            let destination = segue.destination as? AppointmentDetailViewController,
+            let appointment = sender as? PatientAppointment
+        else {
+            return
+        }
+
+        destination.appointment = appointment
+    }
 }
 
 extension AppointmentsListViewController: UITableViewDataSource {
@@ -158,5 +174,9 @@ extension AppointmentsListViewController: UITableViewDataSource {
 extension AppointmentsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(
+            withIdentifier: "showAppointmentDetail",
+            sender: appointments[indexPath.row]
+        )
     }
 }
