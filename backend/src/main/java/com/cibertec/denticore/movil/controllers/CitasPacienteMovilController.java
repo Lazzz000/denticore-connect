@@ -1,6 +1,7 @@
 package com.cibertec.denticore.movil.controllers;
 
 import com.cibertec.denticore.movil.dto.CitaPacienteDTO;
+import com.cibertec.denticore.movil.dto.CancelarCitaPacienteRequestDTO;
 import com.cibertec.denticore.movil.dto.CrearCitaPacienteRequestDTO;
 import com.cibertec.denticore.movil.dto.HorarioDisponibleDTO;
 import com.cibertec.denticore.movil.dto.OdontologoMovilDTO;
@@ -47,6 +48,22 @@ public class CitasPacienteMovilController {
     public ResponseEntity<List<CitaPacienteDTO>> listarCitas(
             Principal principal) {
         return ResponseEntity.ok(citasService.listarCitas(principal.getName()));
+    }
+
+    @GetMapping("/citas/{id}")
+    public ResponseEntity<CitaPacienteDTO> obtenerCita(
+            Principal principal,
+            @PathVariable Integer id) {
+        return ResponseEntity.ok(citasService.obtenerCita(principal.getName(), id));
+    }
+
+    @PatchMapping("/citas/{id}/cancelacion")
+    public ResponseEntity<CitaPacienteDTO> cancelarCita(
+            Principal principal,
+            @PathVariable Integer id,
+            @Valid @RequestBody CancelarCitaPacienteRequestDTO request) {
+        return ResponseEntity.ok(citasService.cancelarCita(
+                principal.getName(), id, request));
     }
 
     @PostMapping("/citas")
