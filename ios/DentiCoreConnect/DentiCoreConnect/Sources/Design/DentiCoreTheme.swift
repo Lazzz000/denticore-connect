@@ -17,6 +17,15 @@ enum DentiCoreTheme {
 
     static let surface = UIColor.secondarySystemBackground
     static let cornerRadius: CGFloat = 12
+    static let smallSpacing: CGFloat = 8
+    static let standardSpacing: CGFloat = 16
+    static let horizontalMargin: CGFloat = 20
+
+    static func configureGlobalAppearance() {
+        UINavigationBar.appearance().tintColor = primary
+        UITabBar.appearance().tintColor = primary
+        UIRefreshControl.appearance().tintColor = primary
+    }
 
     static func stylePrimaryButton(_ button: UIButton) {
         button.backgroundColor = primary
@@ -32,5 +41,14 @@ enum DentiCoreTheme {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.separator.cgColor
         textField.clipsToBounds = true
+    }
+
+    static func styleDestructiveButton(_ button: UIButton) {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .systemRed
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .medium
+        button.configuration = configuration
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
     }
 }
