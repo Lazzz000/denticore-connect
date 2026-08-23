@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreData
-import UserNotifications
+@preconcurrency import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
