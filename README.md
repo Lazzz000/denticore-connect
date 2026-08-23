@@ -23,7 +23,7 @@ DentiCore Connect es una plataforma B2B2C de continuidad de atención dental. El
 - Caché de citas con Core Data para lectura sin conexión.
 - Recordatorios locales mediante UserNotifications.
 - Perfil de solo lectura con DNI protegido y revelado voluntario.
-- Escenario demostrativo realista con clínica identificada y cita histórica atendida.
+- Escenario demostrativo realista con identidad autorizada, sede SJL, historial atendido y cita próxima para verificar recordatorios locales.
 - API Spring Boot con autorización por rol y propiedad del recurso.
 - Migraciones Flyway y datos demostrativos controlados por perfil.
 - Despliegue reproducible en Render y CI del backend en GitHub Actions.

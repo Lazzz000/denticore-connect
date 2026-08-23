@@ -81,7 +81,7 @@ Los colores semánticos del sistema se prefieren para conservar contraste en mod
 
 ## 6. Marca gráfica
 
-El recurso `BrandLogo` es opcional. Si contiene un PNG/PDF válido, reemplaza automáticamente `mouth.fill` en Login e Inicio. Recomendaciones:
+El recurso `BrandLogo` incorpora variantes PNG de 128, 256 y 384 px para las escalas 1x, 2x y 3x, y reemplaza automáticamente `mouth.fill` en Login e Inicio. `AppIcon` contiene el icono de distribución de 1024 px sin canal alfa. Recomendaciones para futuras sustituciones:
 
 - logo transparente, formato PDF vectorial de un solo scale o PNG `1x/2x/3x`;
 - versión horizontal o isotipo legible sobre fondo claro y oscuro;

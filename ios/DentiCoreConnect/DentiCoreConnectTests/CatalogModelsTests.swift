@@ -7,9 +7,9 @@ final class CatalogModelsTests: XCTestCase {
             #"""
             {
               "id": 10,
-              "dni": "70401478",
-              "nombres": "Diego Alonso",
-              "apellidos": "Ramírez Torres",
+              "dni": "00000000",
+              "nombres": "Carlos Miguel",
+              "apellidos": "Lazo Dominguez",
               "correo": "paciente@denticore.demo",
               "fechaNacimiento": "1992-04-15",
               "clinica": {
@@ -23,8 +23,8 @@ final class CatalogModelsTests: XCTestCase {
 
         let profile = try JSONDecoder().decode(PatientProfile.self, from: json)
 
-        XCTAssertEqual(profile.fullName, "Diego Alonso Ramírez Torres")
-        XCTAssertEqual(profile.firstName, "Diego")
+        XCTAssertEqual(profile.fullName, "Carlos Miguel Lazo Dominguez")
+        XCTAssertEqual(profile.firstName, "Carlos")
         XCTAssertEqual(profile.clinica.nombreComercial, "Clínica Dental Dr. Dave Cáceres")
     }
 

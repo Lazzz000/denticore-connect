@@ -24,10 +24,10 @@ public class DemoPatientBootstrapRunner implements CommandLineRunner {
     @Value("${app.demo.patient-password:}")
     private String password;
 
-    @Value("${app.demo.patient-names:Diego Alonso}")
+    @Value("${app.demo.patient-names:Carlos Miguel}")
     private String names;
 
-    @Value("${app.demo.patient-surnames:Ramírez Torres}")
+    @Value("${app.demo.patient-surnames:Lazo Dominguez}")
     private String surnames;
 
     @Override
