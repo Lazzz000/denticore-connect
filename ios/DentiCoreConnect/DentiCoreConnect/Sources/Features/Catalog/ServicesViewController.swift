@@ -12,6 +12,10 @@ final class ServicesViewController: UIViewController {
     private var services: [DentalService] = []
     private let refreshControl = UIRefreshControl()
 
+    private enum Segue {
+        static let showBooking = "showBooking"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInterface()
@@ -20,6 +24,7 @@ final class ServicesViewController: UIViewController {
 
     private func configureInterface() {
         title = specialty?.nombre ?? "Servicios"
+        navigationItem.prompt = "Selecciona un servicio"
         view.backgroundColor = .systemGroupedBackground
 
         tableView.dataSource = self
@@ -96,6 +101,19 @@ final class ServicesViewController: UIViewController {
     @objc private func refreshServices() {
         loadServices()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == Segue.showBooking,
+            let destination = segue.destination as? AppointmentViewController,
+            let service = sender as? DentalService
+        else {
+            return
+        }
+
+        destination.specialty = specialty
+        destination.dentalService = service
+    }
 }
 
 extension ServicesViewController: UITableViewDataSource {
@@ -120,4 +138,12 @@ extension ServicesViewController: UITableViewDataSource {
     }
 }
 
-extension ServicesViewController: UITableViewDelegate {}
+extension ServicesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(
+            withIdentifier: Segue.showBooking,
+            sender: services[indexPath.row]
+        )
+    }
+}
