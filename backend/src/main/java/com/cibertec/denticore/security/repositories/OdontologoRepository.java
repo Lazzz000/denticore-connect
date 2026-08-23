@@ -16,7 +16,7 @@ public interface OdontologoRepository extends JpaRepository<Odontologo, Integer>
     Optional<Odontologo> findByUsuarioDni(String dni);
 
     @Query(value = """
-        SELECT DISTINCT o.*
+        SELECT o.*
         FROM seguridad.odontologo o
         JOIN seguridad.usuario u ON u.id = o.id_usuario
         JOIN catalogo.odontologo_especialidad oe
@@ -34,3 +34,4 @@ public interface OdontologoRepository extends JpaRepository<Odontologo, Integer>
             @Param("clinicaId") Integer clinicaId,
             @Param("especialidadId") Integer especialidadId);
 }
+
