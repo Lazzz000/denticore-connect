@@ -53,14 +53,14 @@ public class CitasPacienteMovilController {
     @GetMapping("/citas/{id}")
     public ResponseEntity<CitaPacienteDTO> obtenerCita(
             Principal principal,
-            @PathVariable Integer id) {
+            @PathVariable("id") Integer id) {
         return ResponseEntity.ok(citasService.obtenerCita(principal.getName(), id));
     }
 
     @PatchMapping("/citas/{id}/cancelacion")
     public ResponseEntity<CitaPacienteDTO> cancelarCita(
             Principal principal,
-            @PathVariable Integer id,
+            @PathVariable("id") Integer id,
             @Valid @RequestBody CancelarCitaPacienteRequestDTO request) {
         return ResponseEntity.ok(citasService.cancelarCita(
                 principal.getName(), id, request));
