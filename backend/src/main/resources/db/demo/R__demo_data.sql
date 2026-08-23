@@ -10,6 +10,14 @@ UPDATE organizacion.clinica
 SET nombre_comercial = 'Clínica Dental Dr. Dave Cáceres'
 WHERE codigo = 'PILOTO-001';
 
+UPDATE organizacion.sede s
+SET nombre = 'Sede San Juan de Lurigancho',
+    direccion = 'San Juan de Lurigancho, Lima'
+FROM organizacion.clinica c
+WHERE s.id_clinica = c.id
+  AND c.codigo = 'PILOTO-001'
+  AND s.codigo = 'SEDE-PRINCIPAL';
+
 INSERT INTO organizacion.sede (id_clinica, codigo, nombre, direccion, telefono, activo)
 SELECT id, 'SEDE-NORTE', 'Sede Norte', 'Av. Los Jardines 245, Lima', '(01) 555-0102', TRUE
 FROM organizacion.clinica

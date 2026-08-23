@@ -35,8 +35,8 @@ No registrar sus valores en el repositorio.
 Variables de presentación, configuradas inicialmente por el Blueprint:
 
 ```text
-DEMO_PATIENT_NAMES=Diego Alonso
-DEMO_PATIENT_SURNAMES=Ramírez Torres
+DEMO_PATIENT_NAMES=Carlos Miguel
+DEMO_PATIENT_SURNAMES=Lazo Dominguez
 ```
 
 Pueden modificarse desde Render para utilizar otra identidad ficticia. En el siguiente despliegue, el bootstrap actualizará el usuario existente sin cambiar su DNI, credenciales, citas ni relaciones.
@@ -88,9 +88,20 @@ Para cargar demo local, activar `SPRING_PROFILES_ACTIVE=demo`, configurar `FLYWA
 1. Consultar health hasta obtener `UP`.
 2. Ejecutar login demo.
 3. Consultar perfil y catálogo.
-4. Crear una cita futura.
-5. Consultar la cita histórica atendida y verificar que no ofrezca cancelación.
-6. Consultar detalle de una cita futura y cancelar.
+4. Verificar la cita próxima generada para la demostración y las tres citas atendidas del historial.
+5. Confirmar que las citas atendidas no ofrecen cancelación.
+6. Crear una cita futura, consultar su detalle y cancelarla.
+
+### Demostración de recordatorio local
+
+El perfil `demo` regenera al iniciar el backend una cita pendiente con aproximadamente 15 minutos de anticipación. Para mostrar la notificación:
+
+1. Reiniciar o desplegar el backend poco antes de la exposición y esperar que `/api/v1/actuator/health` responda `UP`.
+2. Iniciar sesión en iOS, autorizar notificaciones y abrir Inicio o Mis citas para sincronizar la agenda.
+3. Verificar que la cita `Profilaxis y limpieza dental` aparece próxima.
+4. Enviar la aplicación a segundo plano. El recordatorio se programa cinco minutos antes de la cita y queda visible en el centro de notificaciones del simulador.
+
+La cita usa el canal interno `DEMO_NOTIFICATION` y se actualiza en lugar de duplicarse en cada arranque.
 7. Confirmar registros en la API y caché iOS.
 
 ## 7. Recuperación

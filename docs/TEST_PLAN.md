@@ -36,6 +36,8 @@ Verificar el recorrido principal del paciente, la seguridad de recursos propios,
 | CP-15 | Mostrar/ocultar DNI | Oculto por defecto; visible solo voluntariamente |
 | CP-16 | Salir del perfil | DNI vuelve a ocultarse |
 | CP-17 | Cerrar sesión | Keychain limpiado y login visible |
+| CP-18 | Sincronizar cita demo próxima | Recordatorio local pendiente para cinco minutos antes |
+| CP-19 | Mantener app en segundo plano | Notificación visible en el centro de notificaciones |
 
 ## 4. Matriz de dispositivos
 
@@ -48,12 +50,12 @@ Verificar el recorrido principal del paciente, la seguridad de recursos propios,
 
 ## 5. Datos
 
-- Paciente demo ficticio.
+- Identidad demo autorizada; información clínica, contacto y citas exclusivamente simulados.
 - Al menos tres especialidades.
 - Servicios con duraciones diferentes.
 - Dos o más odontólogos y horarios.
 - Citas en estados pendiente, confirmada, atendida y cancelada.
-- Nunca usar datos reales en capturas o sustentación.
+- No usar información clínica, credenciales o contacto reales en capturas o sustentación.
 
 ## 6. Criterio de entrada
 
@@ -68,7 +70,7 @@ Verificar el recorrido principal del paciente, la seguridad de recursos propios,
 - Cero defectos bloqueantes o críticos abiertos.
 - Compilación limpia en Xcode.
 - Cero advertencias de Auto Layout en `Main.storyboard`.
-- CP-01 a CP-17 ejecutados con evidencia.
+- CP-01 a CP-19 ejecutados con evidencia.
 - Pruebas unitarias esenciales aprobadas.
 - Health check estable tras reactivación.
 - README, OpenAPI, manuales y release notes coherentes.

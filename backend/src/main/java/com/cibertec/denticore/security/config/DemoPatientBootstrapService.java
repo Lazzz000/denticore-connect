@@ -35,6 +35,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -43,9 +44,15 @@ import java.time.ZoneId;
 public class DemoPatientBootstrapService {
 
     private static final String PILOT_CLINIC_CODE = "PILOTO-001";
-    private static final String DEMO_DENTIST_DNI = "73000001";
-    private static final String DEMO_SERVICE_CODE = "GEN-EVAL";
-    private static final String DEMO_APPOINTMENT_CHANNEL = "DEMO_SEED";
+    private static final String PRIMARY_DEMO_DENTIST_DNI = "73000001";
+    private static final String NOTIFICATION_DEMO_DENTIST_DNI = "73000003";
+    private static final String NOTIFICATION_DEMO_SERVICE_CODE = "GEN-LIMP";
+    private static final String NOTIFICATION_DEMO_CHANNEL = "DEMO_NOTIFICATION";
+    private static final List<EstadoCita> ACTIVE_APPOINTMENT_STATES = List.of(
+            EstadoCita.PENDIENTE,
+            EstadoCita.CONFIRMADA,
+            EstadoCita.EN_SALA,
+            EstadoCita.EN_CURSO);
 
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
@@ -84,7 +91,7 @@ public class DemoPatientBootstrapService {
             Paciente existingPatient = pacienteRepository.findById(existingUser.getId())
                     .orElseThrow(() -> new IllegalStateException(
                             "El usuario demo existe, pero no posee perfil de paciente."));
-            ensureAttendedAppointment(existingPatient, clinic);
+            synchronizeDemoScenario(existingPatient, clinic);
             log.info("Se sincronizaron de forma segura el perfil y las credenciales del paciente demo.");
             return;
         }
@@ -137,23 +144,58 @@ public class DemoPatientBootstrapService {
                 .fechaCreacion(LocalDateTime.now())
                 .build());
 
-        ensureAttendedAppointment(patient, clinic);
+        synchronizeDemoScenario(patient, clinic);
         log.info("Paciente demo y recorrido histórico creados para la clínica piloto.");
     }
 
-    private void ensureAttendedAppointment(Paciente patient, Clinica clinic) {
+    private void synchronizeDemoScenario(Paciente patient, Clinica clinic) {
+        ensureAttendedAppointment(
+                patient,
+                clinic,
+                "DEMO_SEED",
+                PRIMARY_DEMO_DENTIST_DNI,
+                "GEN-EVAL",
+                42,
+                "Evaluación odontológica completada");
+        ensureAttendedAppointment(
+                patient,
+                clinic,
+                "DEMO_HISTORY_2",
+                NOTIFICATION_DEMO_DENTIST_DNI,
+                "GEN-LIMP",
+                84,
+                "Profilaxis y limpieza dental completadas");
+        ensureAttendedAppointment(
+                patient,
+                clinic,
+                "DEMO_HISTORY_3",
+                PRIMARY_DEMO_DENTIST_DNI,
+                "ORT-EVAL",
+                126,
+                "Evaluación de ortodoncia completada");
+        synchronizeNotificationAppointment(patient, clinic);
+    }
+
+    private void ensureAttendedAppointment(
+            Paciente patient,
+            Clinica clinic,
+            String channel,
+            String dentistDni,
+            String serviceCode,
+            long daysAgo,
+            String note) {
         if (citaRepository.existsDemoAppointment(
                 patient.getIdUsuario(),
                 clinic.getId(),
                 EstadoCita.ATENDIDA,
-                DEMO_APPOINTMENT_CHANNEL)) {
+                channel)) {
             return;
         }
 
-        Odontologo dentist = odontologoRepository.findByUsuarioDni(DEMO_DENTIST_DNI)
+        Odontologo dentist = odontologoRepository.findByUsuarioDni(dentistDni)
                 .orElseThrow(() -> new IllegalStateException(
                         "No existe el odontólogo asignado a la cita histórica demo."));
-        ItemCatalogo service = itemCatalogoRepository.findByCodigoAndActivoTrue(DEMO_SERVICE_CODE)
+        ItemCatalogo service = itemCatalogoRepository.findByCodigoAndActivoTrue(serviceCode)
                 .orElseThrow(() -> new IllegalStateException(
                         "No existe el servicio asignado a la cita histórica demo."));
         Sede site = sedeRepository.findFirstByClinicaIdAndActivoTrueOrderByIdAsc(clinic.getId())
@@ -162,7 +204,7 @@ public class DemoPatientBootstrapService {
 
         ZoneId zone = ZoneId.of(clinic.getZonaHoraria());
         OffsetDateTime start = OffsetDateTime.now(zone)
-                .minusDays(42)
+                .minusDays(daysAgo)
                 .withHour(10)
                 .withMinute(30)
                 .withSecond(0)
@@ -174,17 +216,87 @@ public class DemoPatientBootstrapService {
                 .fechaHora(start)
                 .fechaHoraFin(start.plusMinutes(service.getDuracionMinutos()))
                 .estado(EstadoCita.ATENDIDA)
-                .canalOrigen(DEMO_APPOINTMENT_CHANNEL)
+                .canalOrigen(channel)
                 .montoAdelanto(BigDecimal.ZERO)
                 .clinica(clinic)
                 .sede(site)
                 .servicio(service)
-                .notaPaciente("Evaluación odontológica completada")
+                .notaPaciente(note)
                 .creadoPor(patient.getUsuario())
                 .fechaCreacion(start.minusDays(7))
                 .fechaModificacion(start.plusMinutes(service.getDuracionMinutos()))
                 .version(0L)
                 .build());
+    }
+
+    private void synchronizeNotificationAppointment(Paciente patient, Clinica clinic) {
+        Odontologo dentist = odontologoRepository.findByUsuarioDni(NOTIFICATION_DEMO_DENTIST_DNI)
+                .orElseThrow(() -> new IllegalStateException(
+                        "No existe el odontólogo asignado a la cita de notificación demo."));
+        ItemCatalogo service = itemCatalogoRepository
+                .findByCodigoAndActivoTrue(NOTIFICATION_DEMO_SERVICE_CODE)
+                .orElseThrow(() -> new IllegalStateException(
+                        "No existe el servicio asignado a la cita de notificación demo."));
+        Sede site = sedeRepository.findFirstByClinicaIdAndActivoTrueOrderByIdAsc(clinic.getId())
+                .orElseThrow(() -> new IllegalStateException(
+                        "No existe una sede activa para la cita de notificación demo."));
+
+        Cita appointment = citaRepository.findDemoAppointment(
+                        patient.getIdUsuario(),
+                        clinic.getId(),
+                        NOTIFICATION_DEMO_CHANNEL)
+                .orElseGet(Cita::new);
+
+        ZoneId zone = ZoneId.of(clinic.getZonaHoraria());
+        OffsetDateTime start = OffsetDateTime.now(zone)
+                .plusMinutes(15)
+                .withSecond(0)
+                .withNano(0);
+        OffsetDateTime end = start.plusMinutes(service.getDuracionMinutos());
+
+        boolean available = false;
+        for (int attempt = 0; attempt < 12; attempt++) {
+            boolean occupied = citaRepository.existeSolapamientoOdontologoExcluyendoCita(
+                    dentist.getIdUsuario(),
+                    start,
+                    end,
+                    ACTIVE_APPOINTMENT_STATES,
+                    appointment.getId());
+            if (!occupied) {
+                available = true;
+                break;
+            }
+            start = start.plusMinutes(5);
+            end = start.plusMinutes(service.getDuracionMinutos());
+        }
+        if (!available) {
+            throw new IllegalStateException(
+                    "No se encontró un intervalo próximo para la cita de notificación demo.");
+        }
+
+        appointment.setPaciente(patient);
+        appointment.setOdontologo(dentist);
+        appointment.setFechaHora(start);
+        appointment.setFechaHoraFin(end);
+        appointment.setEstado(EstadoCita.PENDIENTE);
+        appointment.setCanalOrigen(NOTIFICATION_DEMO_CHANNEL);
+        appointment.setMontoAdelanto(BigDecimal.ZERO);
+        appointment.setReferenciaAdelanto(null);
+        appointment.setClinica(clinic);
+        appointment.setSede(site);
+        appointment.setServicio(service);
+        appointment.setNotaPaciente("Cita próxima para demostración de recordatorio local");
+        appointment.setMotivoCancelacion(null);
+        appointment.setCanceladaPor(null);
+        appointment.setFechaCancelacion(null);
+        appointment.setCreadoPor(patient.getUsuario());
+        if (appointment.getId() == null) {
+            appointment.setFechaCreacion(OffsetDateTime.now(zone));
+        }
+        appointment.setFechaModificacion(OffsetDateTime.now(zone));
+
+        citaRepository.saveAndFlush(appointment);
+        log.info("Cita demo de notificación sincronizada para {}.", start);
     }
 
     private void validateConfiguration(

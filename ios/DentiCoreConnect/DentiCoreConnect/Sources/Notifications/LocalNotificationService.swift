@@ -115,10 +115,15 @@ final class LocalNotificationService: AppointmentNotificationScheduling {
             )
             notificationCenter.add(request)
         }
+
+        scheduleSameDayReminder(
+            for: appointment,
+            appointmentDate: appointmentDate
+        )
     }
 
     func removeReminders(forAppointmentID appointmentID: Int) {
-        let identifiers = ["24h", "2h"].map {
+        let identifiers = ["24h", "2h", "same-day"].map {
             identifier(appointmentID: appointmentID, suffix: $0)
         }
         notificationCenter.removePendingNotificationRequests(
@@ -131,6 +136,55 @@ final class LocalNotificationService: AppointmentNotificationScheduling {
 
     private func isActive(_ appointment: PatientAppointment) -> Bool {
         activeStates.contains(appointment.estado.uppercased())
+    }
+
+    private func scheduleSameDayReminder(
+        for appointment: PatientAppointment,
+        appointmentDate: Date
+    ) {
+        let remaining = appointmentDate.timeIntervalSinceNow
+        guard remaining > 90, remaining <= 2 * 60 * 60 else { return }
+
+        let leadTime: TimeInterval
+        let title: String
+        if remaining > 6 * 60 {
+            leadTime = 5 * 60
+            title = "Tu cita dental comienza en 5 minutos"
+        } else {
+            leadTime = 60
+            title = "Tu cita dental está por comenzar"
+        }
+
+        let reminderDate = appointmentDate.addingTimeInterval(-leadTime)
+        guard reminderDate.timeIntervalSinceNow > 15 else { return }
+
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = "\(appointment.servicioNombre) con \(appointment.odontologoNombre)."
+        content.sound = .default
+        content.userInfo = ["appointmentId": appointment.id]
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/Lima") ?? .current
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second],
+            from: reminderDate
+        )
+        components.timeZone = calendar.timeZone
+
+        notificationCenter.add(
+            UNNotificationRequest(
+                identifier: identifier(
+                    appointmentID: appointment.id,
+                    suffix: "same-day"
+                ),
+                content: content,
+                trigger: UNCalendarNotificationTrigger(
+                    dateMatching: components,
+                    repeats: false
+                )
+            )
+        )
     }
 
     private func identifier(appointmentID: Int, suffix: String) -> String {

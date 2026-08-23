@@ -20,9 +20,12 @@ Primera versión candidata de DentiCore Connect orientada al paciente. Integra l
 - Recordatorios locales sincronizados con citas activas.
 - Perfil de paciente de solo lectura.
 - DNI oculto por defecto con acción mostrar/ocultar.
-- Identidad demo realista y configurable desde Render.
+- Identidad demo autorizada y configurable desde Render (`Carlos Miguel Lazo Dominguez`).
 - Clínica visible como `Clínica Dental Dr. Dave Cáceres`.
-- Cita histórica atendida, idempotente y no cancelable.
+- Sede principal visible como `Sede San Juan de Lurigancho`.
+- Tres citas históricas atendidas, idempotentes y no cancelables.
+- Cita próxima regenerable para demostrar un recordatorio local en el simulador.
+- Marca gráfica e icono de aplicación incorporados al catálogo de assets.
 - Sistema visual centralizado en `DentiCoreTheme`.
 - Fachada `/pacientes/me` con autorización por rol y propiedad.
 - Modelo de clínica, sede, horarios y eventos de cita.

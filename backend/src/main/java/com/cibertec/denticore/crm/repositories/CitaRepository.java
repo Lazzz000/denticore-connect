@@ -28,6 +28,19 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("fin") OffsetDateTime fin,
             @Param("estados") Collection<EstadoCita> estados);
 
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Cita c " +
+           "WHERE c.odontologo.idUsuario = :idOdontologo " +
+           "AND c.fechaHora < :fin " +
+           "AND c.fechaHoraFin > :inicio " +
+           "AND c.estado IN :estados " +
+           "AND (:idCitaExcluida IS NULL OR c.id <> :idCitaExcluida)")
+    boolean existeSolapamientoOdontologoExcluyendoCita(
+            @Param("idOdontologo") Integer idOdontologo,
+            @Param("inicio") OffsetDateTime inicio,
+            @Param("fin") OffsetDateTime fin,
+            @Param("estados") Collection<EstadoCita> estados,
+            @Param("idCitaExcluida") Integer idCitaExcluida);
+
     @Query("SELECT c FROM Cita c " +
            "WHERE c.odontologo.idUsuario = :idOdontologo " +
            "AND c.fechaHora < :fin " +
@@ -57,6 +70,15 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("idPaciente") Integer idPaciente,
             @Param("idClinica") Integer idClinica,
             @Param("estado") EstadoCita estado,
+            @Param("canalOrigen") String canalOrigen);
+
+    @Query("SELECT c FROM Cita c " +
+           "WHERE c.paciente.idUsuario = :idPaciente " +
+           "AND c.clinica.id = :idClinica " +
+           "AND c.canalOrigen = :canalOrigen")
+    Optional<Cita> findDemoAppointment(
+            @Param("idPaciente") Integer idPaciente,
+            @Param("idClinica") Integer idClinica,
             @Param("canalOrigen") String canalOrigen);
 
     @Query("SELECT c FROM Cita c " +

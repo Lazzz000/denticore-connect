@@ -4,15 +4,15 @@ import XCTest
 final class PatientIdentityPresentationTests: XCTestCase {
     func testDNIIsMaskedByDefault() {
         XCTAssertEqual(
-            PatientIdentityPresentation.displayDNI("70401478", revealed: false),
-            "DNI: •••• 1478"
+            PatientIdentityPresentation.displayDNI("00000000", revealed: false),
+            "DNI: •••• 0000"
         )
     }
 
     func testDNIIsCompleteWhenRevealed() {
         XCTAssertEqual(
-            PatientIdentityPresentation.displayDNI("70401478", revealed: true),
-            "DNI: 70401478"
+            PatientIdentityPresentation.displayDNI("00000000", revealed: true),
+            "DNI: 00000000"
         )
     }
 }
