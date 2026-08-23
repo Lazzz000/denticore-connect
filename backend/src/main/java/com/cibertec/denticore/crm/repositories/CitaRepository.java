@@ -2,6 +2,8 @@ package com.cibertec.denticore.crm.repositories;
 
 import com.cibertec.denticore.crm.entities.Cita;
 import com.cibertec.denticore.crm.enums.EstadoCita;
+import com.cibertec.denticore.organizacion.entities.Clinica;
+import com.cibertec.denticore.security.entities.Paciente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,9 +41,13 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("fin") OffsetDateTime fin,
             @Param("estados") Collection<EstadoCita> estados);
 
-    List<Cita> findByPaciente_IdUsuarioAndClinica_IdOrderByFechaHoraDesc(
-            Integer idPaciente,
-            Integer idClinica);
+    @Query("SELECT c FROM Cita c " +
+           "WHERE c.paciente = :paciente " +
+           "AND c.clinica = :clinica " +
+           "ORDER BY c.fechaHora DESC")
+    List<Cita> findByPacienteAndClinica(
+            @Param("paciente") Paciente paciente,
+            @Param("clinica") Clinica clinica);
 
     @Query(value = "SELECT c FROM Cita c " +
                    "JOIN FETCH c.paciente p " +
