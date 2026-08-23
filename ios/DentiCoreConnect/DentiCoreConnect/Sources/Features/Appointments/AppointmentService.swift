@@ -5,6 +5,17 @@ protocol AppointmentServicing {
         completion: @escaping (Result<[PatientAppointment], APIError>) -> Void
     )
 
+    func fetchAppointment(
+        id: Int,
+        completion: @escaping (Result<PatientAppointment, APIError>) -> Void
+    )
+
+    func cancelAppointment(
+        id: Int,
+        reason: String?,
+        completion: @escaping (Result<PatientAppointment, APIError>) -> Void
+    )
+
     func fetchDentists(
         specialtyID: Int,
         completion: @escaping (Result<[Dentist], APIError>) -> Void
@@ -47,6 +58,38 @@ final class AppointmentService: AppointmentServicing {
             queryItems: [],
             completion: completion
         )
+    }
+
+    func fetchAppointment(
+        id: Int,
+        completion: @escaping (Result<PatientAppointment, APIError>) -> Void
+    ) {
+        sendAuthorizedGET(
+            path: "/pacientes/me/citas/\(id)",
+            method: "GET",
+            queryItems: [],
+            completion: completion
+        )
+    }
+
+    func cancelAppointment(
+        id: Int,
+        reason: String?,
+        completion: @escaping (Result<PatientAppointment, APIError>) -> Void
+    ) {
+        do {
+            let body = try encoder.encode(CancelAppointmentRequest(motivo: reason))
+            try performAuthorizedRequest(
+                path: "/pacientes/me/citas/\(id)/cancelacion",
+                method: "PATCH",
+                body: body,
+                completion: completion
+            )
+        } catch let error as APIError {
+            completion(.failure(error))
+        } catch {
+            completion(.failure(.invalidRequest))
+        }
     }
 
     func fetchDentists(
