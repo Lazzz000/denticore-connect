@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="CachedAppointment" representedClassName="NSManagedObject" syncable="YES">
+        <attribute name="especialidadNombre" optional="YES" attributeType="String"/>
+        <attribute name="estado" attributeType="String" defaultValueString=""/>
+        <attribute name="fechaHora" attributeType="String" defaultValueString=""/>
+        <attribute name="fechaHoraFin" attributeType="String" defaultValueString=""/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="notaPaciente" optional="YES" attributeType="String"/>
+        <attribute name="odontologoNombre" attributeType="String" defaultValueString=""/>
+        <attribute name="patientDNI" attributeType="String" defaultValueString=""/>
+        <attribute name="sedeNombre" attributeType="String" defaultValueString=""/>
+        <attribute name="servicioNombre" attributeType="String" defaultValueString=""/>
+        <attribute name="syncedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="CachedAppointment" positionX="-63" positionY="-18" width="128" height="224"/>
+    </elements>
 </model>
