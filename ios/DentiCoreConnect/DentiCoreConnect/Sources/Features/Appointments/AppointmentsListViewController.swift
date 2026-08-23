@@ -98,15 +98,16 @@ final class AppointmentsListViewController: UIViewController {
 
     private func updateEmptyState(isOffline: Bool) {
         retryButton.isHidden = true
+        navigationItem.prompt = isOffline && !appointments.isEmpty
+            ? "Sin conexión · datos guardados"
+            : nil
 
         if appointments.isEmpty {
             stateLabel.text = "Todavía no tienes citas registradas."
             stateLabel.textColor = .secondaryLabel
             stateLabel.isHidden = false
         } else if isOffline {
-            stateLabel.text = "Mostrando la última información guardada en el dispositivo."
-            stateLabel.textColor = .systemOrange
-            stateLabel.isHidden = false
+            stateLabel.isHidden = true
         } else {
             stateLabel.isHidden = true
         }
