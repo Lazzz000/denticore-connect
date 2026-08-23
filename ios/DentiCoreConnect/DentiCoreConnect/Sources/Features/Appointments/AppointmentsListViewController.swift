@@ -8,6 +8,7 @@ final class AppointmentsListViewController: UIViewController {
 
     var appointmentService: AppointmentServicing = AppointmentService()
     var appointmentCache = AppointmentCache()
+    var notificationScheduler: AppointmentNotificationScheduling = LocalNotificationService.shared
 
     private var appointments: [PatientAppointment] = []
     private let refreshControl = UIRefreshControl()
@@ -68,6 +69,7 @@ final class AppointmentsListViewController: UIViewController {
                 self.tableView.reloadData()
                 self.updateEmptyState(isOffline: false)
                 self.persist(items)
+                self.notificationScheduler.synchronizeIfAuthorized(items)
 
             case .failure(.unauthorized):
                 SessionManager.shared.clearSession()
