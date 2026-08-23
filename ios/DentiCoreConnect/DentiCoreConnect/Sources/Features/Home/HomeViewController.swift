@@ -91,7 +91,7 @@ final class HomeViewController: UIViewController {
             switch result {
             case let .success(patient):
                 self.welcomeLabel.text = "Hola, \(patient.firstName)"
-                self.clinicLabel.text = patient.clinica.nombreComercial
+                self.clinicLabel.text = "Atención en \(patient.clinica.nombreComercial)"
 
             case .failure(.unauthorized):
                 self.handleExpiredSession()

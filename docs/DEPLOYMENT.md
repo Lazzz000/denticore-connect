@@ -32,6 +32,15 @@ DEMO_PATIENT_PASSWORD
 
 No registrar sus valores en el repositorio.
 
+Variables de presentación, configuradas inicialmente por el Blueprint:
+
+```text
+DEMO_PATIENT_NAMES=Diego Alonso
+DEMO_PATIENT_SURNAMES=Ramírez Torres
+```
+
+Pueden modificarse desde Render para utilizar otra identidad ficticia. En el siguiente despliegue, el bootstrap actualizará el usuario existente sin cambiar su DNI, credenciales, citas ni relaciones.
+
 ## 3. Base de datos
 
 Al iniciar el backend:
@@ -64,7 +73,7 @@ URL local:
 http://localhost:8080/api/v1
 ```
 
-Para cargar demo local, activar `SPRING_PROFILES_ACTIVE=demo`, configurar `FLYWAY_DEMO_LOCATION=,classpath:db/demo` y suministrar las tres variables demo.
+Para cargar demo local, activar `SPRING_PROFILES_ACTIVE=demo`, configurar `FLYWAY_DEMO_LOCATION=,classpath:db/demo` y suministrar las tres variables privadas. El nombre y apellido usan valores ficticios predeterminados si no se especifican.
 
 ## 5. iOS
 
@@ -80,8 +89,9 @@ Para cargar demo local, activar `SPRING_PROFILES_ACTIVE=demo`, configurar `FLYWA
 2. Ejecutar login demo.
 3. Consultar perfil y catálogo.
 4. Crear una cita futura.
-5. Consultar detalle y cancelar.
-6. Confirmar registros en la API y caché iOS.
+5. Consultar la cita histórica atendida y verificar que no ofrezca cancelación.
+6. Consultar detalle de una cita futura y cancelar.
+7. Confirmar registros en la API y caché iOS.
 
 ## 7. Recuperación
 

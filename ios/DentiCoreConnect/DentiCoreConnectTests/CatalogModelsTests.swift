@@ -8,13 +8,13 @@ final class CatalogModelsTests: XCTestCase {
             {
               "id": 10,
               "dni": "70401478",
-              "nombres": "Paciente",
-              "apellidos": "Demostración",
+              "nombres": "Diego Alonso",
+              "apellidos": "Ramírez Torres",
               "correo": "paciente@denticore.demo",
               "fechaNacimiento": "1992-04-15",
               "clinica": {
                 "id": 1,
-                "nombreComercial": "Clínica dental piloto",
+                "nombreComercial": "Clínica Dental Dr. Dave Cáceres",
                 "zonaHoraria": "America/Lima"
               }
             }
@@ -23,9 +23,9 @@ final class CatalogModelsTests: XCTestCase {
 
         let profile = try JSONDecoder().decode(PatientProfile.self, from: json)
 
-        XCTAssertEqual(profile.fullName, "Paciente Demostración")
-        XCTAssertEqual(profile.firstName, "Paciente")
-        XCTAssertEqual(profile.clinica.nombreComercial, "Clínica dental piloto")
+        XCTAssertEqual(profile.fullName, "Diego Alonso Ramírez Torres")
+        XCTAssertEqual(profile.firstName, "Diego")
+        XCTAssertEqual(profile.clinica.nombreComercial, "Clínica Dental Dr. Dave Cáceres")
     }
 
     func testSpecialtiesAndServicesDecoding() throws {

@@ -24,6 +24,12 @@ public class DemoPatientBootstrapRunner implements CommandLineRunner {
     @Value("${app.demo.patient-password:}")
     private String password;
 
+    @Value("${app.demo.patient-names:Diego Alonso}")
+    private String names;
+
+    @Value("${app.demo.patient-surnames:Ramírez Torres}")
+    private String surnames;
+
     @Override
     public void run(String... args) {
         if (dni.isBlank() || email.isBlank() || password.isBlank()) {
@@ -31,6 +37,11 @@ public class DemoPatientBootstrapRunner implements CommandLineRunner {
             return;
         }
 
-        bootstrapService.createPatientIfMissing(dni.trim(), email.trim(), password);
+        bootstrapService.synchronizeDemoPatient(
+                dni.trim(),
+                email.trim(),
+                password,
+                names.trim(),
+                surnames.trim());
     }
 }

@@ -4,6 +4,12 @@ INSERT INTO seguridad.rol (nombre, activo) VALUES
     ('PACIENTE', TRUE)
 ON CONFLICT (nombre) DO NOTHING;
 
+-- Identidad comercial visible en el cliente móvil. Al ser una migración
+-- repetible, también actualiza bases demo creadas en despliegues anteriores.
+UPDATE organizacion.clinica
+SET nombre_comercial = 'Clínica Dental Dr. Dave Cáceres'
+WHERE codigo = 'PILOTO-001';
+
 INSERT INTO organizacion.sede (id_clinica, codigo, nombre, direccion, telefono, activo)
 SELECT id, 'SEDE-NORTE', 'Sede Norte', 'Av. Los Jardines 245, Lima', '(01) 555-0102', TRUE
 FROM organizacion.clinica

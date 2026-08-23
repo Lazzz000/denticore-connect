@@ -439,7 +439,7 @@ components:
           type: integer
         nombreComercial:
           type: string
-          example: Clínica dental piloto
+          example: Clínica Dental Dr. Dave Cáceres
         zonaHoraria:
           type: string
           example: America/Lima

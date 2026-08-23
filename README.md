@@ -23,6 +23,7 @@ DentiCore Connect es una plataforma B2B2C de continuidad de atención dental. El
 - Caché de citas con Core Data para lectura sin conexión.
 - Recordatorios locales mediante UserNotifications.
 - Perfil de solo lectura con DNI protegido y revelado voluntario.
+- Escenario demostrativo realista con clínica identificada y cita histórica atendida.
 - API Spring Boot con autorización por rol y propiedad del recurso.
 - Migraciones Flyway y datos demostrativos controlados por perfil.
 - Despliegue reproducible en Render y CI del backend en GitHub Actions.
@@ -109,6 +110,7 @@ El índice completo se encuentra en [`docs/README.md`](docs/README.md). Los docu
 - No se almacenan contraseñas en texto plano.
 - El token del paciente se conserva únicamente en Keychain.
 - Los datos demostrativos deben ser ficticios.
+- El nombre ficticio puede configurarse mediante `DEMO_PATIENT_NAMES` y `DEMO_PATIENT_SURNAMES` sin recompilar.
 - Las credenciales demo se configuran como variables de entorno; no deben registrarse en Git.
 - El DNI permanece oculto por defecto en el perfil y nunca debe incluirse en notificaciones.
 

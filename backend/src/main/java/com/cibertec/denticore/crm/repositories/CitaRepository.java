@@ -48,6 +48,17 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("idPaciente") Integer idPaciente,
             @Param("idClinica") Integer idClinica);
 
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Cita c " +
+           "WHERE c.paciente.idUsuario = :idPaciente " +
+           "AND c.clinica.id = :idClinica " +
+           "AND c.estado = :estado " +
+           "AND c.canalOrigen = :canalOrigen")
+    boolean existsDemoAppointment(
+            @Param("idPaciente") Integer idPaciente,
+            @Param("idClinica") Integer idClinica,
+            @Param("estado") EstadoCita estado,
+            @Param("canalOrigen") String canalOrigen);
+
     @Query("SELECT c FROM Cita c " +
            "JOIN FETCH c.odontologo o " +
            "JOIN FETCH o.usuario " +

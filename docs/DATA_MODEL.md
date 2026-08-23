@@ -58,6 +58,10 @@ El perfil `demo` incorpora datos ficticios desde `R__demo_data.sql`. El bootstra
 - `DEMO_PATIENT_DNI`
 - `DEMO_PATIENT_EMAIL`
 - `DEMO_PATIENT_PASSWORD`
+- `DEMO_PATIENT_NAMES`
+- `DEMO_PATIENT_SURNAMES`
+
+Las dos últimas variables no son secretas y permiten personalizar una identidad ficticia sin modificar código. El bootstrap sincroniza el nombre aunque el usuario ya exista y crea, una sola vez, una cita histórica `ATENDIDA` con el canal interno `DEMO_SEED`. Esa cita permite demostrar el historial y no es cancelable.
 
 Los secretos no deben incluirse en migraciones, documentación ni commits.
 

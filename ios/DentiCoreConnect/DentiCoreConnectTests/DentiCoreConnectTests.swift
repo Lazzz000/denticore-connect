@@ -9,28 +9,33 @@ import XCTest
 @testable import DentiCoreConnect
 
 final class DentiCoreConnectTests: XCTestCase {
+    func testAttendedAppointmentIsReadOnlyForPatient() {
+        let appointment = makeAppointment(status: "ATENDIDA")
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        XCTAssertEqual(AppointmentPresentation.displayStatus(appointment.estado), "Atendida")
+        XCTAssertFalse(AppointmentPresentation.canPatientCancel(appointment))
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testPendingAppointmentCanBeCanceled() {
+        XCTAssertTrue(
+            AppointmentPresentation.canPatientCancel(
+                makeAppointment(status: "PENDIENTE")
+            )
+        )
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    private func makeAppointment(status: String) -> PatientAppointment {
+        PatientAppointment(
+            id: 1,
+            estado: status,
+            fechaHora: "2026-07-12T10:30:00-05:00",
+            fechaHoraFin: "2026-07-12T11:00:00-05:00",
+            odontologoNombre: "Dra. Ana Lucía Torres Quiroz",
+            servicioNombre: "Evaluación odontológica integral",
+            especialidadNombre: "Odontología general",
+            sedeNombre: "Sede principal",
+            notaPaciente: "Evaluación completada",
+            mensaje: nil
+        )
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
