@@ -7,6 +7,7 @@ public enum EstadoCita {
     EN_SALA,
     EN_CURSO,
     ATENDIDA,
-    FINALIZADA,
-    CANCELADA
+    CANCELADA_PACIENTE,
+    CANCELADA_CLINICA,
+    NO_ASISTIO
 }

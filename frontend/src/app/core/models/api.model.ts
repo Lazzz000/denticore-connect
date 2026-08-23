@@ -4,8 +4,25 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
+  tokenType: 'Bearer';
+  expiresIn: number;
   rol: string;
+  contextoClinica: {
+    id: number;
+    nombreComercial: string;
+    zonaHoraria: string;
+  };
+}
+
+export interface RegistroPacienteResponse {
+  id: number;
+  dni: string;
+  nombres: string;
+  apellidos: string;
+  correo: string;
+  clinicaId: number;
+  estado: 'ACTIVO';
 }
 
 export interface Especialidad {

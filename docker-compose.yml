@@ -1,53 +1,25 @@
-version: '3.8'
-
 services:
-  # ==========================================
-  # MOTOR DE BASE DE DATOS: PostgreSQL 16
-  # ==========================================
   denticore-db:
     image: postgres:16-alpine
     container_name: denticore_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: denticoredb
-      POSTGRES_USER: denticore_admin
-      POSTGRES_PASSWORD: rootpassword123
-      TZ: America/Lima
+      POSTGRES_DB: ${POSTGRES_DB:-denticoredb}
+      POSTGRES_USER: ${POSTGRES_USER:-denticore_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en tu entorno}
+      TZ: ${TZ:-America/Lima}
     ports:
       - "5432:5432"
     volumes:
-      # Persistencia de datos (evita que se borren al bajar el contenedor)
       - denticore-pgdata:/var/lib/postgresql/data
-      # Auto-ejecución de scripts DDL iniciales
-      - ./database/init:/docker-entrypoint-initdb.d
     networks:
       - denticore-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U denticore_admin -d denticoredb"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # ==========================================
-  # BROKER DE MENSAJERÍA: RabbitMQ
-  # ==========================================
-  denticore-rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: denticore_rabbitmq
-    restart: unless-stopped
-    environment:
-      RABBITMQ_DEFAULT_USER: denticore_mq
-      RABBITMQ_DEFAULT_PASS: mqpassword123
-      TZ: America/Lima
-    ports:
-      # Puerto para comunicación AMQP (Spring Boot)
-      - "5672:5672"
-      # Puerto para la interfaz web de administración
-      - "15672:15672"
-    networks:
-      - denticore-network
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5

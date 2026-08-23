@@ -11,6 +11,12 @@ import com.cibertec.denticore.security.entities.Odontologo;
 import com.cibertec.denticore.security.entities.Paciente;
 import com.cibertec.denticore.security.repositories.OdontologoRepository;
 import com.cibertec.denticore.security.repositories.PacienteRepository;
+import com.cibertec.denticore.catalogo.entities.ItemCatalogo;
+import com.cibertec.denticore.catalogo.repositories.ItemCatalogoRepository;
+import com.cibertec.denticore.organizacion.entities.Sede;
+import com.cibertec.denticore.organizacion.repositories.SedeRepository;
+import com.cibertec.denticore.security.entities.UsuarioClinica;
+import com.cibertec.denticore.security.services.ContextoClinicaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,18 +36,40 @@ public class CitaServiceImpl implements CitaService {
     private final CitaRepository citaRepository;
     private final PacienteRepository pacienteRepository;
     private final OdontologoRepository odontologoRepository;
+    private final ItemCatalogoRepository itemCatalogoRepository;
+    private final SedeRepository sedeRepository;
+    private final ContextoClinicaService contextoClinicaService;
+
+    private static final ZoneId ZONA_PILOTO = ZoneId.of("America/Lima");
+    private static final List<EstadoCita> ESTADOS_OCUPADOS = List.of(
+            EstadoCita.PENDIENTE,
+            EstadoCita.CONFIRMADA,
+            EstadoCita.EN_SALA,
+            EstadoCita.EN_CURSO);
 
     @Override
     @Transactional
     public CitaResponseDTO programarCita(CitaRequestDTO dto, String dniUsuarioAutenticado) {
-        boolean existeColision = citaRepository.existsByOdontologoAndFechaHoraAndEstadoOcupado(
-                dto.getIdOdontologo(), dto.getFechaHora());
+        Paciente paciente = obtenerPaciente(dto, dniUsuarioAutenticado);
+        UsuarioClinica membresia = contextoClinicaService
+                .obtenerMembresiaPrincipal(paciente.getIdUsuario());
+        Sede sede = sedeRepository
+                .findFirstByClinicaIdAndActivoTrueOrderByIdAsc(membresia.getClinica().getId())
+                .orElseThrow(() -> new RuntimeException("Sede activa no encontrada"));
+        ItemCatalogo servicio = itemCatalogoRepository
+                .findByCodigoAndActivoTrue("CONSULTA-GENERAL")
+                .orElseThrow(() -> new RuntimeException("Servicio general no configurado"));
+
+        OffsetDateTime inicio = dto.getFechaHora().atZone(ZONA_PILOTO).toOffsetDateTime();
+        OffsetDateTime fin = inicio.plusMinutes(
+                servicio.getDuracionMinutos() > 0 ? servicio.getDuracionMinutos() : 30);
+
+        boolean existeColision = citaRepository.existeSolapamientoOdontologo(
+                dto.getIdOdontologo(), inicio, fin, ESTADOS_OCUPADOS);
 
         if (existeColision) {
             throw new IllegalStateException("El odontólogo ya tiene una cita reservada en este horario.");
         }
-
-        Paciente paciente = obtenerPaciente(dto, dniUsuarioAutenticado);
 
         Odontologo odontologo = odontologoRepository.findById(dto.getIdOdontologo())
                 .orElseThrow(() -> new RuntimeException("Odontólogo no encontrado"));
@@ -48,11 +77,18 @@ public class CitaServiceImpl implements CitaService {
         Cita cita = new Cita();
         cita.setPaciente(paciente);
         cita.setOdontologo(odontologo);
-        cita.setFechaHora(dto.getFechaHora());
+        cita.setFechaHora(inicio);
+        cita.setFechaHoraFin(fin);
         cita.setEstado(EstadoCita.PENDIENTE);
         cita.setCanalOrigen(dto.getCanalOrigen());
         cita.setMontoAdelanto(dto.getMontoAdelanto() != null ? dto.getMontoAdelanto() : BigDecimal.ZERO);
         cita.setReferenciaAdelanto(dto.getReferenciaAdelanto());
+        cita.setClinica(membresia.getClinica());
+        cita.setSede(sede);
+        cita.setServicio(servicio);
+        cita.setCreadoPor(paciente.getUsuario());
+        cita.setFechaCreacion(OffsetDateTime.now());
+        cita.setVersion(0L);
 
         Cita guardada = citaRepository.save(cita);
 
@@ -63,8 +99,9 @@ public class CitaServiceImpl implements CitaService {
     @Transactional(readOnly = true)
     public Page<CitaListadoDTO> listarAgendaDiaria(LocalDate fecha, Pageable pageable) {
         LocalDate fechaConsulta = fecha != null ? fecha : LocalDate.now();
-        LocalDateTime inicio = fechaConsulta.atStartOfDay();
-        LocalDateTime fin = fechaConsulta.atTime(LocalTime.MAX);
+        OffsetDateTime inicio = fechaConsulta.atStartOfDay(ZONA_PILOTO).toOffsetDateTime();
+        OffsetDateTime fin = fechaConsulta.plusDays(1).atStartOfDay(ZONA_PILOTO)
+                .toOffsetDateTime().minusNanos(1);
 
         Page<Cita> citas = citaRepository.findByFechaHoraBetweenOrderByFechaHoraAsc(inicio, fin, pageable);
 
@@ -127,8 +164,9 @@ public Page<CitaListadoDTO> listarMisCitas(
         Pageable pageable) {
 
     LocalDate fechaConsulta = fecha != null ? fecha : LocalDate.now();
-    LocalDateTime inicio = fechaConsulta.atStartOfDay();
-    LocalDateTime fin = fechaConsulta.atTime(LocalTime.MAX);
+    OffsetDateTime inicio = fechaConsulta.atStartOfDay(ZONA_PILOTO).toOffsetDateTime();
+    OffsetDateTime fin = fechaConsulta.plusDays(1).atStartOfDay(ZONA_PILOTO)
+            .toOffsetDateTime().minusNanos(1);
 
     Odontologo odontologo = odontologoRepository
             .findByUsuarioDni(dniUsuarioAutenticado)

@@ -68,7 +68,7 @@ export class LoginComponent {
           return;
         }
 
-        if (rol === 'ADMIN' || rol === 'ODONTOLOGO' || rol === 'ODONTOLOGO') {
+        if (rol === 'ADMINISTRADOR' || rol === 'ODONTOLOGO') {
           this.router.navigate(['/admin/dashboard']);
           return;
         }
