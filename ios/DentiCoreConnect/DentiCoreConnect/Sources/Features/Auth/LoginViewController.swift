@@ -35,7 +35,7 @@ final class LoginViewController: UIViewController {
 
             switch result {
             case let .success(response):
-                self.handleSuccessfulLogin(response)
+                self.handleSuccessfulLogin(response, patientDNI: credentials.dni)
             case let .failure(error):
                 self.showError(error.localizedDescription)
             }
@@ -82,14 +82,14 @@ final class LoginViewController: UIViewController {
         return (dni, password)
     }
 
-    private func handleSuccessfulLogin(_ response: LoginResponse) {
+    private func handleSuccessfulLogin(_ response: LoginResponse, patientDNI: String) {
         guard response.role.uppercased() == "PACIENTE" else {
             showError("Esta aplicación está disponible únicamente para pacientes.")
             return
         }
 
         do {
-            try sessionManager.startSession(with: response)
+            try sessionManager.startSession(with: response, patientDNI: patientDNI)
             performSegue(withIdentifier: Segue.showMain, sender: response)
         } catch {
             showError("No se pudo guardar la sesión de forma segura.")
