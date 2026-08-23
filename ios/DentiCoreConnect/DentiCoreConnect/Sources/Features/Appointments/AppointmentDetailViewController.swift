@@ -14,6 +14,7 @@ final class AppointmentDetailViewController: UIViewController {
 
     var appointment: PatientAppointment!
     var appointmentService: AppointmentServicing = AppointmentService()
+    var notificationScheduler: AppointmentNotificationScheduling = LocalNotificationService.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +121,9 @@ final class AppointmentDetailViewController: UIViewController {
             switch result {
             case let .success(updated):
                 self.appointment = updated
+                self.notificationScheduler.removeReminders(
+                    forAppointmentID: updated.id
+                )
                 self.renderAppointment()
                 self.showCancellationSuccess(updated.mensaje)
             case .failure(.unauthorized):
