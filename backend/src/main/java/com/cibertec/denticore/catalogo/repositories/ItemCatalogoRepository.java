@@ -15,4 +15,5 @@ public interface ItemCatalogoRepository extends JpaRepository<ItemCatalogo, Inte
     List<ItemCatalogo> findByActivoTrueAndTipoAndEspecialidadIdOrderByNombreAsc(
             String tipo, Integer especialidadId);
     Optional<ItemCatalogo> findByCodigoAndActivoTrue(String codigo);
+    Optional<ItemCatalogo> findByIdAndActivoTrueAndTipo(Integer id, String tipo);
 }
