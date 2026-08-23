@@ -7,6 +7,7 @@ final class SessionManager {
 
     private(set) var role: String?
     private(set) var clinicContext: ClinicContext?
+    private(set) var patientDNI: String?
 
     init(tokenStore: SecureTokenStoring = KeychainService()) {
         self.tokenStore = tokenStore
@@ -20,16 +21,18 @@ final class SessionManager {
         }
     }
 
-    func startSession(with response: LoginResponse) throws {
+    func startSession(with response: LoginResponse, patientDNI: String) throws {
         try tokenStore.saveToken(response.accessToken)
         role = response.role
         clinicContext = response.clinicContext
+        self.patientDNI = patientDNI
     }
 
     func clearSession() {
         try? tokenStore.deleteToken()
         role = nil
         clinicContext = nil
+        patientDNI = nil
     }
 
     func authorizedRequest(
