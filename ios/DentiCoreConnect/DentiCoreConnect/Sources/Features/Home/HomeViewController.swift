@@ -6,12 +6,14 @@ final class HomeViewController: UIViewController {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var specialtiesButton: UIButton!
+    @IBOutlet private weak var appointmentsButton: UIButton!
     @IBOutlet private weak var retryButton: UIButton!
 
     var patientService: PatientServicing = PatientService()
 
     private enum Segue {
         static let showSpecialties = "showSpecialties"
+        static let showAppointments = "showAppointments"
     }
 
     override func viewDidLoad() {
@@ -41,12 +43,20 @@ final class HomeViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         DentiCoreTheme.stylePrimaryButton(specialtiesButton)
 
+        var appointmentsConfiguration = UIButton.Configuration.tinted()
+        appointmentsConfiguration.title = "Mis citas"
+        appointmentsConfiguration.image = UIImage(systemName: "calendar")
+        appointmentsConfiguration.imagePadding = 8
+        appointmentsConfiguration.baseForegroundColor = DentiCoreTheme.primary
+        appointmentsButton.configuration = appointmentsConfiguration
+
         var retryConfiguration = UIButton.Configuration.tinted()
         retryConfiguration.title = "Reintentar"
         retryConfiguration.baseForegroundColor = DentiCoreTheme.primary
         retryButton.configuration = retryConfiguration
         retryButton.isHidden = true
         specialtiesButton.isEnabled = false
+        appointmentsButton.isEnabled = false
     }
 
     private func loadPatient() {
@@ -67,6 +77,7 @@ final class HomeViewController: UIViewController {
                     patient.clinica.nombreComercial
                 ].joined(separator: "\n")
                 self.specialtiesButton.isEnabled = true
+                self.appointmentsButton.isEnabled = true
 
             case .failure(.unauthorized):
                 self.handleExpiredSession()
@@ -79,6 +90,7 @@ final class HomeViewController: UIViewController {
 
     private func setLoading(_ isLoading: Bool) {
         specialtiesButton.isEnabled = !isLoading && errorLabel.isHidden
+        appointmentsButton.isEnabled = !isLoading && errorLabel.isHidden
 
         if isLoading {
             activityIndicator.startAnimating()
@@ -92,6 +104,7 @@ final class HomeViewController: UIViewController {
         errorLabel.isHidden = false
         retryButton.isHidden = false
         specialtiesButton.isEnabled = false
+        appointmentsButton.isEnabled = false
     }
 
     private func handleExpiredSession() {
@@ -109,6 +122,10 @@ final class HomeViewController: UIViewController {
 
     @IBAction private func specialtiesButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: Segue.showSpecialties, sender: nil)
+    }
+
+    @IBAction private func appointmentsButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: Segue.showAppointments, sender: nil)
     }
 
     @IBAction private func retryButtonTapped(_ sender: UIButton) {
