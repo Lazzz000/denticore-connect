@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Integer> {
@@ -46,6 +47,15 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
            "AND c.clinica = :clinica " +
            "ORDER BY c.fechaHora DESC")
     List<Cita> findByPacienteAndClinica(
+            @Param("paciente") Paciente paciente,
+            @Param("clinica") Clinica clinica);
+
+    @Query("SELECT c FROM Cita c " +
+           "WHERE c.id = :idCita " +
+           "AND c.paciente = :paciente " +
+           "AND c.clinica = :clinica")
+    Optional<Cita> findByIdAndPacienteAndClinica(
+            @Param("idCita") Integer idCita,
             @Param("paciente") Paciente paciente,
             @Param("clinica") Clinica clinica);
 
