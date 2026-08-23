@@ -1,6 +1,10 @@
 import Foundation
 
 protocol AppointmentServicing {
+    func fetchAppointments(
+        completion: @escaping (Result<[PatientAppointment], APIError>) -> Void
+    )
+
     func fetchDentists(
         specialtyID: Int,
         completion: @escaping (Result<[Dentist], APIError>) -> Void
@@ -32,6 +36,17 @@ final class AppointmentService: AppointmentServicing {
         self.apiClient = apiClient
         self.sessionManager = sessionManager
         self.encoder = encoder
+    }
+
+    func fetchAppointments(
+        completion: @escaping (Result<[PatientAppointment], APIError>) -> Void
+    ) {
+        sendAuthorizedGET(
+            path: "/pacientes/me/citas",
+            method: "GET",
+            queryItems: [],
+            completion: completion
+        )
     }
 
     func fetchDentists(
