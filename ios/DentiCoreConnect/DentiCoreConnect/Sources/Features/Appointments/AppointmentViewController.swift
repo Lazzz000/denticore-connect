@@ -14,6 +14,7 @@ final class AppointmentViewController: UIViewController {
     var specialty: Specialty!
     var dentalService: DentalService!
     var appointmentService: AppointmentServicing = AppointmentService()
+    var notificationScheduler: AppointmentNotificationScheduling = LocalNotificationService.shared
 
     private var dentists: [Dentist] = []
     private var slots: [AvailabilitySlot] = []
@@ -181,7 +182,16 @@ final class AppointmentViewController: UIViewController {
 
             switch result {
             case let .success(appointment):
-                self.showSuccess(appointment)
+                self.notificationScheduler.requestAuthorization { [weak self] authorized in
+                    guard let self else { return }
+                    if authorized {
+                        self.notificationScheduler.scheduleReminders(for: appointment)
+                    }
+                    self.showSuccess(
+                        appointment,
+                        remindersEnabled: authorized
+                    )
+                }
 
             case .failure(.unauthorized):
                 self.handleExpiredSession()
@@ -224,9 +234,15 @@ final class AppointmentViewController: UIViewController {
         errorLabel.isHidden = false
     }
 
-    private func showSuccess(_ appointment: PatientAppointment) {
+    private func showSuccess(
+        _ appointment: PatientAppointment,
+        remindersEnabled: Bool
+    ) {
         let dateText = formatDateTime(appointment.fechaHora)
-        let message = "\(appointment.mensaje ?? "La cita fue registrada.")\n\n\(dateText)\n\(appointment.odontologoNombre)\n\(appointment.sedeNombre)"
+        let reminderText = remindersEnabled
+            ? "\n\nRecibirás recordatorios antes de la cita."
+            : ""
+        let message = "\(appointment.mensaje ?? "La cita fue registrada.")\n\n\(dateText)\n\(appointment.odontologoNombre)\n\(appointment.sedeNombre)\(reminderText)"
         let alert = UIAlertController(
             title: "¡Cita programada!",
             message: message,
