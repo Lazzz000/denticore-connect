@@ -45,6 +45,7 @@ enum DentiCoreTheme {
 
     static func styleDestructiveButton(_ button: UIButton) {
         var configuration = UIButton.Configuration.filled()
+        configuration.title = button.title(for: .normal) ?? "Cancelar cita"
         configuration.baseBackgroundColor = .systemRed
         configuration.baseForegroundColor = .white
         configuration.cornerStyle = .medium
