@@ -98,8 +98,8 @@ public class CitasPacienteMovilService {
         ContextoPaciente contexto = obtenerContexto(dniPaciente);
 
         return citaRepository.findByPacienteAndClinica(
-                        contexto.paciente(),
-                        contexto.membresia().getClinica())
+                        contexto.paciente().getIdUsuario(),
+                        contexto.membresia().getClinica().getId())
                 .stream()
                 .map(cita -> mapearCita(cita, null))
                 .toList();
@@ -290,10 +290,10 @@ public class CitasPacienteMovilService {
 
     private Cita obtenerCitaAutorizada(
             ContextoPaciente contexto, Integer citaId) {
-        return citaRepository.findByIdAndPacienteAndClinica(
+        return citaRepository.findDetailByIdAndPatientAndClinic(
                         citaId,
-                        contexto.paciente(),
-                        contexto.membresia().getClinica())
+                        contexto.paciente().getIdUsuario(),
+                        contexto.membresia().getClinica().getId())
                 .orElseThrow(() -> new ApiException(
                         HttpStatus.NOT_FOUND,
                         "APPOINTMENT_NOT_FOUND",
