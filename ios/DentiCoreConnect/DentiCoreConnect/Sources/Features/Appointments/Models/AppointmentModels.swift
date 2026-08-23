@@ -20,7 +20,7 @@ nonisolated struct CreateAppointmentRequest: Encodable {
     let notaPaciente: String?
 }
 
-nonisolated struct PatientAppointment: Decodable {
+nonisolated struct PatientAppointment: Decodable, Equatable {
     let id: Int
     let estado: String
     let fechaHora: String
