@@ -43,6 +43,12 @@ public class CitasPacienteMovilController {
                 principal.getName(), odontologoId, servicioId, fecha));
     }
 
+    @GetMapping("/citas")
+    public ResponseEntity<List<CitaPacienteDTO>> listarCitas(
+            Principal principal) {
+        return ResponseEntity.ok(citasService.listarCitas(principal.getName()));
+    }
+
     @PostMapping("/citas")
     public ResponseEntity<CitaPacienteDTO> crearCita(
             Principal principal,
