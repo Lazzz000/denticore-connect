@@ -22,7 +22,7 @@ final class AppointmentTableViewCell: UITableViewCell {
     func configure(with appointment: PatientAppointment) {
         serviceLabel.text = appointment.servicioNombre
         dateLabel.text = Self.formattedDate(appointment.fechaHora)
-        dentistLabel.text = "(appointment.odontologoNombre) · (appointment.sedeNombre)"
+        dentistLabel.text = "\(appointment.odontologoNombre) · \(appointment.sedeNombre)"
         statusLabel.text = Self.displayStatus(appointment.estado)
         statusLabel.textColor = Self.statusColor(appointment.estado)
     }
@@ -37,7 +37,8 @@ final class AppointmentTableViewCell: UITableViewCell {
         formatter.locale = Locale(identifier: "es_PE")
         formatter.timeZone = TimeZone(identifier: "America/Lima")
         formatter.dateFormat = "EEEE d 'de' MMMM · h:mm a"
-        return formatter.string(from: date).capitalized
+        let text = formatter.string(from: date)
+        return text.prefix(1).uppercased() + text.dropFirst()
     }
 
     private static func displayStatus(_ value: String) -> String {
