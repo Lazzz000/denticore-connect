@@ -1,6 +1,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
+    @IBOutlet private weak var brandImageView: UIImageView!
     @IBOutlet private weak var welcomeLabel: UILabel!
     @IBOutlet private weak var clinicLabel: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
@@ -20,7 +21,6 @@ final class HomeViewController: UIViewController {
 
     private enum Segue {
         static let showSpecialties = "showSpecialties"
-        static let showAppointments = "showAppointments"
         static let showUpcomingAppointment = "showUpcomingAppointment"
     }
 
@@ -42,6 +42,11 @@ final class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemGroupedBackground
 
+        brandImageView.image = UIImage(named: "BrandLogo")
+            ?? UIImage(systemName: "mouth.fill")
+        brandImageView.tintColor = DentiCoreTheme.primary
+        brandImageView.accessibilityLabel = "DentiCore Connect"
+
         welcomeLabel.font = .preferredFont(forTextStyle: .title1)
         welcomeLabel.textColor = .label
         welcomeLabel.numberOfLines = 0
@@ -59,12 +64,11 @@ final class HomeViewController: UIViewController {
 
         configureUpcomingButton(with: nil, isLoading: true)
 
-        var appointmentsConfiguration = UIButton.Configuration.tinted()
-        appointmentsConfiguration.title = "Ver todas mis citas"
-        appointmentsConfiguration.image = UIImage(systemName: "calendar")
-        appointmentsConfiguration.imagePadding = 8
-        appointmentsConfiguration.baseForegroundColor = DentiCoreTheme.primary
-        appointmentsButton.configuration = appointmentsConfiguration
+        DentiCoreTheme.styleSecondaryButton(
+            appointmentsButton,
+            title: "Ver todas mis citas",
+            systemImage: "calendar"
+        )
 
         var retryConfiguration = UIButton.Configuration.tinted()
         retryConfiguration.title = "Reintentar"
@@ -115,15 +119,15 @@ final class HomeViewController: UIViewController {
     private func handleExpiredSession() {
         guard !isHandlingExpiredSession else { return }
         isHandlingExpiredSession = true
-        SessionManager.shared.clearSession()
         let alert = UIAlertController(
             title: "Sesión finalizada",
             message: "Vuelve a iniciar sesión para continuar.",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "Aceptar", style: .default) { [weak self] _ in
-            self?.navigationController?.popToRootViewController(animated: true)
-            self?.isHandlingExpiredSession = false
+            guard let self else { return }
+            AuthenticationFlow.endSession(from: self)
+            self.isHandlingExpiredSession = false
         })
         present(alert, animated: true)
     }
@@ -247,7 +251,7 @@ final class HomeViewController: UIViewController {
     }
 
     @IBAction private func appointmentsButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: Segue.showAppointments, sender: nil)
+        tabBarController?.selectedIndex = 1
     }
 
     @IBAction private func upcomingAppointmentButtonTapped(_ sender: UIButton) {
@@ -260,20 +264,6 @@ final class HomeViewController: UIViewController {
 
     @IBAction private func retryButtonTapped(_ sender: UIButton) {
         loadPatient()
-    }
-
-    @IBAction private func logoutButtonTapped(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(
-            title: "Cerrar sesión",
-            message: "¿Deseas salir de DentiCore Connect?",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Cerrar sesión", style: .destructive) { [weak self] _ in
-            SessionManager.shared.clearSession()
-            self?.navigationController?.popToRootViewController(animated: true)
-        })
-        present(alert, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

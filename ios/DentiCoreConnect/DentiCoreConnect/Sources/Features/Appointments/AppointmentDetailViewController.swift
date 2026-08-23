@@ -58,8 +58,7 @@ final class AppointmentDetailViewController: UIViewController {
                 self.appointment = updated
                 self.renderAppointment()
             case .failure(.unauthorized):
-                SessionManager.shared.clearSession()
-                self.navigationController?.popToRootViewController(animated: true)
+                AuthenticationFlow.endSession(from: self)
             case let .failure(error):
                 self.showError(error.localizedDescription)
             }
@@ -127,8 +126,7 @@ final class AppointmentDetailViewController: UIViewController {
                 self.renderAppointment()
                 self.showCancellationSuccess(updated.mensaje)
             case .failure(.unauthorized):
-                SessionManager.shared.clearSession()
-                self.navigationController?.popToRootViewController(animated: true)
+                AuthenticationFlow.endSession(from: self)
             case let .failure(error):
                 self.showError(error.localizedDescription)
             }

@@ -90,11 +90,12 @@
                     <navigationItem key="navigationItem" id="C24-oL-f8J"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Doa-Pq-rke" id="9ez-9z-MTd"/>
+                        <outlet property="brandImageView" destination="c42-Fz-dXJ" id="LOG-outlet-brand"/>
                         <outlet property="dniTextField" destination="xwB-PQ-sSZ" id="Ntb-sE-fXn"/>
                         <outlet property="errorLabel" destination="0DS-6r-GjM" id="mlO-yZ-0Sl"/>
                         <outlet property="loginButton" destination="V9f-Jj-yvI" id="TwY-LR-gGV"/>
                         <outlet property="passwordTextField" destination="Y7Z-GE-HPZ" id="Hi3-a3-hJ8"/>
-                        <segue destination="Jmh-31-dGx" kind="show" identifier="showMain" id="aWc-6P-lzm"/>
+                        <segue destination="TAB-vc-001" kind="presentation" identifier="showMain" modalPresentationStyle="fullScreen" id="aWc-6P-lzm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -219,16 +220,11 @@
                             <constraint firstAttribute="bottom" secondItem="HOM-scroll-001" secondAttribute="bottom" id="HOM-scroll-bottom"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Inicio" id="XbK-HT-pEY">
-                        <barButtonItem key="rightBarButtonItem" image="rectangle.portrait.and.arrow.right" catalog="system" id="HOM-logout-001">
-                            <connections>
-                                <action selector="logoutButtonTapped:" destination="Jmh-31-dGx" id="HOM-action-logout"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Inicio" id="XbK-HT-pEY"/>
                     <connections>
                         <outlet property="activityIndicator" destination="HOM-activity-001" id="HOM-outlet-activity"/>
                         <outlet property="appointmentsButton" destination="HOM-appointments-001" id="HOM-outlet-appointments"/>
+                        <outlet property="brandImageView" destination="HOM-image-001" id="HOM-outlet-brand"/>
                         <outlet property="clinicLabel" destination="HOM-clinic-001" id="HOM-outlet-clinic"/>
                         <outlet property="errorLabel" destination="HOM-error-001" id="HOM-outlet-error"/>
                         <outlet property="retryButton" destination="HOM-retry-001" id="HOM-outlet-retry"/>
@@ -236,7 +232,6 @@
                         <outlet property="upcomingAppointmentButton" destination="HOM-upcoming-001" id="HOM-outlet-upcoming"/>
                         <outlet property="welcomeLabel" destination="HOM-welcome-001" id="HOM-outlet-welcome"/>
                         <segue destination="SPC-vc-001" kind="show" identifier="showSpecialties" id="HOM-segue-specialties"/>
-                        <segue destination="LST-vc-001" kind="show" identifier="showAppointments" id="HOM-segue-appointments"/>
                         <segue destination="DTL-vc-001" kind="show" identifier="showUpcomingAppointment" id="HOM-segue-upcoming"/>
                     </connections>
                 </viewController>
@@ -812,7 +807,241 @@
             </objects>
             <point key="canvasLocation" x="3489" y="920"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Profile View Controller-->
+        <scene sceneID="PRO-scene-001">
+            <objects>
+                <viewController id="PRO-vc-001" customClass="ProfileViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PRO-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-scroll-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="597"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-stack-001">
+                                        <rect key="frame" x="20" y="24" width="353" height="578"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-avatar-001">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="88"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="88" id="PRO-avatar-height"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Paciente" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-name-001">
+                                                <rect key="frame" x="0.0" y="100" width="353" height="29"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Información personal" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-personal-title">
+                                                <rect key="frame" x="0.0" y="141" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="DNI: •••• 0000" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-dni-001">
+                                                <rect key="frame" x="0.0" y="177" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Correo: No registrado" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-email-001">
+                                                <rect key="frame" x="0.0" y="211" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Clínica vinculada" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-clinic-title">
+                                                <rect key="frame" x="0.0" y="245" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Clínica dental" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-clinic-001">
+                                                <rect key="frame" x="0.0" y="281" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Recordatorios" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-title">
+                                                <rect key="frame" x="0.0" y="315" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Consultando permiso…" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-status">
+                                                <rect key="frame" x="0.0" y="351" width="353" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-notification-button">
+                                                <rect key="frame" x="0.0" y="385" width="353" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="PRO-notification-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Configurar notificaciones"/>
+                                                <connections>
+                                                    <action selector="notificationButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-notification"/>
+                                                </connections>
+                                            </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-activity-001">
+                                                <rect key="frame" x="166.5" y="445" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No se pudo cargar el perfil." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-error-001">
+                                                <rect key="frame" x="0.0" y="477" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-retry-001">
+                                                <rect key="frame" x="0.0" y="507" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="PRO-retry-height"/>
+                                                </constraints>
+                                                <state key="normal" title="Reintentar"/>
+                                                <connections>
+                                                    <action selector="retryButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-retry"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="DentiCore Connect · Versión 0.1.0 (1)" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-version-001">
+                                                <rect key="frame" x="0.0" y="477" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" systemColor="tertiaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-logout-001">
+                                                <rect key="frame" x="0.0" y="507" width="353" height="52"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="52" id="PRO-logout-height"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="filled" title="Cerrar sesión">
+                                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="logoutButtonTapped:" destination="PRO-vc-001" eventType="touchUpInside" id="PRO-action-logout"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="contentLayoutGuide" id="PRO-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="PRO-frame-guide"/>
+                                <constraints>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="top" secondItem="PRO-content-guide" secondAttribute="top" constant="24" id="PRO-stack-top"/>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="leading" secondItem="PRO-content-guide" secondAttribute="leading" constant="20" id="PRO-stack-leading"/>
+                                    <constraint firstItem="PRO-content-guide" firstAttribute="trailing" secondItem="PRO-stack-001" secondAttribute="trailing" constant="20" id="PRO-stack-trailing"/>
+                                    <constraint firstItem="PRO-content-guide" firstAttribute="bottom" secondItem="PRO-stack-001" secondAttribute="bottom" constant="24" id="PRO-stack-bottom"/>
+                                    <constraint firstItem="PRO-stack-001" firstAttribute="width" secondItem="PRO-frame-guide" secondAttribute="width" constant="-40" id="PRO-stack-width"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PRO-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PRO-scroll-001" firstAttribute="top" secondItem="PRO-safe-001" secondAttribute="top" id="PRO-scroll-top"/>
+                            <constraint firstItem="PRO-scroll-001" firstAttribute="leading" secondItem="PRO-view-001" secondAttribute="leading" id="PRO-scroll-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="PRO-scroll-001" secondAttribute="trailing" id="PRO-scroll-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="PRO-scroll-001" secondAttribute="bottom" id="PRO-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Perfil" id="PRO-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="PRO-activity-001" id="PRO-outlet-activity"/>
+                        <outlet property="avatarImageView" destination="PRO-avatar-001" id="PRO-outlet-avatar"/>
+                        <outlet property="clinicLabel" destination="PRO-clinic-001" id="PRO-outlet-clinic"/>
+                        <outlet property="dniLabel" destination="PRO-dni-001" id="PRO-outlet-dni"/>
+                        <outlet property="emailLabel" destination="PRO-email-001" id="PRO-outlet-email"/>
+                        <outlet property="errorLabel" destination="PRO-error-001" id="PRO-outlet-error"/>
+                        <outlet property="logoutButton" destination="PRO-logout-001" id="PRO-outlet-logout"/>
+                        <outlet property="nameLabel" destination="PRO-name-001" id="PRO-outlet-name"/>
+                        <outlet property="notificationButton" destination="PRO-notification-button" id="PRO-outlet-notification-button"/>
+                        <outlet property="notificationStatusLabel" destination="PRO-notification-status" id="PRO-outlet-notification-status"/>
+                        <outlet property="retryButton" destination="PRO-retry-001" id="PRO-outlet-retry"/>
+                        <outlet property="versionLabel" destination="PRO-version-001" id="PRO-outlet-version"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PRO-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="1710"/>
+        </scene>
+        <!--Authenticated Tab Bar Controller-->
+        <scene sceneID="TAB-scene-001">
+            <objects>
+                <tabBarController id="TAB-vc-001" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="TAB-bar-001">
+                        <rect key="frame" x="0.0" y="769" width="393" height="83"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="NAV-home-001" kind="relationship" relationship="viewControllers" id="TAB-segue-home"/>
+                        <segue destination="NAV-appointments-001" kind="relationship" relationship="viewControllers" id="TAB-segue-appointments"/>
+                        <segue destination="NAV-profile-001" kind="relationship" relationship="viewControllers" id="TAB-segue-profile"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TAB-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1028" y="920"/>
+        </scene>
+        <!--Home Navigation Controller-->
+        <scene sceneID="NAV-home-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-home-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inicio" image="house.fill" catalog="system" id="TAB-item-home"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-home-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jmh-31-dGx" kind="relationship" relationship="rootViewController" id="NAV-home-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-home-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="920"/>
+        </scene>
+        <!--Appointments Navigation Controller-->
+        <scene sceneID="NAV-appointments-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-appointments-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Citas" image="calendar" catalog="system" id="TAB-item-appointments"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-appointments-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="LST-vc-001" kind="relationship" relationship="rootViewController" id="NAV-appointments-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-appointments-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1320"/>
+        </scene>
+        <!--Profile Navigation Controller-->
+        <scene sceneID="NAV-profile-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NAV-profile-001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Perfil" image="person.crop.circle" catalog="system" id="TAB-item-profile"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NAV-profile-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PRO-vc-001" kind="relationship" relationship="rootViewController" id="NAV-profile-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NAV-profile-first" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1710"/>
+        </scene>
+        <!--Login Navigation Controller-->
         <scene sceneID="SVT-pf-see">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="T6t-nG-6Wt" sceneMemberID="viewController">
@@ -833,13 +1062,18 @@
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="house.fill" catalog="system" width="128" height="113"/>
         <image name="mouth.fill" catalog="system" width="128" height="66"/>
-        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="115"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -849,6 +1083,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

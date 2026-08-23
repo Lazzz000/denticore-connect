@@ -95,8 +95,7 @@ final class SpecialtiesViewController: UIViewController {
     }
 
     private func handleExpiredSession() {
-        SessionManager.shared.clearSession()
-        navigationController?.popToRootViewController(animated: true)
+        AuthenticationFlow.endSession(from: self)
     }
 
     @IBAction private func retryButtonTapped(_ sender: UIButton) {

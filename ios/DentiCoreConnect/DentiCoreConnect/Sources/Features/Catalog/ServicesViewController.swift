@@ -64,8 +64,7 @@ final class ServicesViewController: UIViewController {
                 self.tableView.reloadData()
 
             case .failure(.unauthorized):
-                SessionManager.shared.clearSession()
-                self.navigationController?.popToRootViewController(animated: true)
+                AuthenticationFlow.endSession(from: self)
 
             case let .failure(error):
                 self.showError(error.localizedDescription)

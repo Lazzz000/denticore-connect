@@ -288,8 +288,7 @@ final class AppointmentViewController: UIViewController {
     }
 
     private func handleExpiredSession() {
-        SessionManager.shared.clearSession()
-        navigationController?.popToRootViewController(animated: true)
+        AuthenticationFlow.endSession(from: self)
     }
 }
 

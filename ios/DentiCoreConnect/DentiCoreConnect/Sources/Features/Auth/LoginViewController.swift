@@ -1,6 +1,7 @@
 import UIKit
 
 final class LoginViewController: UIViewController {
+    @IBOutlet private weak var brandImageView: UIImageView!
     @IBOutlet private weak var dniTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var loginButton: UIButton!
@@ -17,6 +18,14 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureInterface()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        setLoading(false)
+        errorLabel.isHidden = true
+        passwordTextField.text = nil
     }
 
     @IBAction private func loginButtonTapped(_ sender: UIButton) {
@@ -43,8 +52,13 @@ final class LoginViewController: UIViewController {
     }
 
     private func configureInterface() {
-        title = "DentiCore Connect"
-        view.backgroundColor = .systemBackground
+        title = nil
+        view.backgroundColor = DentiCoreTheme.canvas
+
+        brandImageView.image = UIImage(named: "BrandLogo")
+            ?? UIImage(systemName: "mouth.fill")
+        brandImageView.tintColor = DentiCoreTheme.primary
+        brandImageView.accessibilityLabel = "DentiCore Connect"
 
         dniTextField.keyboardType = .numberPad
         dniTextField.textContentType = .username
@@ -53,15 +67,57 @@ final class LoginViewController: UIViewController {
 
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textContentType = .password
+        passwordTextField.returnKeyType = .go
 
         DentiCoreTheme.styleTextField(dniTextField)
         DentiCoreTheme.styleTextField(passwordTextField)
+        configureLeftIcon("person.text.rectangle", for: dniTextField)
+        configureLeftIcon("lock", for: passwordTextField)
+        configurePasswordVisibilityButton()
         DentiCoreTheme.stylePrimaryButton(loginButton)
 
         activityIndicator.hidesWhenStopped = true
         errorLabel.textColor = .systemRed
         errorLabel.numberOfLines = 0
         errorLabel.isHidden = true
+    }
+
+    private func configureLeftIcon(_ systemName: String, for textField: UITextField) {
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 24))
+        let imageView = UIImageView(image: UIImage(systemName: systemName))
+        imageView.tintColor = .secondaryLabel
+        imageView.contentMode = .scaleAspectFit
+        imageView.frame = CGRect(x: 14, y: 2, width: 20, height: 20)
+        container.addSubview(imageView)
+        textField.leftView = container
+        textField.leftViewMode = .always
+    }
+
+    private func configurePasswordVisibilityButton() {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        button.tintColor = .secondaryLabel
+        button.setImage(UIImage(systemName: "eye"), for: .normal)
+        button.accessibilityLabel = "Mostrar contraseña"
+        button.addTarget(
+            self,
+            action: #selector(togglePasswordVisibility(_:)),
+            for: .touchUpInside
+        )
+        passwordTextField.rightView = button
+        passwordTextField.rightViewMode = .always
+    }
+
+    @objc private func togglePasswordVisibility(_ sender: UIButton) {
+        passwordTextField.isSecureTextEntry.toggle()
+        let isHidden = passwordTextField.isSecureTextEntry
+        sender.setImage(
+            UIImage(systemName: isHidden ? "eye" : "eye.slash"),
+            for: .normal
+        )
+        sender.accessibilityLabel = isHidden
+            ? "Mostrar contraseña"
+            : "Ocultar contraseña"
     }
 
     private func validatedCredentials() -> (dni: String, password: String)? {
