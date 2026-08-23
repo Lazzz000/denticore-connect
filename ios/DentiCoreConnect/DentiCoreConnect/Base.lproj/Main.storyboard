@@ -151,6 +151,16 @@
                                             <action selector="specialtiesButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-specialties"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-appointments-001">
+                                        <rect key="frame" x="0.0" y="318" width="337" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="HOM-appointments-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Mis citas" image="calendar" catalog="system" imagePadding="8"/>
+                                        <connections>
+                                            <action selector="appointmentsButtonTapped:" destination="Jmh-31-dGx" eventType="touchUpInside" id="HOM-action-appointments"/>
+                                        </connections>
+                                    </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="HOM-retry-001">
                                         <rect key="frame" x="0.0" y="318" width="337" height="48"/>
                                         <constraints>
@@ -181,12 +191,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="HOM-activity-001" id="HOM-outlet-activity"/>
+                        <outlet property="appointmentsButton" destination="HOM-appointments-001" id="HOM-outlet-appointments"/>
                         <outlet property="clinicLabel" destination="HOM-clinic-001" id="HOM-outlet-clinic"/>
                         <outlet property="errorLabel" destination="HOM-error-001" id="HOM-outlet-error"/>
                         <outlet property="retryButton" destination="HOM-retry-001" id="HOM-outlet-retry"/>
                         <outlet property="specialtiesButton" destination="HOM-specialties-001" id="HOM-outlet-specialties"/>
                         <outlet property="welcomeLabel" destination="HOM-welcome-001" id="HOM-outlet-welcome"/>
                         <segue destination="SPC-vc-001" kind="show" identifier="showSpecialties" id="HOM-segue-specialties"/>
+                        <segue destination="LST-vc-001" kind="show" identifier="showAppointments" id="HOM-segue-appointments"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uL4-Ll-WAC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -520,6 +532,118 @@
             </objects>
             <point key="canvasLocation" x="4310" y="120"/>
         </scene>
+        <!--Appointments List View Controller-->
+        <scene sceneID="LST-scene-001">
+            <objects>
+                <viewController id="LST-vc-001" customClass="AppointmentsListViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LST-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="116" estimatedRowHeight="116" translatesAutoresizingMaskIntoConstraints="NO" id="LST-table-001">
+                                <rect key="frame" x="0.0" y="172" width="393" height="680"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AppointmentCell" rowHeight="116" id="LST-cell-001" customClass="AppointmentTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="353" height="116"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LST-cell-001" id="LST-content-001">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="116"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="LST-cell-stack">
+                                                    <rect key="frame" x="16" y="12" width="321" height="92"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-service-001">
+                                                            <rect key="frame" x="0.0" y="0.0" width="321" height="22"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lunes 24 de agosto · 2:00 p. m." lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LST-date-001">
+                                                            <rect key="frame" x="0.0" y="26" width="321" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo · Sede" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-dentist-001">
+                                                            <rect key="frame" x="0.0" y="48" width="321" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pendiente" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LST-status-001">
+                                                            <rect key="frame" x="0.0" y="70" width="321" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LST-cell-stack" firstAttribute="top" secondItem="LST-content-001" secondAttribute="top" constant="12" id="LST-cell-top"/>
+                                                <constraint firstItem="LST-cell-stack" firstAttribute="leading" secondItem="LST-content-001" secondAttribute="leading" constant="16" id="LST-cell-leading"/>
+                                                <constraint firstAttribute="trailing" secondItem="LST-cell-stack" secondAttribute="trailing" constant="16" id="LST-cell-trailing"/>
+                                                <constraint firstAttribute="bottom" secondItem="LST-cell-stack" secondAttribute="bottom" constant="12" id="LST-cell-bottom"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="LST-date-001" id="LST-outlet-date"/>
+                                            <outlet property="dentistLabel" destination="LST-dentist-001" id="LST-outlet-dentist"/>
+                                            <outlet property="serviceLabel" destination="LST-service-001" id="LST-outlet-service"/>
+                                            <outlet property="statusLabel" destination="LST-status-001" id="LST-outlet-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LST-state-stack">
+                                <rect key="frame" x="32" y="382" width="329" height="88"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="LST-activity-001">
+                                        <rect key="frame" x="146.5" y="0.0" width="36" height="36"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Todavía no tienes citas registradas." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-state-label">
+                                        <rect key="frame" x="0.0" y="48" width="329" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="LST-retry-001">
+                                        <rect key="frame" x="125" y="78" width="79" height="32"/>
+                                        <state key="normal" title="Reintentar"/>
+                                        <connections>
+                                            <action selector="retryButtonTapped:" destination="LST-vc-001" eventType="touchUpInside" id="LST-action-retry"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LST-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LST-table-001" firstAttribute="top" secondItem="LST-safe-001" secondAttribute="top" id="LST-table-top"/>
+                            <constraint firstItem="LST-table-001" firstAttribute="leading" secondItem="LST-view-001" secondAttribute="leading" id="LST-table-leading"/>
+                            <constraint firstAttribute="trailing" secondItem="LST-table-001" secondAttribute="trailing" id="LST-table-trailing"/>
+                            <constraint firstAttribute="bottom" secondItem="LST-table-001" secondAttribute="bottom" id="LST-table-bottom"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="centerX" secondItem="LST-view-001" secondAttribute="centerX" id="LST-state-centerX"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="centerY" secondItem="LST-view-001" secondAttribute="centerY" id="LST-state-centerY"/>
+                            <constraint firstItem="LST-state-stack" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LST-safe-001" secondAttribute="leading" constant="32" id="LST-state-leading"/>
+                            <constraint firstItem="LST-safe-001" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LST-state-stack" secondAttribute="trailing" constant="32" id="LST-state-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mis citas" id="LST-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="LST-activity-001" id="LST-outlet-activity"/>
+                        <outlet property="retryButton" destination="LST-retry-001" id="LST-outlet-retry"/>
+                        <outlet property="stateLabel" destination="LST-state-label" id="LST-outlet-state"/>
+                        <outlet property="tableView" destination="LST-table-001" id="LST-outlet-table"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LST-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="920"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="SVT-pf-see">
             <objects>
@@ -540,6 +664,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="mouth.fill" catalog="system" width="128" height="66"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="115"/>
         <systemColor name="linkColor">
