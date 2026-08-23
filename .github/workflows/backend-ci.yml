@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/backend-mobile-api
+      - feature/ios-storyboard-mvp
       - release/denticore-connect-0.1
     paths:
       - "backend/**"
@@ -27,7 +28,7 @@ jobs:
         env:
           POSTGRES_DB: denticoredb
           POSTGRES_USER: denticore_admin
-          POSTGRES_PASSWORD: testpassword
+          POSTGRES_PASSWORD: ci-${{ github.run_id }}-${{ github.run_attempt }}
         ports:
           - 5432:5432
         options: >-
@@ -45,8 +46,8 @@ jobs:
       DB_PORT: 5432
       DB_NAME: denticoredb
       DB_USER: denticore_admin
-      DB_PASSWORD: testpassword
-      JWT_SIGNING_SECRET: ci-only-secret-key-with-more-than-32-bytes
+      DB_PASSWORD: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      JWT_SIGNING_SECRET: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}-ci
       JPA_SHOW_SQL: "false"
 
     steps:

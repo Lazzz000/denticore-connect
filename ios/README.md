@@ -1,21 +1,37 @@
 # DentiCore Connect iOS
 
-Proyecto UIKit con Storyboard, XCTest y Core Data para el cliente móvil del paciente.
+Cliente móvil del paciente construido con Swift, UIKit, `Main.storyboard`, Core Data y XCTest.
 
-## Abrir
+## Requisitos
 
-Abre `DentiCoreConnect/DentiCoreConnect.xcodeproj` con Xcode 26.3 o compatible.
+- Xcode 26.3 o compatible.
+- iOS 17.6 o superior.
+- Simulador iPhone.
 
-## Configuración actual
+## Apertura
 
-- Target: iPhone
-- Deployment target: iOS 17.6
-- Bundle ID: `com.denticore.DentiCoreConnect`
-- API: clave `API_BASE_URL` de `Info.plist`
-- Seguridad de sesión: Keychain
+Abrir:
 
-La API configurada es `https://denticore-connect-api.onrender.com/api/v1`. `NSAllowsLocalNetworking` permanece disponible únicamente para pruebas opcionales con `localhost`.
+```text
+DentiCoreConnect/DentiCoreConnect.xcodeproj
+```
 
-## Estado
+La URL del servicio se obtiene de `API_BASE_URL` en `Info.plist`. La configuración incluida consume la API de Render.
 
-La base de red, autenticación, modelos de login, sesión y pruebas de decodificación ya forma parte del target mediante los grupos sincronizados del proyecto.
+## Funciones
+
+- Login y sesión Keychain.
+- Tab bar Inicio/Citas/Perfil.
+- Catálogo, odontólogos y disponibilidad.
+- Reserva, listado offline, detalle y cancelación.
+- Recordatorios locales.
+- Perfil de solo lectura y DNI protegido.
+- Tema visual centralizado.
+
+## Verificación
+
+- `⌘B`: compilar.
+- `⌘U`: ejecutar XCTest/XCUITest.
+- Validar el recorrido descrito en `../docs/TEST_PLAN.md`.
+
+El símbolo `mouth.fill` es un fallback. Al añadir un recurso válido a `BrandLogo.imageset`, el logo se presenta automáticamente en Login e Inicio.

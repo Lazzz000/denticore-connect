@@ -95,6 +95,23 @@ enum DentiCoreTheme {
         button.titleLabel?.adjustsFontForContentSizeCategory = true
     }
 
+    static func styleInlineActionButton(
+        _ button: UIButton,
+        title: String,
+        systemImage: String
+    ) {
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = title
+        configuration.image = UIImage(systemName: systemImage)
+        configuration.imagePadding = smallSpacing
+        configuration.baseForegroundColor = primary
+        configuration.contentInsets = .zero
+        button.configuration = configuration
+        button.contentHorizontalAlignment = .leading
+        button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+    }
+
     static func styleTextField(_ textField: UITextField) {
         textField.backgroundColor = surface
         textField.layer.cornerRadius = cornerRadius

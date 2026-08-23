@@ -5,6 +5,7 @@ final class ProfileViewController: UIViewController {
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var dniLabel: UILabel!
+    @IBOutlet private weak var dniVisibilityButton: UIButton!
     @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var clinicLabel: UILabel!
     @IBOutlet private weak var notificationStatusLabel: UILabel!
@@ -19,6 +20,8 @@ final class ProfileViewController: UIViewController {
     var notificationService: AppointmentNotificationScheduling = LocalNotificationService.shared
 
     private var isHandlingExpiredSession = false
+    private var currentDNI: String?
+    private var isDNIRevealed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,11 @@ final class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateNotificationStatus()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        setDNIVisibility(revealed: false)
     }
 
     private func configureInterface() {
@@ -67,6 +75,13 @@ final class ProfileViewController: UIViewController {
             title: "Cerrar sesión"
         )
         DentiCoreTheme.styleSecondaryButton(retryButton, title: "Reintentar")
+        DentiCoreTheme.styleInlineActionButton(
+            dniVisibilityButton,
+            title: "Mostrar DNI",
+            systemImage: "eye"
+        )
+        dniVisibilityButton.isEnabled = false
+        dniVisibilityButton.accessibilityHint = "Muestra u oculta el número de documento"
 
         activityIndicator.hidesWhenStopped = true
         errorLabel.textColor = DentiCoreTheme.danger
@@ -101,7 +116,9 @@ final class ProfileViewController: UIViewController {
 
     private func render(_ patient: PatientProfile) {
         nameLabel.text = patient.fullName
-        dniLabel.text = "DNI: \(maskedDNI(patient.dni))"
+        currentDNI = patient.dni
+        setDNIVisibility(revealed: false)
+        dniVisibilityButton.isEnabled = true
 
         let email = patient.correo?
             .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -113,9 +130,20 @@ final class ProfileViewController: UIViewController {
         retryButton.isHidden = true
     }
 
-    private func maskedDNI(_ dni: String) -> String {
-        guard dni.count > 4 else { return dni }
-        return "•••• \(dni.suffix(4))"
+    private func setDNIVisibility(revealed: Bool) {
+        isDNIRevealed = revealed
+        if let currentDNI {
+            dniLabel.text = PatientIdentityPresentation.displayDNI(
+                currentDNI,
+                revealed: revealed
+            )
+        }
+        DentiCoreTheme.styleInlineActionButton(
+            dniVisibilityButton,
+            title: revealed ? "Ocultar DNI" : "Mostrar DNI",
+            systemImage: revealed ? "eye.slash" : "eye"
+        )
+        dniVisibilityButton.accessibilityValue = revealed ? "visible" : "oculto"
     }
 
     private func appVersionText() -> String {
@@ -175,6 +203,10 @@ final class ProfileViewController: UIViewController {
         }
     }
 
+    @IBAction private func dniVisibilityButtonTapped(_ sender: UIButton) {
+        setDNIVisibility(revealed: !isDNIRevealed)
+    }
+
     @IBAction private func retryButtonTapped(_ sender: UIButton) {
         loadPatient()
     }
@@ -197,6 +229,7 @@ final class ProfileViewController: UIViewController {
         isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
         retryButton.isEnabled = !isLoading
         logoutButton.isEnabled = !isLoading
+        dniVisibilityButton.isEnabled = !isLoading && currentDNI != nil
     }
 
     private func handleExpiredSession() {
