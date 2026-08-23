@@ -301,7 +301,7 @@
                                 <rect key="frame" x="0.0" y="172" width="393" height="680"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ServiceCell" rowHeight="96" id="SRV-cell-001" customClass="ServiceTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ServiceCell" rowHeight="96" id="SRV-cell-001" customClass="ServiceTableViewCell" customModule="DentiCoreConnect" customModuleProvider="target">
                                         <rect key="frame" x="20" y="50" width="353" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SRV-cell-001" id="SRV-content-001">
@@ -388,11 +388,137 @@
                         <outlet property="errorLabel" destination="SRV-error-001" id="SRV-outlet-error"/>
                         <outlet property="retryButton" destination="SRV-retry-001" id="SRV-outlet-retry"/>
                         <outlet property="tableView" destination="SRV-table-001" id="SRV-outlet-table"/>
+                        <segue destination="APT-vc-001" kind="show" identifier="showBooking" id="SRV-segue-booking"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRV-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3489" y="120"/>
+        </scene>
+        <!--Appointment View Controller-->
+        <scene sceneID="APT-scene-001">
+            <objects>
+                <viewController id="APT-vc-001" customClass="AppointmentViewController" customModule="DentiCoreConnect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="APT-view-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="APT-stack-001">
+                                <rect key="frame" x="20" y="188" width="353" height="592"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Servicio odontológico" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="APT-service-name">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Especialidad · 30 min" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-service-details">
+                                        <rect key="frame" x="0.0" y="37" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-dentist-title">
+                                        <rect key="frame" x="0.0" y="63" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APT-dentist-picker">
+                                        <rect key="frame" x="0.0" y="91" width="353" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="APT-dentist-height"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Fecha" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-date-title">
+                                        <rect key="frame" x="0.0" y="189" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" datePickerMode="date" preferredDatePickerStyle="compact" translatesAutoresizingMaskIntoConstraints="NO" id="APT-date-picker">
+                                        <rect key="frame" x="0.0" y="217" width="353" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="APT-date-height"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="dateChanged:" destination="APT-vc-001" eventType="valueChanged" id="APT-action-date"/>
+                                        </connections>
+                                    </datePicker>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Horario disponible" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-time-title">
+                                        <rect key="frame" x="0.0" y="261" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APT-time-picker">
+                                        <rect key="frame" x="0.0" y="289" width="353" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="APT-time-height"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Nota para la clínica (opcional)" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APT-notes-title">
+                                        <rect key="frame" x="0.0" y="387" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="APT-notes-text">
+                                        <rect key="frame" x="0.0" y="415" width="353" height="70"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="APT-notes-height"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" translatesAutoresizingMaskIntoConstraints="NO" id="APT-book-button">
+                                        <rect key="frame" x="0.0" y="493" width="353" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="APT-book-height"/>
+                                        </constraints>
+                                        <buttonConfiguration key="configuration" style="filled" title="Confirmar cita"/>
+                                        <connections>
+                                            <action selector="bookButtonTapped:" destination="APT-vc-001" eventType="touchUpInside" id="APT-action-book"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="APT-activity">
+                                        <rect key="frame" x="166.5" y="553" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No fue posible completar la operación." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="APT-error">
+                                        <rect key="frame" x="0.0" y="581" width="353" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="APT-safe-001"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="APT-stack-001" firstAttribute="top" secondItem="APT-safe-001" secondAttribute="top" constant="16" id="APT-stack-top"/>
+                            <constraint firstItem="APT-stack-001" firstAttribute="leading" secondItem="APT-safe-001" secondAttribute="leading" constant="20" id="APT-stack-leading"/>
+                            <constraint firstItem="APT-safe-001" firstAttribute="trailing" secondItem="APT-stack-001" secondAttribute="trailing" constant="20" id="APT-stack-trailing"/>
+                            <constraint firstItem="APT-safe-001" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="APT-stack-001" secondAttribute="bottom" constant="16" id="APT-stack-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Programar cita" id="APT-nav-001"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="APT-activity" id="APT-outlet-activity"/>
+                        <outlet property="bookButton" destination="APT-book-button" id="APT-outlet-book"/>
+                        <outlet property="datePicker" destination="APT-date-picker" id="APT-outlet-date"/>
+                        <outlet property="dentistPickerView" destination="APT-dentist-picker" id="APT-outlet-dentist"/>
+                        <outlet property="errorLabel" destination="APT-error" id="APT-outlet-error"/>
+                        <outlet property="notesTextView" destination="APT-notes-text" id="APT-outlet-notes"/>
+                        <outlet property="serviceDetailsLabel" destination="APT-service-details" id="APT-outlet-service-details"/>
+                        <outlet property="serviceNameLabel" destination="APT-service-name" id="APT-outlet-service-name"/>
+                        <outlet property="timePickerView" destination="APT-time-picker" id="APT-outlet-time"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="APT-first-001" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4310" y="120"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SVT-pf-see">
@@ -421,6 +547,12 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
