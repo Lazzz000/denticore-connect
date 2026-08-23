@@ -2,8 +2,6 @@ package com.cibertec.denticore.crm.repositories;
 
 import com.cibertec.denticore.crm.entities.Cita;
 import com.cibertec.denticore.crm.enums.EstadoCita;
-import com.cibertec.denticore.organizacion.entities.Clinica;
-import com.cibertec.denticore.security.entities.Paciente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,21 +41,26 @@ public interface CitaRepository extends JpaRepository<Cita, Integer> {
             @Param("estados") Collection<EstadoCita> estados);
 
     @Query("SELECT c FROM Cita c " +
-           "WHERE c.paciente = :paciente " +
-           "AND c.clinica = :clinica " +
+           "WHERE c.paciente.idUsuario = :idPaciente " +
+           "AND c.clinica.id = :idClinica " +
            "ORDER BY c.fechaHora DESC")
     List<Cita> findByPacienteAndClinica(
-            @Param("paciente") Paciente paciente,
-            @Param("clinica") Clinica clinica);
+            @Param("idPaciente") Integer idPaciente,
+            @Param("idClinica") Integer idClinica);
 
     @Query("SELECT c FROM Cita c " +
+           "JOIN FETCH c.odontologo o " +
+           "JOIN FETCH o.usuario " +
+           "JOIN FETCH c.servicio s " +
+           "LEFT JOIN FETCH s.especialidad " +
+           "JOIN FETCH c.sede " +
            "WHERE c.id = :idCita " +
-           "AND c.paciente = :paciente " +
-           "AND c.clinica = :clinica")
-    Optional<Cita> findByIdAndPacienteAndClinica(
+           "AND c.paciente.idUsuario = :idPaciente " +
+           "AND c.clinica.id = :idClinica")
+    Optional<Cita> findDetailByIdAndPatientAndClinic(
             @Param("idCita") Integer idCita,
-            @Param("paciente") Paciente paciente,
-            @Param("clinica") Clinica clinica);
+            @Param("idPaciente") Integer idPaciente,
+            @Param("idClinica") Integer idClinica);
 
     @Query(value = "SELECT c FROM Cita c " +
                    "JOIN FETCH c.paciente p " +
