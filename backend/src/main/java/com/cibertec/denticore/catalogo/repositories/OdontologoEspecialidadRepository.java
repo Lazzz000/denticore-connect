@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OdontologoEspecialidadRepository extends JpaRepository<OdontologoEspecialidad, OdontologoEspecialidad.OdontologoEspecialidadId> {
+    boolean existsById_IdOdontologoAndId_IdEspecialidad(
+            Integer odontologoId, Integer especialidadId);
 }
