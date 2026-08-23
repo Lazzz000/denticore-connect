@@ -70,7 +70,8 @@ Verificar el recorrido principal del paciente, la seguridad de recursos propios,
 - Cero defectos bloqueantes o críticos abiertos.
 - Compilación limpia en Xcode.
 - Cero advertencias de Auto Layout en `Main.storyboard`.
-- CP-01 a CP-19 ejecutados con evidencia.
+- CP-01 a CP-17 ejecutados con evidencia y todos los P0 conformes.
+- CP-18 y CP-19 conformes o registrados como limitación P1 aceptada.
 - Pruebas unitarias esenciales aprobadas.
 - Health check estable tras reactivación.
 - README, OpenAPI, manuales y release notes coherentes.
@@ -78,3 +79,5 @@ Verificar el recorrido principal del paciente, la seguridad de recursos propios,
 ## 8. Evidencias
 
 Por cada ejecución registrar fecha, versión/commit, dispositivo, datos demo, resultado esperado, resultado obtenido y captura o log no sensible. Los informes por sprint pueden derivarse de esta matriz sin modificar el plan base.
+
+El estado operativo se mantiene en [EVIDENCE_REGISTER.md](EVIDENCE_REGISTER.md) y el resultado consolidado en [INTEGRATION_TEST_REPORT.md](INTEGRATION_TEST_REPORT.md).

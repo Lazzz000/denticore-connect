@@ -57,4 +57,13 @@ Primera versión candidata de DentiCore Connect orientada al paciente. Integra l
 - Ejecución documentada de casos críticos.
 - Confirmación de cero advertencias de Auto Layout.
 - Revisión final de datos demo y secretos.
-- Manual de usuario/instalación y evidencia de integración para sustentación.
+- Revisión final del manual y completar evidencias de integración para sustentación.
+
+## Documentación de cierre preparada
+
+- Plan de estabilización y aceptación.
+- Registro maestro y carpeta controlada de evidencias.
+- Informe de pruebas de integración en ejecución.
+- Manual combinado de usuario e instalación.
+
+Estos documentos no convierten automáticamente la candidata en `v0.1.0`; primero deben completarse las evidencias y la decisión de aceptación.
