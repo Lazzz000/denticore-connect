@@ -37,17 +37,17 @@ Los estados `Reportado` reflejan validaciones manuales comunicadas durante el de
 | ID | Integración | Resultado esperado | Estado | Evidencia |
 |---|---|---|---|---|
 | INT-01 | iOS → Auth → PostgreSQL | Login entrega JWT y clínica | Reportado | EV-05 |
-| INT-02 | iOS → Perfil/Catálogo | Datos propios y catálogos visibles | Reportado | EV-06/EV-08 |
-| INT-03 | iOS → Agenda | Odontólogos y slots válidos | Reportado | EV-09 |
-| INT-04 | iOS → Crear cita → PostgreSQL | Cita PENDIENTE persistida | Reportado | EV-10 |
-| INT-05 | iOS → Listado/Detalle | Datos completos y propiedad respetada | Reportado | EV-11 |
-| INT-06 | iOS → Cancelación → Auditoría | Cambio de estado sin DELETE físico | Reportado | EV-12 |
+| INT-02 | iOS → Perfil/Catálogo | Datos propios y catálogos visibles | Conforme | EV-06/EV-08 |
+| INT-03 | iOS → Agenda | Odontólogos y slots válidos | Conforme | EV-09 |
+| INT-04 | iOS → Crear cita → PostgreSQL | Cita PENDIENTE persistida | Conforme | EV-10 |
+| INT-05 | iOS → Listado/Detalle | Datos completos y propiedad respetada | Conforme | EV-11 |
+| INT-06 | iOS → Cancelación → Auditoría | Cambio de estado sin DELETE físico | Conforme | EV-12 |
 | INT-07 | API → Restricción de agenda | Conflicto rechazado con 409 | Pendiente | EV-20 |
 | INT-08 | API → Autorización | Credenciales inválidas responden 401 | Pendiente | EV-19 |
 | INT-09 | API → Core Data | Caché visible sin conexión | Pendiente | EV-14 |
 | INT-10 | API → UserNotifications | Recordatorio local programado | Parcial | EV-15/EV-16 |
 | INT-11 | GitHub → CI | Backend y migraciones superan workflow | Conforme | EV-02 |
-| INT-12 | GitHub → Render → Health | Commit desplegado y servicio UP | Reportado | EV-03 |
+| INT-12 | GitHub → Render → Health | Commit desplegado y servicio UP | Conforme | EV-03 |
 
 ## 5. Incidencias
 
@@ -82,4 +82,3 @@ El informe cambia a `Aprobado` cuando:
 ## 8. Conclusión provisional
 
 La integración principal iOS–API–PostgreSQL es funcional según las ejecuciones manuales reportadas, y el backend superó CI. La candidata permanece en **GO condicionado** hasta completar capturas, pruebas negativas y verificación offline.
-

@@ -54,3 +54,6 @@ logs
 # Perfiles locales de Spring Boot (para no subir contraseñas reales)
 backend/src/main/resources/application-local.yml
 backend/src/main/resources/application-dev.yml
+
+# Evidencias visuales privadas del Release 0.1
+docs/evidence/release-0.1/*.png
