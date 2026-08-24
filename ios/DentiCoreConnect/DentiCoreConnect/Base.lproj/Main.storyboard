@@ -363,7 +363,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Código · duración" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-details-001">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="250" text="Código · duración" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRV-details-001">
                                                             <rect key="frame" x="0.0" y="26" width="313" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -600,7 +600,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Odontólogo · Sede" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-dentist-001">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="250" text="Odontólogo · Sede" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="LST-dentist-001">
                                                             <rect key="frame" x="0.0" y="48" width="321" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
